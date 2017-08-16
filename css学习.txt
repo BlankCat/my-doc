@@ -1,3 +1,5 @@
+css学习.txt
++--css元素实例--
 background-position
 top left
 top center
@@ -8,6 +10,9 @@ center right
 bottom left
 bottom center
 bottom right
++--css元素实例---
 
-cssԪ�ز���
+
++--css元素查找---
 http://www.w3school.com.cn/cssref/index.asp
++--css元素查找---
