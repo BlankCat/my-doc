@@ -1,4 +1,4 @@
-goÓïÑÔÑ§Ï°gitbook
+goè¯­è¨€å­¦ä¹ gitbook
 
 https://tiancaiamao.gitbooks.io/go-internals/content/zh/07.2.html
 
