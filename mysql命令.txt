@@ -1,0 +1,23 @@
+mysql分类文章
+http://www.cnblogs.com/saneri/category/799505.html
+
+MySQL查看某库表大小
+select TABLE_SCHEMA, concat(truncate(sum(data_length)/1024/1024,2),' MB') as data_size,
+concat(truncate(sum(index_length)/1024/1024,2),'MB') as index_size
+from information_schema.tables
+group by TABLE_SCHEMA
+order by data_length desc;
+
+select TABLE_NAME, concat(truncate(data_length/1024/1024,2),' MB') as data_size,
+concat(truncate(index_length/1024/1024,2),' MB') as index_size
+from information_schema.tables where TABLE_SCHEMA = 'TestDB'
+group by TABLE_NAME
+order by data_length desc;
+
+MySQL中show语法使用总结
+http://www.cnblogs.com/saneri/p/6963583.html
+select version();
+
+
+MySQL5.6主从复制搭建基于日志（binlog）
+http://www.cnblogs.com/saneri/p/6743793.html

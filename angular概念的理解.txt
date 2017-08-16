@@ -1,0 +1,93 @@
+https://segmentfault.com/a/1190000003096933
+
+
+angular概念理解
+https://github.com/huangtengfei/blog/issues/6
+
+AngularJS用$provide去定义一个供应商,
+这个$provide有5个用来创建供应商的方法：
+constant 定义全局常量不可变
+value 全局变量可以修改配置信息
+service  它是一个可注入的构造器，在AngularJS中它是单例的，
+		用它在Controller中通信或者共享数据都很合适
+factory  返回一个对象。只需要创建一个对象，为它添加属性，
+		然后返回这个对象。在控制器中注入该 factory，即可使用它的所有属性
+provider
+decorator 它不是provider,它是用来装饰其他provider的
+
+
+
+ionic
+http://www.ionic.wang/js_doc-index-id-44.html
+
+
+ctrl+shift+f全局搜索
+sublime快捷键
+https://segmentfault.com/a/1190000002570753
+
+
+
+搜索模块名称 '模块名称'
+
+angular设置
+http://blog.csdn.net/sixteen_cicle/article/details/70854544
+
+http://blog.csdn.net/qian_xiaona/article/details/50888212
+
+
+bmob_query
+http://www.pudn.com/Download/item/id/2818192.html
+
+
+
+
+HTML5 LocalStorage 本地存储
+http://www.cnblogs.com/fenglingyi/p/4977415.html
+
+
+javaScript异步回调then.js
+http://www.360doc.com/content/14/0804/16/4338_399388225.shtml
+
+
+angularjs factory then回调函数
+深究AngularJS——自定义服务详解(factory、service、provider)
+http://blog.csdn.net/zcl_love_wx/article/details/51404390
+http://blog.csdn.net/ywl570717586/article/details/51306176
+http://blog.csdn.net/u012841667/article/details/52751222
+深究AngularJS——过滤器（filter）
+http://blog.csdn.net/zcl_love_wx/article/details/51405712
+
+
+一次性搞明白 service和factory区别的更多相关文章
+https://www.bbsmax.com/R/MyJx8oVpJn/
+
+
+
+
+--------------------------------------------------
+你搜一下  下划线 angular.js
+不知道angular  用不用 import  包之类的
+我用react   import   lodash  都是用下划线
+
+数序 函数
+lodash.min.js
+loadsh中文文档
+http://lodashjs.com/docs/
+
+我们将使用Lo-Dash库来处理一些在数组和对象上的底层操作。Angular自身并未使用Lo-Dash，但是从我们的目的看，要尽量无视这些不太相关的比较底层的事情。当读者在代码中看到下划线（_）的时候，那就是在调用Lo-Dash的功能。
+
+
+--------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+

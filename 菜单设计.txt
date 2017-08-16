@@ -1,0 +1,97 @@
+菜单设计
+https://www.oschina.net/question/2287489_2174645
+
+import java.util.List;
+public class Menu {
+
+	long id;
+	String name;
+	long parentId;
+	List<Menu> childs;
+	
+	public Menu find(long parmId){
+		if(id == parmId){
+			return this;
+		}
+		if(childs == null || childs.isEmpty()){
+			return null;
+		}
+		for(Menu child : childs){
+			Menu menu = child.find(parmId);
+			if(menu != null){
+				return menu;
+			}
+		}
+		return null;
+	}
+}
+
+
+菜单展示
+http://blog.csdn.net/xgdofull/article/details/5385270
+
+Bean:
+public class MenuBean implements Java.io.Serializable {
+    private static final long serialVersionUID = 1L;
+    private String menuId;// 菜单ID
+    private String pid;// 父节点
+    private String menuName;// 菜单名称
+    private String url;// URL地址
+    private List<MenuBean> childs;//子菜单
+     //还有些字段略
+    // set,get略
+}
+ 
+递归函数：
+    private static List<MenuBean> handleSubMenu(List<MenuBean> menulist, String id) {
+       List<MenuBean> rtnlist=new ArrayList<MenuBean>();
+       for (MenuBean mBean : menulist) {
+           if (id!=null&&mBean.getPid() != null && mBean.getPid().equalsIgnoreCase(id)) {
+              MenuBean menu = new MenuBean();
+              menu.setMenuId(mBean.getMenuId());
+              menu.setPid(mBean.getPid());
+              menu.setMenuName(mBean.getMenuName());
+              List list=menu.getChilds();
+              if(list==null){
+                  list=new ArrayList();
+              }
+              list.add(handleSubMenu(menulist,mBean.getMenuId()));
+              menu.setChilds(list);
+              rtnlist.add(menu);
+           }
+       }
+       return rtnlist;
+    }
+ 
+最项层菜单处理：
+       //生成递归菜单
+           Map<String, List> result=new HashMap<String, List>();;
+           for(Map.Entry <String, List<MenuBean>> m:menuMap.entrySet()){//按组取出来要生成的递归菜单
+              String key=m.getKey();
+              List<MenuBean> list=m.getValue();
+              List<MenuBean> rtnList=new ArrayList<MenuBean>();//顶级菜单个数（按组）
+              for(MenuBean bean:list){//按组生成递归菜单
+                  if(!StringUtils.hasLength(bean.getPid())){    //如果是顶级菜单
+                     bean.setChilds(handleSubMenu(list,bean.getMenuId()));//递归生成子菜单
+                     rtnList.add(bean);
+                  }
+              }
+              result.put(key,rtnList);
+           }
+ 
+测试代码：
+    public static void main(String[] args) {
+       List<MenuBean> list = new ArrayList<MenuBean>();
+       list.add(new MenuBean("1",null,"A"));        
+       list.add(new MenuBean("2",null,"B"));
+       list.add(new MenuBean("3","1","A1"));
+       list.add(new MenuBean("4","1","A2"));
+       list.add(new MenuBean("5","2","B1"));
+       list.add(new MenuBean("8","2","B2"));
+       list.add(new MenuBean("6","5","B11"));
+       list.add(new MenuBean("7","6","B111"));
+       List vlist=handleSubMenu(list,"2");
+       System.out.println(JSONArray.fromObject(vlist));
+    }
+输出：
+[{"childs":[[{"childs":[[{"childs":[[]],"groupId":0,"menuId":"7","menuName":"B111","modeType":0,"order":0,"pid":"6","url":""}]],"groupId":0,"menuId":"6","menuName":"B11","modeType":0,"order":0,"pid":"5","url":""}]],"groupId":0,"menuId":"5","menuName":"B1","modeType":0,"order":0,"pid":"2","url":""},{"childs":[[]],"groupId":0,"menuId":"8","menuName":"B2","modeType":0,"order":0,"pid":"2","url":""}]
