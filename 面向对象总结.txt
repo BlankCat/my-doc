@@ -1,0 +1,211 @@
+
+面向对象总结.txt
+
+http://git.oschina.net/hjm100/codes/5x3cirnep1l6tfzvq9j8b39
+
+
+Object Oriented Programming，OOP，面向对象程序设计
+
+为什么要面向对象编程：
+在网上看到这样一段话，感觉很实用，自己仍然活在自己的编程思维中，随心所欲，由于这几天的一个项目中
+需要自己封装一个倒计时方法，翻阅资料决定重点研究一下js面向对象编程！
+因为经常看到一些JavaScript的代码脏乱得无法理解，到处都是属性和方法，或者一个循环套着一个循环。
+但如果使用面向对象就能很好的理清代码，并方便理解和修改代码。如果你不希望自己的代码只有上帝理解的话，
+就请尽量考虑使用面向对象的模式。
+
+面向对象首先需要怎么做：可以研究一下jquery的源码
+
+一、理解对象：
+第一种：基于Object对象
+	var person = new Object();
+	person.name = 'My Name';
+	person.age = 18;
+	person.getName = function(){
+	    return this.name;
+	}
+第二种：对象字面量方式（比较清楚的查找对象包含的属性及方法）
+	var person = {
+	    name : 'My name',
+	    age : 18,
+	    getName : function(){
+	        return this.name;
+	    }
+	}
+JS的对象可以使用‘.’操作符动态的扩展其属性(添加属性)，可以使用’delete’操作符或将属性值设置为’undefined’来删除属性。
+person.newAtt=’new Attr’;//添加属性
+alert(person.newAtt);//new Attr
+delete person.age;
+alert(person.age);//undefined(删除属性后值为undefined);
+
+二、创建对象
+
+使用Object构造函数或对象字面量都可以创建对象，但缺点是创建多个对象时，会产生大量的重复代码，
+因此下面介绍可解决这个问题的创建对象的方法
+1、工厂模式
+
+function createPerson(name, age, job) {
+    var o = new Object();
+    o.name = name;
+    o.age = age;
+    o.job = job;
+    o.getName = function () {
+        return this.name;
+    }
+    return o;//使用return返回生成的对象实例
+}
+var person = createPerson('Jack', 19, 'SoftWare Engineer');
+创建对象交给一个工厂方法来实现，可以传递参数，但主要缺点是无法识别对象类型，
+因为创建对象都是使用Object的原生构造函数来完成的。
+
+2、构造函数模式(this的指向，在构造函数中指向构造函数)
+
+function Person(name,age,job){
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.getName = function () {
+        return this.name;
+    }
+}
+var person1 = new Person('Jack', 19, 'SoftWare Engineer');
+var person2 = new Person('Liye', 23, 'Mechanical Engineer');
+
+使用自定义的构造函数（与普通函数一样，只是用它来创建对象），定义对象类型（如：Person）的属性和方法。它与工厂方法区别在于：
+没有显式地创建对象
+直接将属性和方法赋值给this对象；
+没有return语句；
+此外，要创建Person的实例，必须使用new关键字，以Person函数为构造函数，传递参数完成对象创建；实际创建经过以下4个过程：
+创建一个对象
+将函数的作用域赋给新对象（因此this指向这个新对象，如：person1）
+执行构造函数的代码
+返回该对象
+
+typeof和instanceof都可以用来判断变量，它们的用法有很大区别：
+typeof会返回一个变量的基本类型，只有以下几种：number,boolean,string,object,undefined,function；
+instanceof返回的是一个布尔值，
+需要注意的是，instanceof只能用来判断对象和函数，不能用来判断字符串和数字等，
+
+ 3、原型模式
+
+JS每个函数都有一个prototype(原型)属性，这个属性是一个指针，指向一个对象，
+它是所有通过new操作符使用函数创建的实例的原型对象。原型对象最大特点是，所有对象实例共享它所包含的属性和方法，
+也就是说，所有在原型对象中创建的属性或方法都直接被所有对象实例共享。
+
+	function Person(){
+	}
+	Person.prototype.name = 'Jack';//使用原型来添加属性
+	Person.prototype.age = 29;
+	Person.prototype.getName = function(){
+	    return this.name;
+	}
+	var person1 = new Person();
+	alert(person1.getName());//Jack
+	var person2 = new Person();
+	alert(person1.getName === person2.getName);//true;共享一个原型对象的方法
+原型是指向原型对象的，这个原型对象与构造函数没有太大关系，唯一的关系是函数的prototype是指向这个原型对象！
+而基于构造函数创建的对象实例也包含一个内部指针为：[[prototype]]指向原型对象。
+
+实例属性或方法的访问过程是一次搜索过程：
+
+首先从对象实例本身开始，如果找到属性就直接返回该属性值；
+如果实例本身不存在要查找属性，就继续搜索指针指向的原型对象，在其中查找给定名字的属性，如果有就返回；
+基于以上分析，原型模式创建的对象实例，其属性是共享原型对象的；但也可以自己实例中再进行定义，在查找时，
+就不从原型对象获取，而是根据搜索原则，得到本实例的返回；简单来说，就是实例中属性会屏蔽原型对象中的属性；
+原型与in操作符
+
+一句话：无论原型中属性，还是对象实例的属性，都可以使用in操作符访问到；要想判断是否是实例本身的属性可以
+使用object.hasOwnProperty(‘attr’)来判断；
+原生对象中原型
+
+4、组合构造函数及原型模式(面向对象的写法)
+
+目前最为常用的定义类型方式，是组合构造函数模式与原型模式。构造函数模式用于定义实例的属性，
+而原型模式用于定义方法和共享的属性。结果，每个实例都会有自己的一份实例属性的副本，
+但同时又共享着对方方法的引用，最大限度的节约内存。此外，组合模式还支持向构造函数传递参数，可谓是集两家之所长。
+
+function Person(name, age, job) {
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.lessons = ['Math', 'Physics'];
+}
+Person.prototype = {
+    constructor: Person,//原型字面量方式会将对象的constructor变为Object，此外强制指回Person
+    getName: function () {
+        return this.name;
+    }
+}
+var person1 = new Person('Jack', 19, 'SoftWare Engneer');
+person1.lessons.push('Biology');
+var person2 = new Person('Lily', 39, 'Mechanical Engneer');
+alert(person1.lessons);//Math,Physics,Biology
+alert(person2.lessons);//Math,Physics
+alert(person1.getName === person2.getName);//true,//共享原型中定义方法
+ 
+在所接触的JS库中，jQuery类型的封装就是使用组合模式来实例的！！！
+
+
+5、动态原型模式(尝试有小变大)
+
+组合模式中实例属性与共享方法（由原型定义）是分离的，这与纯面向对象语言不太一致；
+动态原型模式将所有构造信息都封装在构造函数中，又保持了组合的优点。
+其原理就是通过判断构造函数的原型中是否已经定义了共享的方法或属性，如果没有则定义，否则不再执行定义过程。
+该方式只原型上方法或属性只定义一次，且将所有构造过程都封装在构造函数中，对原型所做的修改能立即体现所有实例中：
+
+function Person(name, age, job) {
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.lessons = ['Math', 'Physics'];
+}
+if (typeof this.getName != 'function') {//通过判断实例封装
+　　Person.prototype = {
+　　　　constructor: Person,//原型字面量方式会将对象的constructor变为Object，此外强制指回Person
+　　　　getName: function () {
+　　　　　　return this.name;
+　　　　}
+　　}
+}
+var person1 = new Person('Jack', 19, 'SoftWare Engneer');
+person1.lessons.push('Biology');
+var person2 = new Person('Lily', 39, 'Mechanical Engneer');
+alert(person1.lessons);//Math,Physics,Biology
+alert(person2.lessons);//Math,Physics
+alert(person1.getName === person2.getName);//true,//共享原型中定义方法
+
+--------------------------------------------------------------------
+对象与原型：对象都是通过函数创建的（正确）
+   如：var obj = { a: 10, b: 20 }
+   本质为：var obj = new Object();
+	       obj.a = 10;
+	       obj.b = 20;
+    typeof (Object)  //function
+    typeof (y)  //function
+    函数有一个默认的属性prototype(原型)
+     prototype的属性值是一个对象
+            默认只有一个叫做constructor的属性，指向这个函数本身。
+     function Fn() { }
+	Fn.prototype.name = '王福朋';
+     在自己自定义的方法的prototype中增加自己的属性
+     每个对象都有一个隐藏的属性——“proto”，这个属性引用了创建这个
+     对象的函数的prototype。
+javascript中的继承是通过原型链来提现的
+访问f1.b时，f1的基本属性中没有b，于是沿着proto找到了Foo.prototype.b。
+如果我们想要访问一个属性，如果当前对象中没有则会沿着proto找，直到找到构造函数的原型为止
+面向对象编程思维：
+       第一步：明确业务逻辑
+       第二步：分清共同特征以及不同特征
+       第三步：共同特征继承法
+
+-----------------------------------------------------------------------------
+面向对象书籍推荐：
+JavaScript高级程序设计（第3版）（电子版）.pdf
+链接: https://pan.baidu.com/s/1kVvCYCB 密码: ahjm
+
+JavaScript面向对象编程指南(jb51.net).pdf
+链接: https://pan.baidu.com/s/1jIxaUMi 密码: ahjm
+
+JavaScript权威指南(第6版)(中文版).pdf
+链接: https://pan.baidu.com/s/1c19inbq 密码: ahjm
+
+

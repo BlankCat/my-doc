@@ -1,0 +1,14 @@
+lazy-init="true"作用.txt
+Spring 中lazy-init 和abstract 属性 
+1.lazy-init 
+<beans> 
+      <bean id="service1" type="bean路径" lazy-init="true"/> 
+      <bean id="service2" type="bean路径" lazy-init="false"> 
+             <property name="service1" ref="service1"/> 
+      </bean> 
+</beans> 
+以上两个bean,一个lazy-init属性为true,一个为false，由什么区别呢 
+当 IoC容器启动时，service2会实例化，而service1则不会；但是但容器实例化service2时，
+service1也被实例化了，为什么呢，因为service2需要它。也就是说lazy-init="true"的bean，
+IoC容器启动时不会实例化该bean，只有当容器需要用到时才实例化它。lazy-init有利于容器效率，
+对于不需要的bean可以先不管。

@@ -1,0 +1,8 @@
+常量.java
+
+public interface Constants{
+	
+    public static final String SYSTEM_ENTER = System.getProperty("line.separator", "/n");//取系统回车
+
+
+}

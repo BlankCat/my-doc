@@ -1,0 +1,99 @@
+grunt学习总结.txt
+
+
+准备一份新的 Grunt 项目
+一般需要在你的项目中添加两份文件：package.json 和 Gruntfile.js或者Gruntfile.coffee。
+
+package.json: 此文件被npm用于存储项目的元数据，以便将此项目发布为npm模块。你可以在此文件中列出项目依赖的grunt和Grunt插件，放置于devDependencies配置段内。
+
+Gruntfile: 此文件被命名为 Gruntfile.js 或 Gruntfile.coffee，用来配置或定义任务（task）并加载Grunt插件的。 此文档中提到的 Gruntfile 其实说的是一个文件，文件名是 Gruntfile.js 或 Gruntfile.coffee。
+
+第一步：创建一个node应用，生成一个package.json配置文件
+将以下代码复制到package.json中
+{
+  "name": "my-project-name",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-uglify": "~0.5.0"
+  }
+}
+
+第二步：新建一个Gruntfile.js用来配置或定义任务
+
+第三步向已经存在的package.json 文件中添加Grunt和grunt插件
+
+用命令行：
+npm install grunt --save-dev
+安装需要的插件
+
+npm install grunt-contrib-jshint --save-dev
+
+npm install grunt-contrib-uglify --save-dev
+
+npm install grunt-contrib-watch --save-dev
+
+第四步配置Gruntfile.js文件
+
+文件中的内容如下
+//包函数
+module.exports = function(grunt) {
+  //初始化一个grunt配置
+  grunt.initConfig({
+    //读取package.json文件
+    pkg: grunt.file.readJSON('package.json'),
+  // 定义一个动作 concat 连接
+    concat:{
+    //连接中的选项
+      options:{
+        //产生分割线
+          separator:'\r\n/*--------------------------------------*/\r\n',
+        //产生连接日期
+          banner:'/*<%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+      },
+      dist:{
+        //引入要进行操作的js文件 有顺序之分
+          src:['src/Control.js','src/diamond.js','src/dot.js','src/second.js',
+          'src/minute.js','src/hour.js','src/Clock.js'],
+        //最终生成的js文件
+          dest:'myClock.js'
+      }
+    },
+    //压缩配置（生成压缩文件）
+    uglify: {
+      options: {
+        //此处定义的banner注释将插入到输出文件的顶部
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+      },
+      build: {
+        //上面的dest连接生成的文件
+        src: 'myClock.js',
+        //压缩后的文件名
+        dest: 'myClock.min.js'
+      }
+    },
+    //监视文件是否发生变化
+    watch:{
+      //clock自定义的名称
+      clock:{
+        //要监视的文件 *为全部js文件
+        files:['src/*.js'],
+        //监视到文件发生变化之后执行的任务
+          tasks:['concat','uglify']
+        }
+    }
+  });
+  // 加载包含"concat" "uglify" "watch"任务的插件。
+  //在命令行上输入"grunt test"，test task就会被执行。
+  grunt.loadNpmTasks('grunt-contrib-concat'); //连接
+  grunt.loadNpmTasks('grunt-contrib-uglify'); //压缩
+  grunt.loadNpmTasks('grunt-contrib-watch'); //监听
+  // 默认被执行的任务列表。
+  // 只需在命令行上输入"grunt"，就会执行default task
+  grunt.registerTask('builder', ['concat','uglify']); //连接压缩
+  grunt.registerTask('default',['builder','watch']); //监听改变
+};
+
+打开命令行输入grunt既可以完成连接和压缩

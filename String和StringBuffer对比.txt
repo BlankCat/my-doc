@@ -1,0 +1,42 @@
+
+
+
+package com.dianjingyun.xhht.controller;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * @author  zjf
+ * @date 创建时间：2017年8月16日 
+ * @Description 
+ * 以100000为例，几乎千倍之巨，并且String连接随着字符串长度增加效率越来越低
+ */
+public class StringAndStringBuffer {
+
+  public static void main(String [] args){
+    String s="";
+    StringBuffer sb=new StringBuffer();
+    String str1=nowString();
+    for(int i=1;i<10000000;i++){
+        s+="aaa";
+        if(i%10000==0)
+      System.out.println(nowString());
+    }
+    String str2=nowString();
+    
+    String str3=nowString();
+    for(int i=1;i<100000;i++){
+        sb.append("aaa");
+    }
+    String str4=nowString();
+    System.out.println("str1="+str1+"\nstr2="+str2+"\nstr3="+str3+"\nstr4="+str4);
+    
+}
+
+public static String nowString() {
+    
+    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");//设置日期格式精确到毫秒
+    return df.format(new Date());//System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
+}
+}

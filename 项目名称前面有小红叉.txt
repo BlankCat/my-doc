@@ -1,0 +1,16 @@
+项目名称前面有小红叉
+
+打开Problems窗口，查看具体的问题，然后百度。
+问题1：
+one or more constraints have not been satisfied
+问题2：
+Cannot change version of project facet Dynamic Web Module to 2.5
+
+解决办法：
+1、
+http://www.cnblogs.com/yezhenhan/archive/2011/10/17/2215279.html
+直接修改配置文件，然后2.5就可以了，再换回3.0，刷新一下项目，maven->update project
+2、
+修改web.xml文件，将2.5换成3.0
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">

@@ -1,0 +1,7 @@
+Ñ§Ï°gitÍÆ¼ö.txt
+
+learn git:
+Read  http://www.yangzhiping.com/tech/github.html
+
+book1  https://git-scm.com/book/en/v2
+book2  https://github.com/blynn/gitmagic/tree/master/zh_cn

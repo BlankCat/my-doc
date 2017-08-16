@@ -1,0 +1,16 @@
+	
+java编码转换.txt
+
+public String changeStrCode(String str)
+	{
+		String reStr = str;
+		try {
+			reStr = new String(str.getBytes("utf-8"),"GBK");    //将utf-8编码的字符串改为GBK
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return reStr;
+	}
+
+	http://www.cnblogs.com/gisblogs/p/4213060.html

@@ -1,0 +1,24 @@
+查看源代码
+
+1解压源码
+
+2打开ecliplse把jar包添加到工程依赖，查看一个源代码就关联相关的源码jar包或者是java文件
+
+3进入源码根目录-windows搜索-jar
+ ctrl+a ,ctrl+c复制全部的jar包到
+源码根目录新建_lib目录下(有重复jar包，直接替换即可)
+
+4先进去_lib目录，windows文件搜索sourses能找到所有的源码包，ctrl+a，剪切所有的源码包到项目根目录创建_sourse目录里面
+
+
+5目录结构
+	
+_lib/_sourse 源码包目录
+      
+	    /_test_sourse 测试源码包目录
+     
+	    /_test 测试jar包目录
+     
+	    /*jar 全部jar包
+
+    

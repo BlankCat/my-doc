@@ -1,0 +1,5 @@
+eclipseJDK1.7切换1.8
+1、window->preferences->java->installed JREs->将jdk1.7改为jdk1.8
+2、window->preferences->server->runtime environment->修改tomcat的jre，选择jdk的跟目录，不要选jre目录
+3、右击web项目->properties->project facets->java版本选择1.8
+4、如果用到es5.x，还需要更改Java_Home的路径，为jdk1.8的路径

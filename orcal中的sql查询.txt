@@ -1,0 +1,1479 @@
+orcal中的sql查询
+
+select *from EMPLOYEES ;
+---条件查询  从雇员表中选出部门编号为30的员工信息
+select * from EMPLOYEES
+where DEPARTMENT_ID = 30;
+
+
+
+-- 检索出工资大于2000小于5000的雇员信息
+select * from EMPLOYEES
+where SALARY BETWEEN 2000 and 5000;
+
+
+--在条件中使用IN运算，在部门编码为10,30的部门工作的员工。
+select * from EMPLOYEES
+where DEPARTMENT_ID in(10,30);
+
+
+--任务四：显示姓名中有“ %  K %   ”的雇员
+select * from EMPLOYEES
+where FIRST_NAME  like '%K%' ;
+
+--任务四：显示姓名以S开头的的雇员
+select * from EMPLOYEES
+where FIRST_NAME like 'S%';
+
+
+--任务四：显示姓的第二个字母为“a”的的雇员
+select * from EMPLOYEES
+where  LAST_NAME like ('_a%');
+
+
+--任务五：显示第二个字母为A的雇员
+select * from EMPLOYEES
+where  LAST_NAME like ('_A%') ;
+
+--任务六：查出部门编号为空的员工信息
+select * from EMPLOYEES
+where  DEPARTMENT_ID is null ;
+
+
+--任务七：查询部门编号为100，并且工资少于1000的员工信息
+select * from EMPLOYEES
+where  DEPARTMENT_ID=100 and SALARY<1000 ;
+
+
+--任务八：查询姓名为“ALLEN”，或者工作为“ANALYST”
+select * from EMPLOYEES
+where  FIRST_NAME='ALLEN' or EMAIL='ANALYST';
+
+--任务九：查出部门编号不为空的员工信息
+select * from EMPLOYEES
+where  DEPARTMENT_ID is not null ;
+
+
+--任务一：显示雇员信息，要求工资的排列方式为从高到低
+select * from EMPLOYEES
+where  SALARY is not null
+order by SALARY desc;
+
+--任务二：显示雇员信息，要求工资的排列方式为从低到高
+select * from EMPLOYEES
+where  SALARY is not null 
+order by SALARY;
+
+
+--任务三：查询“雇员表”员工信息，按照工资降序排序，如果工资相同，按照雇用时间升序排序
+select * from EMPLOYEES
+where  SALARY is not null 
+order by SALARY desc,HIRE_DATE desc;
+
+
+--任务一：将雇员的姓名全部转换成成大写的形式
+select upper(FIRST_NAME),upper(LAST_NAME) from EMPLOYEES;
+
+
+
+--任务二：查询姓名加起来的长度小于11位的记录
+select * from EMPLOYEES
+where  (length(FIRST_NAME)+length(LAST_NAME))<11;
+
+
+--数值函数
+--时间函数
+select sysdate from dual ;
+
+select TO_DATE('2017-3-10','YYYY-MM-DD') from dual;
+
+
+--任务一：查询雇员信息不满100个月的雇员信息
+select * from EMPLOYEES
+where  round(months_between(sysdate,HIRE_DATE))<1000;
+
+select round(months_between('sysdate','HIRE_DATE')) from dual ;
+
+
+--任务二：假设雇员表中 hird_date 存放的是雇员出生日期，显示雇员的工龄
+select employee_id,  round(round(months_between(sysdate,HIRE_DATE))/12) from EMPLOYEES ;
+
+--把日期转换为字符
+select to_char(sysdate,'YYYY/MM/DD')from dual ;
+
+--把字符转换为数字
+select to_number('123') from dual ;
+
+--行号的操作
+select * from EMPLOYEES
+where rownum<5 ;
+
+--任务一：计算某部门雇员的平均工资、最高工资、最低工资及工资总额
+select * from EMPLOYEES
+where max(SALARY);
+
+select max(SALARY) from EMPLOYEES;
+select min(SALARY) from EMPLOYEES;
+select sum(SALARY) from EMPLOYEES;
+select avg(SALARY) from EMPLOYEES;
+
+
+--任务二：对日期型数据使用MAX、MIN函数，查看受雇最短雇员与最长雇员的受雇时间
+select max(HIRE_DATE) from EMPLOYEES;
+select min(SALARY) from EMPLOYEES;
+
+--任务三：对字符型数据使用MAX、MIN函数，查看获取数据的依据
+select max(FIRST_NAME) from EMPLOYEES;
+
+--任务四：用COUNT查询一个表的总记录数
+select count(SALARY) from EMPLOYEES;
+
+
+
+
+
+
+
+
+
+
+set serveroutput on;
+
+
+---  包头的创建*********************
+create or replace package my_package
+is
+  v_name VARCHAR2(30) := 10;
+  PROCEDURE my_pro;
+end my_package;
+
+
+---包体的创建**********
+create or replace package body my_package
+is
+  create PROCEDURE my_pro
+  is
+  begin
+    dbms_output.put_line('nihao');
+  end;
+begin
+   v_name  := 20;
+   DBMS_OUTPUT.PUT_LINE(v_name);
+end ;
+
+create or replace body my_package
+is 
+  procedure my_pro
+  is
+  begin
+    dbms_output.put_line('nihao');
+  end;
+begin
+  null;
+end;
+
+
+begin 
+  DBMS_OUTPUT.PUT_LINE(my_package.v_name);
+end;
+
+
+
+
+
+--	2 给定指定 学员 id，找到学员名称。
+----包头
+create or replace package mypack
+is
+v_name number(10):=5;
+FUNCTION t_FOUND(STU_ID NUMBER) RETURN VARCHAR2;
+end mypack;
+--BAOTI
+CREATE OR REPLACE PACKAGE BODY MYPACK
+IS
+  FUNCTION T_FOUND(STU_ID IN NUMBER) RETURN VARCHAR2
+  IS
+  NAME_s VARCHAR2(20);
+  BEGIN
+    SELECT FIRST_NAME INTO NAME_S FROM EMPLOYEES WHERE EMPLOYEE_ID=STU_ID;
+    RETURN NAME_S;
+  END;
+BEGIN
+NULL;
+END;
+
+DECLARE 
+v_name VARCHAR2(20);
+begin
+V_NAME:=MYPACK.T_FOUND(100);
+DBMS_OUTPUT.put_line(V_NAME);
+end;
+
+--1 通过包设定功能：添加学员信息
+--
+--	2 给定指定 学员 id，找到学员名称。
+
+create or replace package my_pack1
+is
+  procedure dur1(v_t1 in number,v_t2 out varchar2);
+end my_pack1;
+
+create or replace package body my_pack1
+is 
+  procedure dur1(v_t1 in number,v_t2 out varchar2)
+  is
+  begin 
+    select first_name into v_t2 from employees where employee_id =v_t1;
+  end;
+begin
+  null;
+end;
+declare 
+  v_name VARCHAR2(30);
+begin
+  MY_PACK1.DUR1(100,v_name);
+  DBMS_OUTPUT.PUT_LINE(v_name);
+end;
+
+
+
+create or replace procedure mypro3(
+  v_t1 in number,
+  v_t2 out date
+) is
+begin
+  select hire_date into v_t2 from employees where EMPLOYEE_ID = v_t1; 
+end ;
+
+create table User_info(
+  user_id varchar2(6),
+  name1 varchar2(30),
+  dept_id varchar2(30),
+  amt number(20)
+);
+
+create table dept_info(
+  dept_id varchar2(30),
+  dept_name varchar2(30)
+);
+
+create table User_kongfu(
+  user_id varchar2(6),
+  kongfu_id varchar2(30),
+  main_kf_flag varchar2(30)
+);
+
+create table Kf_info(
+  kf_id varchar2(6),
+  kf_name VARCHAR2(30)
+);
+
+
+--1.查询出各个部门的总资产，平均资产。
+select dept_id,sum(amt),avg(amt) from user_info group by DEPT_ID;
+  
+--2.查询出员工的的姓名，部门名称和功夫（员工信息需要全部展示）
+select p.*,d.dept_name from user_info p left join DEPT_INFO d  on 
+  p.dept_id = d.dept_id;
+--3.查询出各个部门的员工数量
+select dept_id,count(user_id) from user_info group by dept_id;
+--4.查询出员工资产在200到500之间的员工的员工姓名。
+select name1 from user_info  where amt BETWEEN 200 and 500;
+--5.查询出每个员工所会的功夫有哪些
+select * from user_kongfu p , Kf_info d  where 
+  p.kongfu_id = d.kf_id;
+--6.查询出只有主功夫没有次功夫的员工的信息及员工所在的部门名称和功夫描述
+select p.USER_ID from user_kongfu p , Kf_info d  group by p.USER_ID HAVING d.KF_NAME = 1;
+--7给2号部门所有的员工涨1倍的工资
+create or replace function fou1( v_id varchar2) return number
+is
+  sat number(10);
+begin
+  select amt into sat from user_info where DEPT_ID = 2;
+  amt = amt * amt;
+  return amt;
+end;
+
+begin 
+  fou1(2);
+end;
+
+--8.查询出只有次功夫没有主功夫的员工
+select * from USER_INFO,USER_KONGFU,DEPT_INFO,KF_INFO
+where USER_INFO.DEPT_ID = DEPT_INFO.DEPT_ID
+  and USER_KONGFU.USER_ID = USER_INFO.USER_ID
+  and USER_KONGFU.KF_ID = KF_INFO.KF_ID
+  and USER_INFO.USER_ID not in (select DISTINCT USER_ID from USER_KONGFU where MAIN_KF_FLAG = 0);
+
+
+
+--
+select p.USER_ID from user_kongfu p   where p.main_kf_flag = 0;
+
+--9.统计资产在前三位的员工的姓名及所会的功夫。
+select * from user_info  where rownum <4 order by amt desc;
+--10.查询出资产最高的3~5名员工。
+select * from user_info  where rownum >=3 and rownum >6 order by amt desc;
+--11.废除令狐冲的所有次功夫，只保留当前的主功夫。
+
+--12.为人员信息表创建视图，视图只需要显示出员工编码，员工名称，员工部门名称，员工的功夫描述。
+create view view_1 as
+select p.*,d.KF_NAME from user_kongfu p , Kf_info d  where 
+  p.kongfu_id = d.kf_id; 
+--13.查询出各个部门内的最少资产的员工的姓名，工资，部门名称及所会的功夫。
+SELECT u.*,d.DEPT_NAME,f.KF_NAME
+FROM (SELECT * FROM user_info
+      where (dept_id,AMT) in (SELECT DEPT_ID,min(amt) FROM user_info
+                              group by DEPT_ID)) u 
+left join DEPT_INFO d
+on u.dept_id = d.DEPT_ID
+left join user_kongfu k
+on u.user_id = k.user_id
+left join KF_INFO f
+on k.KF_ID = f.KF_ID;
+
+
+select p.name1 , p.amt, d.dept_name 
+select  name1 from user_info group by dept_id having amt = (select  min(amt) from user_info group by dept_id);
+select  min(amt) from user_info group by dept_id;
+--14.查询出部门内的最低工资比1号部门最低工资要高的部门详细信息。
+select * from DEPT_INFO
+where DEPT_ID in (select DEPT_ID from user_info
+                  group by DEPT_ID
+                  HAVING min(amt)>(select min(amt) from user_info
+                                    where DEPT_ID = 1
+                                    group by DEPT_ID));
+
+--15.查询和令狐冲同门的员工信息。
+select * from user_info where DEPT_ID = (select DEPT_ID from user_info where name1 = '令狐冲');
+
+
+
+--2.请用游标提取出员工表奇数行的数据
+--任务2：  雇员表中数据根据工资由高到低进行排序，分页显示，每页10条，控制台打印第二页数据
+declare 
+    tempsal5 EMPLOYEES%ROWTYPE ;
+    cursor you_biao is select * from employees ;
+    st number(10);
+begin
+    open you_biao ;
+     loop
+        fetch you_biao into tempsal5;
+        exit when you_biao%notfound;
+          dbms_output.put_line(tempsal5.employee_id||' '||tempsal5.salary);
+        
+    end loop;
+    close you_biao;
+end ;
+
+
+
+
+
+
+--创建存储过程
+create or replace procedure mypro as
+    v_date employees.hire_date%TYPE;
+begin
+  select HIRE_DATE into v_date from EMPLOYEES where EMPLOYEE_ID=100;
+  DBMS_OUTPUT.PUT_LINE(v_date);
+end;
+
+--任务1：创建一存储过程—查询雇员编号为“100”的员工的 入职时间，输出到控制台
+set serveroutput on;
+begin 
+mypro;
+end;
+execute mypro;
+--平常心 平常心…… 2017/6/4 9:28:24
+--任务2：查询员工工资最高的员工的入职时间
+
+create or replace procedure mypro_maxsalsry_date as
+    v_date employees.hire_date%TYPE;
+    v_salary employees.salary%TYPE;
+begin
+  select HIRE_DATE,salary into v_date,v_salary from EMPLOYEES where salary = (select max(salary) from employees );
+  DBMS_OUTPUT.PUT_LINE(v_date||' '||v_salary);
+end;
+
+begin 
+MYPRO_MAXSALSRY_DATE ;
+end;
+
+select hire_date from employees where salary = (select max(salary) from employees );
+
+--带参数的过程的创建
+create or replace procedure mypro2( v_name in varchar2 , v_name_length out number) is
+ begin
+    v_name_length :=length(v_name);
+ end ;
+
+
+--任务1：写一个存储过程，当输入任何一个员工 id 信息，返回这个员工的入职日期
+create or replace procedure mypro3(
+  v_t1 in number,
+  v_t2 out date
+) is
+begin
+  select hire_date into v_t2 from employees where EMPLOYEE_ID = v_t1; 
+end ;
+
+declare 
+  v_date date ;
+begin
+  mypro3(100,v_date);
+  DBMS_OUTPUT.PUT_LINE(v_date);
+end;
+
+--任务2：根据员工编号，给指定员工加500工资
+create or replace procedure mypro4(
+  v_t1 in number,
+  v_t2 out number
+) is
+begin
+  select salary into v_t2 from employees where EMPLOYEE_ID = v_t1; 
+  dbms_output.put_line(v_t2);
+  v_t2 := v_t2+500; 
+end ;
+
+declare 
+  v_salary number ;
+  
+begin
+  mypro4(100,v_salary);
+  dbms_output.put_line(v_salary);
+end;
+
+--任务3：员工辞职时将员工的信息放到历史表中，以备查询。
+create table history_class as select * from t_class where 1<>1;
+
+create or replace procedure mypro6(
+  v_id number
+)is
+  tclass t_class%rowtype;
+begin
+  select * into tclass from t_class where CLA_ID = v_id;
+  --将数据保存的历史表中
+  insert into history_class select * from t_class where CLA_ID = v_id;
+  --删除原纪录
+  delete from t_class where cla_id = v_id;
+end;
+
+begin 
+  mypro6(5);
+end;
+
+
+--任务5：给定用户名，密码。实现用户的验证功能。验证成功返回1，验证失败返回0。
+    --密码验证
+create or replace procedure mypro_mima(
+  v_name in number,
+  v_password  in varchar2,
+  v_num  out number
+) is
+begin
+  if (v_name = 123456 and v_password = 'feng123') then 
+      v_num := 1;
+  else v_num :=0 ;
+  end if ;
+end;
+
+declare 
+  v_num number(10);
+  v_out varchar2(20);
+begin
+  mypro_mima(123456,'feng123',v_num);
+  if(v_num=1) then 
+    v_out :='登录成功！';
+  else
+    v_out:='登录失败！！';
+  end if;
+  DBMS_OUTPUT.PUT_LINE(v_out);
+  
+  
+end;
+
+
+--任务6：雇员表中数据根据工资由高到低进行排序，分页显示，每页10条，控制台打印第二页数据
+
+create or replace procedure mypro_fen_ye(
+ 
+  v_num in number
+) is
+ v_emp employees%rowtype;
+begin
+  
+  select * into v_emp  from (select *  from employees order by salary desc) 
+  where (rownum/10+1)= v_num;
+  DBMS_OUTPUT.PUT_LINE(v_emp.first_name||','||v_emp.salary||','||v_emp.department_id);
+end;
+
+declare 
+begin
+  MYPRO_FEN_YE(3);
+end;
+
+
+declare
+  v_emp  employees%rowtype;
+  v_num  number(10);
+  v_emp_in employees%rowtype;
+
+begin
+  select * into v_emp  from 
+  (select * from employees order by salary desc)
+  where (rownum/10+1)= v_num;
+  DBMS_OUTPUT.PUT_LINE(v_emp.first_name||','||v_emp.salary||','||v_emp.department_id);
+  
+end;
+
+
+
+--任务1：输入员工 id，输出某个员工的员工姓名
+create or replace function fu1(
+  v_id number
+)
+return varchar2
+is 
+  v_name varchar2(20);
+begin
+  select first_name  into v_name from employees where employee_id = v_id;
+  return v_name;
+end;
+select fu1(employee_id) from employees ;
+
+--任务2：给工资少于5000的员工加1000的奖金
+create or replace function fu2(
+  v_id number
+)
+return varchar2
+is 
+  v_num number;
+begin
+  v_num :=v_id+1000;
+  return v_num;
+end;
+
+select fu2(salary) from employees where salary<5000;
+--任务3：给入职时间超过两年的员工加500的奖金
+create or replace function fu3(
+  v_id number
+)
+return varchar2
+is 
+  v_num number;
+begin
+  v_num :=v_id+500;
+  return v_num;
+end;
+select fu3(salary) from employees  where months_between(sysdate,HIRE_DATE)>24;
+
+
+任务1：为公司的表建一个触发器，员工不得在非上班时间修改表里的数据。（以 employees 表为例）
+
+--触发器的建立
+create or replace trigger chufa1
+after delete or update or insert
+on s_stu
+begin
+  if to_char(sysdate ,'day') in ('星期六','星期日')
+   or (TO_CHAR(sysdate, 'HH24:MI') NOT BETWEEN '09:00' AND '18:00') 
+  then
+  
+  raise_application_error(-20101, '不能改动表格，在非工作日期');
+  end if;
+end;
+create or replace trigger chufa1
+after delete or update or insert
+on s_stu
+for each row
+begin
+  if to_char(sysdate ,'day') in ('星期六','星期日')
+   or (TO_CHAR(sysdate, 'HH24:MI') NOT BETWEEN '09:00' AND '18:00') 
+  then
+  
+  raise_application_error(-20101, '不能改动表格，在非工作日期');
+  end if;
+end;
+insert into s_stu values(5,'nn',3,'adk');
+
+
+任务1：每删除一条数据都显示“删除操作一次”
+create or replace trigger chufa3
+after delete 
+on s_gra
+for each row
+begin
+  DBMS_OUTPUT.PUT_LINE('删除一条数据');
+end;
+delete from s_gra;
+任务2：公司有人辞职时，将该员工个人信息移动到历史记录表中
+create table history_class as select * from v_class where 1<>1;
+
+create or replace trigger tri2
+before delete
+on v_class
+for each row
+begin
+  --将数据保存的历史表中
+  insert into history_class values(:old.cla_id,:old.cla_name,:old.cla_teacher);
+  DBMS_OUTPUT.PUT_LINE('删除osdof数据');
+end;
+delete from v_class where cla_id = 1;
+
+任务3：如果员工表中的工资发生改变，要在建立的表里备份原来的工资和现在修改后的工资
+create table history_salary as select * from EMPLOYEES where 1<>1;
+create table history_salary1 (
+  oldsalary number(20),
+  newsalary number(20)
+);
+create or replace trigger trig2
+before update
+on employees
+for each row
+begin
+  insert into history_salary1 values(:old.salary,:new.salary);
+  DBMS_OUTPUT.PUT_LINE('数据已经改变');
+end;
+update EMPLOYEES set salary = salary+100 where EMPLOYEE_ID = 103;
+
+任务4：员工薪资一旦变更，需要将  员工的编号，姓名，旧薪资，新薪资，提薪时间 等记录保存保存到日志表中
+create table rizhi as select * from EMPLOYEES where 1<>1;
+create table rizhi1 (
+  emp_id VARCHAR2(20),
+  neme varchar2(20),
+  oldsalary number(20),
+  newsalary number(20),
+  date1 date
+);
+drop TRIGGER trig2;
+create or replace trigger trig3
+before update
+on employees
+for each row
+begin
+  insert into RIZHI1 values
+    (:old.EMPLOYEE_ID,:old.first_name,:old.salary,:new.salary,sysdate);
+  DBMS_OUTPUT.PUT_LINE('数据已经改变1');
+end;
+update EMPLOYEES set salary = salary+100 where EMPLOYEE_ID = 103;
+set serveroutput on;
+
+
+
+
+create or replace PROCEDURE mypro as
+  v_hire_date EMPLOYEES.HIRE_DATE%type;
+begin
+  select HIRE_DATE into v_hire_date from EMPLOYEES where EMPLOYEE_ID = 100;
+  dbms_output.put_line(v_hire_date);
+end;
+
+set serveroutput on;
+execute mypro;
+
+begin 
+  mypro;
+end;
+
+create or replace procedure mypro2(
+    v_name in varchar2,
+    v_name_length out number
+)is
+begin
+  v_name_length := length(v_name);
+  dbms_output.put_line(v_name);
+end;
+
+declare
+  v_lenth number(30);
+begin
+  mypro2('zhangsan',v_lenth);
+  dbms_output.put_line(v_lenth);
+end;
+
+
+
+create or replace procedure mypro3(
+  v_content in out VARCHAR2
+)is
+begin
+  dbms_output.put_line(v_content);
+  v_content := 'lisi';
+end;
+
+declare
+  v_content VARCHAR2(20) := 'zhangsan';
+begin
+  mypro3(v_content);
+  dbms_output.put_line(v_content);
+end;
+
+
+---任务1：写一个存储过程，当输入任何一个员工 id 信息，返回这个员工的入职日期
+create or replace procedure mypro4(
+  v_id in NUMBER,
+  v_date out date
+)is
+begin
+  select HIRE_DATE into v_date from employees where employee_id = v_id;
+end;
+
+declare
+  v_date date;
+begin
+mypro4(100,v_date);
+dbms_output.put_line(v_date);
+end;
+
+
+--任务3：员工辞职时将员工的信息放到历史表中，以备查询。
+create table history_class as select * from t_class where 1<>1;
+
+create or replace procedure mypro6(
+  v_id number
+)is
+  tclass t_class%rowtype;
+begin
+  select * into tclass from t_class where CLA_ID = v_id;
+  --将数据保存的历史表中
+  insert into history_class select * from t_class where CLA_ID = v_id;
+  --删除原纪录
+  delete from t_class where cla_id = v_id;
+end;
+
+begin 
+  mypro6(5);
+end;
+
+
+
+create or replace procedure mypro7(
+  v_id number
+)is
+  tcalss t_class%rowtype;
+begin
+  --检索指定id 的数据
+  select * into tcalss from t_class where CLA_ID = v_id;
+  --将数据保存的历史表中
+  insert into history_class values (tcalss.cla_id,tcalss.cla_name);
+  --删除原纪录
+  delete from t_class where cla_id = v_id;
+end;
+
+begin
+  mypro7(3);
+end;
+
+
+
+
+
+
+
+
+
+
+
+--任务5：给定用户名，密码。实现用户的验证功能。验证成功返回1，验证失败返回0。
+create or replace procedure mypro8(
+  user_id number,
+  user_name VARCHAR2
+  
+)is
+  cursor stus is select * from t_student where stu_id = user_id and stu_name = user_name;
+  stu stus%rowtype;
+begin
+  open stus;
+  FETCH stus into stu;
+  if stus%found then
+    dbms_output.put_line('登录成功');
+  else
+    dbms_output.put_line('登录失败');
+  end if;
+end;
+
+begin
+  mypro8(11,'w777ye');
+end;
+
+
+
+
+
+
+
+--任务6：雇员表中数据根据工资由高到低进行排序，分页显示，每页10条，控制台打印第二页数据
+
+create or replace procedure mypro9(
+  v_page number,
+  v_rowcount number
+)is
+  cursor dates is select num,first_name 
+                  from (
+                    select rownum num,emp.* 
+                    from (
+                          select * from employees order by SALARY desc
+                          ) emp)
+                  where num > (v_page-1) * v_rowcount and num <= v_page * v_rowcount;
+
+  type empdate is record(
+    num number(4),
+    emp_name varchar2(30)
+  ) ;
+  emp empdate;
+begin
+  open dates;
+  loop
+    fetch dates into emp;
+    if dates%notfound then
+     exit;
+    end if;
+    dbms_output.put_line(emp.num || ',' || emp.emp_name);
+  end loop;
+  close dates;
+end;
+
+begin
+  mypro9(2,10);
+end;
+
+
+
+                            
+
+
+
+
+
+
+
+
+
+
+set serveroutput on;
+
+--declare
+----声明  变量声明
+--  v_chad VARCHAR2(120);
+--
+--
+--begin
+--  v_chad :=123;
+--  SYS.DBMS_OUTPUT.PUT_LINE(v_chad);
+--end;
+
+
+
+create table S_zhanghu(
+    user_id number(10),
+    user_name varchar2(30),
+    yuer number(20)
+  
+  );
+  
+  insert into S_zhanghu values(1,'张三',4000);
+  insert into S_zhanghu values(2,'李四',2000);
+  delete from S_zhanghu where user_id = 2;
+  insert into S_zhanghu values(62260531,'张三',1000);
+  insert into S_zhanghu values(62264392,'李四',1000);
+set serveroutput on;
+
+declare
+  v_chad2 number(10) := &count_1;   --账号
+  v_chad3 number(10) := &count_2;   --账号
+  v_chad4 number(20) := &count_3;   --要转账的值
+  --如果是字符串的话就就加引号
+begin
+  
+  
+--  update  S_zhanghu set yuer = yuer-500 where USER_ID = 62260531 ;
+--  update  S_zhanghu set yuer = yuer+500 where USER_ID = 62264392 ;
+  update  S_zhanghu set yuer = yuer-v_chad4 where USER_ID = v_chad2 ;
+  update  S_zhanghu set yuer = yuer+v_chad4 where USER_ID = v_chad3 ;
+  SYS.DBMS_OUTPUT.PUT_LINE('转账成功');
+end;
+
+
+
+
+
+--任务1：查询雇员编号为100的员工姓名
+declare 
+  v_name VARCHAR2(20);
+begin 
+  select first_name into v_name from employees where employee_id = 100;
+  dbms_output.put_line(v_name);
+end;
+
+
+--任务2：查询雇员编号为100的员工姓名，email
+
+declare 
+  v_name VARCHAR2(20);
+  v_email VARCHAR2(20);
+begin 
+  select first_name ,EMAIL into v_name,v_email  from employees where employee_id = 100;
+  dbms_output.put_line(v_name);
+  dbms_output.put_line(v_email);
+end;
+--任务3：查询工资最高的雇员的姓名，邮件，电话，入职时间
+declare 
+  v_name VARCHAR2(20);
+  v_email VARCHAR2(20);
+  v_tel VARCHAR2(30);
+  v_date VARCHAR2(30);
+begin 
+  select first_name ,EMAIL,HIRE_DATE,PHONE_NUMBER into v_name,v_email,v_date,v_tel  
+    from employees where salary = (
+      select max(salary) from EMPLOYEES
+    );
+  dbms_output.put_line(v_name);
+  dbms_output.put_line(v_email);
+  dbms_output.put_line(v_tel);
+  dbms_output.put_line(v_date);
+end;
+
+
+
+任务1：创建一学生记录类型，有学号，姓名两个字段，查询学生表中 id 为 3 的记录，赋值给指定类型的变量，并显示出来
+
+declare 
+  --类的创建
+  type student is record(
+    v_name VARCHAR2(20),
+    v_id VARCHAR2(20)
+  );
+  --类的使用
+  stu student;
+begin 
+  select e.STU_NAME,e.stu_id into stu  
+    from v_student e where e.stu_id=3;
+  dbms_output.put_line(stu.v_name);
+  dbms_output.put_line(stu.v_id);
+end;
+ 
+
+任务2：1、创建一个“班级表”t_class，有班级id（c_id）,班级名称（c_name）,任课老师（c_techer）
+	 2、给表中录入多条数据
+	 3、创建一班级类型的变量，把班级id为2的记录放到该变量中
+	 4、在控制台上输出
+   
+declare 
+  --类的创建
+  type class1 is record(
+    C_name VARCHAR2(20),
+    C_id number(20),
+    C_teacher varchar(20)
+  );
+  --类的使用
+  cla class1;
+begin 
+  select e.cla_name,e.cla_id,e.cla_teacher into cla  
+    from v_class e where e.cla_id=2;
+  dbms_output.put_line(cla.C_name);
+  dbms_output.put_line('班号：'||cla.C_id);
+  dbms_output.put_line('老师：'||cla.C_teacher);
+end;
+
+--任务3：找出雇员表中工资最高的人的员编号，姓名，联系方式，email，工资
+--任务4：创建一学生表，表中有学员编号（stu_id),学员姓名(stu_name)，性别(stu_sex)，班级id（c_id）.添加模拟数据
+--            控制台输出23号学员的基本信息以及所在班级的班级信息
+            
+declare 
+  --学生类的创建
+  type student is record(
+    v_name VARCHAR2(20),
+    v_id VARCHAR2(20)
+  );
+  --类的使用
+  stu student;
+  --班级类的创建
+  type class1 is record(
+    C_name VARCHAR2(20),
+    C_id number(20),
+    C_teacher varchar(20)
+  );
+  --类的使用
+  cla class1;
+begin 
+  select s.STU_NAME,s.stu_id,e.cla_name,e.cla_id,e.cla_teacher into stu.v_name,stu.v_id,
+    cla.C_name,cla.C_id,cla.C_teacher 
+    from v_class e,V_student s where s.stu_id =23 and  e.cla_id = s.cla_id ;
+  dbms_output.put_line('学生姓名：'||stu.v_name);
+  dbms_output.put_line('学号'||stu.v_id);
+  dbms_output.put_line('班级名称'||cla.C_name);
+  dbms_output.put_line('班号：'||cla.C_id);
+  dbms_output.put_line('老师：'||cla.C_teacher);
+end;
+delete from s_zhanghu where yuer = 500;
+--任务5：创建一张“账户表”，有用户名称， 账号，余额等字段。
+--            创建一张“账单表”，有账单 id，账号，转出转入金额，交易账号，交易时间。
+--	完成“62260531”账户向“62264392”账户转账500元的业务，成功提示“转账成功”。
+--	并在账单表中生成账单信息，最终打印出来。
+
+declare 
+--  type code(
+--    v_id varchar2(30) ,
+--    v_id1 varchar2(30) ,
+--    v_count varchar2(30),
+--    v_user_name varchar2(30),
+--    v_output number(20),
+--    v_data date
+--  );
+    
+--    s_count varchar2(30);
+--    s_user_name varchar2(30);
+--    s_data date;
+  form1   S_zhangdan%rowTYPE;
+  v_chad2 number(10) := &count_1;   --账号
+  v_chad3 number(10) := &count_2;   --账号
+  v_chad4 number(20) := &count_3;   --要转账的值
+  v_chad_num number(20);
+begin
+  select yuer into v_chad_num from S_zhanghu where user_id = v_chad2;
+  if v_chad_num > v_chad4 then
+    update  S_zhanghu set yuer = yuer-v_chad4 where USER_ID = v_chad2 ;
+    update  S_zhanghu set yuer = yuer+v_chad4 where USER_ID = v_chad3 ;
+    SYS.DBMS_OUTPUT.PUT_LINE('转账成功');
+    insert into S_zhangdan values(1,00001,v_chad4 , v_chad2 , v_chad3 , sysdate);
+  else 
+    dbms_output.pyt_line('余额不足');
+  end if ;
+  
+
+end;
+
+--任务1：给定年龄判断是否是成年人
+declare 
+  age number(3) :=&adf;
+  
+begin 
+  if age >= 18 and age<150  then
+    dbms_output.put_line('是成年人');
+  elsif age<18 then
+      dbms_output.put_line('不是是成年人');
+  else 
+    dbms_output.put_line('请输入正确的年龄');
+  end if;
+end;
+
+
+
+
+
+
+--任务1：用循环写出从1+2+3…+100的结果
+declare 
+
+  vare number(5):=1;
+  sum1 number(5):=0;
+  
+begin
+    --条件成立执行循环体
+    while vare<=100 loop
+      sum1 := sum1 + vare;
+      vare := vare + 1;
+    end loop;
+    dbms_output.put_line(sum1);
+end;
+
+--例如：当两个数相等时跳出循环
+declare 
+
+  vare number(5):=10;
+  sum1 number(5):=0;
+  
+begin
+    loop
+      sum1 :=sum1+1;
+      --条件成立时跳出循环
+    exit when sum1 = vare;
+    end loop;
+    dbms_output.put_line(sum1);
+end;
+
+--任务1：求1！+2！+3！+4！+5！
+declare
+  sum1 number(20) := 0 ;
+  num1 number(5)  := 1 ;
+  num2 number(5)  := 1 ;
+  num3 number(5)  := 1 ;
+begin
+  while num2<6 loop
+    num3 := 1;
+    for num1  in 1..num2 loop
+      num3 := num3 * num1;
+    end loop;
+    sum1 := sum1 + num3 ;
+    num2 :=num2 +1 ;
+    dbms_output.put_line(sum1);
+  end loop ;
+end;
+
+--任务2：找出1-300之间的所有奇数
+declare
+  sum1 number(20) := 0 ;
+  num1 number(5)  := 1 ;
+begin
+  while num1<=300 loop
+    if mod(num1,2) = 1 then
+      dbms_output.put_line(num1);
+    end if ;
+    num1 := num1 + 1;
+  end loop ;
+end;
+--任务3：输出100-10000之间的水仙花数
+declare
+  i1 number(20) := 0 ;
+  num1 number(10)  := 100 ;
+  a1 number(10)  := 1 ;
+  b1 number(10)  := 1 ;
+  c1 number(10)  := 1 ;
+  d1 number(10)  := 1 ;
+  
+begin
+  while i1 <= 10000 loop
+    if i1 < 1000 then
+         a1=i/100; 
+         b1=mod((i/10),10); 
+         c1=mod(i,10);
+         if((a*a*a+b*b*b+c*c*c)=i) then
+             dbms_output.put_line(i1); 
+          end if ;
+      end if ;
+  
+    
+    
+    
+    
+    num1 := num1 + 1;
+  end loop ;
+end;
+
+
+--任务1：定义tempsal为employees数据表中的salary字段类型相同的变量，mycoursor为从employees中提取的salary的值大于tempsal数据构成的游标
+--。并取出第一个雇员的信息
+declare 
+    tempsal EMPLOYEES.SALARY%TYPE :=&sd;
+    tempsal5 EMPLOYEES % ROWTYPE ;
+    cursor you_biao is select * from employees where salary > tempsal; 
+begin
+    open you_biao ;
+    while (you_biao%notfound) loop
+        fetch you_biao into tempsal5;
+            dbms_output.put_line(tempsal5.first_name);
+    end loop;
+    close you_biao;
+end ;
+
+--任务1：	使用游标取出所有员工的的编号、姓名，薪水并输出
+
+declare 
+    tempsal5 EMPLOYEES%ROWTYPE ;
+    cursor you_biao is select * from employees ; 
+begin
+    open you_biao ;
+     loop
+        fetch you_biao into tempsal5;
+        exit when you_biao%notfound;
+            dbms_output.put_line(tempsal5.first_name);
+        
+    end loop;
+    close you_biao;
+end ;
+--任务2：  雇员表中数据根据工资由高到低进行排序，分页显示，每页10条，控制台打印第二页数据
+
+declare 
+    tempsal5 EMPLOYEES%ROWTYPE ;
+    cursor you_biao is select * from employees order by  salary desc; 
+begin
+    open you_biao ;
+     loop
+        fetch you_biao into tempsal5;
+        exit when you_biao%notfound;
+        if (you_biao%rowcount>10 and you_biao%rowcount<=20) then
+        
+            dbms_output.put_line(tempsal5.salary);
+        end if ;
+        
+    end loop;
+    close you_biao;
+end ;
+
+1.查询入职日期在2003-01-01到2013-12-31之间的员工信息
+
+select * from employees where 
+  to_char(HIRE_DATE ,'yyyy-mm-dd') between '2008-01-01' and '2013-12-31';
+  
+2.查询出30号部门工作为IT_PROG的员工信息
+
+select * from employees where job_id ='IT_PROG' and department_id = 30 ;
+
+3.把入职生日看作是员工生日，求出这个月过生日的员工。
+
+select * from employees where to_char(hire_date,'mm') = to_char(sysdate , 'mm') ;
+
+4.查询出名字中含有”L”的员工信息
+
+select * from employees where first_name like '%L%' ;
+
+5.求出2003年各个月入职的员工个数。
+
+select to_char(hire_date ,'mm'),count(*) from employees 
+  where to_char(hire_date ,'yyyy') = '2003' group by to_char(hire_date, 'mm') ;
+  
+6.查询各个部门的平均工资。
+
+select DEPARTMENT_ID,avg(salary) from employees group by DEPARTMENT_ID ;
+  
+7.按照入职日期由新到旧的排序员工信息
+select * from employees order by HIRE_DATE desc ;
+
+8.查询员工的信息，附加上其上级的和部门名字（员工信息要求全部显示）。
+select e.*,d.DEPARTMENT_NAME from employees e ,DEPARTMENTS d 
+  where e.DEPARTMENT_ID = d.DEPARTMENT_ID;
+  
+9.显示于David相同工资和部门的员工
+select * from employees 
+  where (job_id , department_id) in (select job_id , department_id from employees where first_name = 'David');
+  
+  
+10.查询出工资最高的三名员工信息
+select  * from (select * from employees where salary is not null order by salary desc)  where rownum<4;
+
+11.查询出工资最高的6~10名员工信息。
+select * from(select e.*,rownum rn from(select * from EMPLOYEES order by salary)e)
+where rn>=6 and rn<=10;
+12.查询出没有员工的部门信息。
+select * from departments where department_id not in (select department_id from employees 
+  where department_id is not null group by department_id 
+);
+
+13.显示部门内最低工资比100部门最低工资要高的部门编号以及部门内最低工资。
+select  department_id, min(salary) 
+from employees group by DEPARTMENT_ID
+having min(salary)>(select min(salary) from employees where department_id = 100) ;
+
+14.显示员工的的姓名，工资及工资级别。
+select frist_name,salary,grade from employees a,salgrade b where a.salary between b.losal and b,hisal ;
+
+15.查询工资与任何一个部门最低工资相等的雇员姓名,工资
+select e.first_name, e.salary from employees e where salary  in
+    ( select min(salary) from employees group by department_id ) ; 
+    
+16.查看所有部门(包含没有员工的部门)的雇员编号、姓名、所在部门编号以及部门名称
+select * from departments a left join employees b on a.department_id = b.department_id; 
+
+17.修改数据：所有员工的工资全部上涨10%
+update employees set salary = salary * 1.1 ;
+
+18.添加一条员工的信息，员工的姓名为（名字：william,工资4000，入职日期）
+insert into employees(first_name,salary,hiredate) values('william',40000,sysdate);
+
+
+
+
+
+
+
+
+
+
+
+
+
+delete from STU;
+--删除表
+drop table STU;
+--创建表
+create table Stu (
+  学号 number(6) not null,
+  姓名 varchar2(20) ,
+  手机号 char(11),
+  备注 varchar2(255)
+);
+create table STU1(
+  xuehao number(6) not null ,
+  name1 varchar(20) ,
+  tel char(11),
+  notes varchar(255),
+  cal_id number(6) references T_class(cla_id) 
+);
+--插入数据
+insert into STU values(1,'张三','12321312','wu');
+insert into STU1 values(1,'张三','12321312','wu');
+--修改约束条件
+alter table stu modify(学号 unique);
+alter table STU1 modify(xuehao unique);
+--找到约束名字
+select * from user_constraints where TABLE_NAME = 'STU';
+--根据约束条件的名字查出
+drop table stu1 ;
+
+--创建班级表
+create table T_class(
+  cla_id number(6) primary key,
+  cal_name varchar2(20) 
+  
+);
+insert into T_CLASS values(1234567,'java101');
+insert into T_CLASS values(2,'java101');  
+--带有外键约束的数据
+insert into stu1 values(2,'张珊','12311212','wu',1) ;
+delete stu1 ; 
+delete  from T_CLASS where CLA_ID=2 ;
+
+create table t_stu (
+  stu_id number(6) ,
+  stu_name varchar2(20),
+  stu_age number(3) check(stu_age <0 and stu_age>120)
+) ;
+create table t_test (
+  test_name varchar2(20) check(length(test_name)<10),
+  test_age number(3) check(stu_age <0 and stu_age>120)
+) ;
+drop table stu1 ;
+drop table t_class;
+create table t_class(
+  cla_id number(6) primary key check(length(cla_id)<6),
+  cla_name varchar2(20),
+  cla_num number(3)
+);
+create table t_test1(
+  test1_name varchar2(20) not null,
+  test1_age number(3)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+insert into T_STUD values(9,'张三');
+insert into T_STUD values(1,'张三');
+insert into T_STUD values(2,'张三');
+insert into T_STUD values(3,'张三');
+insert into T_STUD values(4,'张三');
+insert into T_STUD values(5,'李四');
+insert into T_STUD values(6,'李四');
+insert into T_STUD values(7,'李四');
+
+delete from T_STUD where id = 111 ;
+
+select * from T_STUD ;
+insert into T_STUD values(4,'王五');
+update T_STUD set id = 20 where id = 1 ;
+
+insert into T_STU1 values('9','nihao','nan',TO_DATE('19940223','yyyyMMdd'),'13','2');
+
+select CAL_ID from T_CLA1 where CAL_ID = 1 ;
+delete from T_CLA1 where CAL_ID = 1 ;
+insert into T_CLA1 values('2','java','1');
+SELECT * from T_STU1 ;
+select * from(select e.*,rownum rn from(select a.*,b.CLA_MESS_NAME ,b.CLA_MESS_NAME
+    from T_STU1  a,T_CLA1  b where a.CAL_ID = b.CAL_ID ORDER BY a.ID)e)
+where rn>=5 and rn<=10;
+
+select count(a.ID) from T_STU1  a,T_CLA1  b where a.CAL_ID = b.CAL_ID ;
+
+select * from(select e.*,rownum rn from(select * from T_STU1 order by T_STU1.ID)e)
+where rn>=5 and rn<=10;
+
+select rn,first_name,last_name from (
+                    select rownum rn,emp.* from (select * from employees order by SALARY desc) emp)
+                    where rn>(v_page-1)*v_pnum and rn<=v_page*v_pnum;
+
+select count(*) from T_STU1 ;
+
+select * from(select e.*,rownum rn from(select a.*,b.CLA_MESS_NAME from T_STU1  a, 
+				T_CLA1  b where a.CAL_ID = b.CAL_ID)e)where rn>=0 and rn<=3 ;
+        
+select a.*,b.CLA_MESS_NAME from T_STU1  a, T_CLA1  b where a.CAL_ID = b.CAL_ID ;
+
+CREATE TABLE back (
+    countA  NUMBEr(20),
+    countB  number(20)
+);
+INSERT into BACK values(2000,2000);
+drop table back ;
+create table bank (
+    count1  varchar2(20) ,
+    money  number(20)
+) ;
+INSERT into BANK values(2,2000);
+
+UPDATE BANK set money = money + 500 where COUNT1 = 1;
+UPDATE BANK set money = money - 500 where COUNT1 = 2;
+
+create table T_CLA2(
+    cla_name VARCHAR2(20) PRIMARY KEY,
+    cla_manage VARCHAR2(20)
+);
+drop table T_CLA2 ;
+CREATE table T_STU2(
+    id VARCHAR2(20) PRIMARY KEY ,
+    name varchar2(20) ,
+    sex varchar2(20) ,
+    date1 date,
+    cla_name VARCHAR2(20) REFERENCES T_CLA2(cla_name)
+
+);
+insert into T_CLA2 values('java101','张三') ;
+insert into T_CLA2 values('java102','李四') ;
+insert into T_CLA2 values('java103','王五') ;
+insert into T_CLA2 values('java104','赵六') ;
+
+insert into T_STU2 values('8','小明','男',TO_DATE('1994/09/01','yyyy/MM/dd'),'java101','0');
+insert into T_STU2 values('9','小李','女',TO_DATE('1994/03/14','yyyy/MM/dd'),'java101','0');
+insert into T_STU2 values('10','小明','男',TO_DATE('1993/09/01','yyyy/MM/dd'),'java102','0');
+insert into T_STU2 values('11','小李','女',TO_DATE('1995/04/01','yyyy/MM/dd'),'java102','0');
+insert into T_STU2 values('12','小明','男',TO_DATE('1995/07/23','yyyy/MM/dd'),'java103','0');
+insert into T_STU2 values('13','小李','女',TO_DATE('1998/09/02','yyyy/MM/dd'),'java103','0');
+insert into T_STU2 values('14','小明','男',TO_DATE('1994/02/26','yyyy/MM/dd'),'java104','0');
+
+alter table T_STU2 add(
+    score number(5)
+);
+
+select * from T_CLA2 ;
+select * from T_STU2 where CLA_NAME = 'java101' ;
+
+UPDATE BANK set money = money + 500 where COUNT1 = 1;
+update T_STU2 set score = 100 where id = 1 ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

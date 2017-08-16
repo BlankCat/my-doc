@@ -1,0 +1,327 @@
+使Eclipse支持scala&maven项目
+
+http://git.oschina.net/accuser/codes/8wjyl6obh5evap0c2tkmr82
+
+
+本人习惯使用STS(Spring IDE)工具作为开发IDE,STS版本:
+Version: 3.7.2.RELEASE
+Build Id: 201511261048
+Platform: Eclipse Mars.1 (4.5.1)
+使用的是Eclipse4.5.1的内核
+
+从Scala-IDE网站下载插件:
+http://scala-ide.org/download/prev-stable.html
+    4.4.1 Release for Scala 2.11.8
+    This release is only available for Eclipse 4.x and can be retrieved as zipfile.
+    得到base-20160504-1321.zip并解压
+
+在Eclipse中选择Help->Install new Software,加载本地插件,添加插件下载链接安装后，会提示重新启动Eclipse
+新建Scala Project工程Test，测试是否可正确使用，在project工程里除了加载JRE Library，修改并加载Scala Library(2.10.6)
+
+object Testd {
+  def main(args: Array[String]): Unit = {
+     val array = Array("scala 2.11.6","spark x.x.0")
+     array.foreach(println)
+  }
+}
+运行跟Java程序一样，被编译成class文件在JVM中运行
+scala 2.11.8
+spark x.x.0
+
+DONE!
+-----------------------------------------------------------------------
+使Eclipse支持Scala的Maven工程:
+按照上述过程完成第一步的版本加载过程后,接下来让eclipse能够新建scala的maven工程.
+同第一步安装插件一样,链接:http://alchim31.free.fr/m2e-scala/update-site/此URL是安装Maven for Eclipse.
+(一共需要下载15步,如果一遍不能安装成功,不要泄气,多下载并安装几次.本人使用了vpn安装了3次才完成)
+可见附件1
+
+在maven工程中,搜索"scala-arch",如果不能找到scala项目,则在Window->Preferences->Maven->Archetypes增加一个Remote Catalog
+url:http://repo.maven.apache.org/maven2/archetype-catalog.xml
+description:Remote Catalog
+
+pom.xml文件内容如下:
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.soargift</groupId>
+  <artifactId>soar</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>${project.artifactId}</name>
+  <description>My wonderfull scala app</description>
+  <inceptionYear>2015</inceptionYear>
+  <licenses>
+    <license>
+      <name>My License</name>
+      <url>http://....</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <properties>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
+    <encoding>UTF-8</encoding>
+    <scala.version>2.11.5</scala.version>
+    <scala.compat.version>2.11</scala.compat.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>${scala.version}</version>
+    </dependency>
+
+    <!-- Test -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.specs2</groupId>
+      <artifactId>specs2-core_${scala.compat.version}</artifactId>
+      <version>2.4.16</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!---增加此配置为了解决Junit的错误-->
+    <dependency>
+        <groupId>org.specs2</groupId>
+        <artifactId>specs2-junit_${scala.compat.version}</artifactId>
+        <version>2.4.16</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.scalatest</groupId>
+      <artifactId>scalatest_${scala.compat.version}</artifactId>
+      <version>2.2.4</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <sourceDirectory>src/main/scala</sourceDirectory>
+    <testSourceDirectory>src/test/scala</testSourceDirectory>
+    <plugins>
+      <plugin>
+        <!-- see http://davidb.github.com/scala-maven-plugin -->
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>testCompile</goal>
+            </goals>
+            <configuration>
+              <args>
+                <arg>-make:transitive</arg>
+                <arg>-dependencyfile</arg>
+                <arg>${project.build.directory}/.scala_dependencies</arg>
+              </args>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.18.1</version>
+        <configuration>
+          <useFile>false</useFile>
+          <disableXmlReport>true</disableXmlReport>
+          <!-- If you have classpath issue like NoDefClassError,... -->
+          <!-- useManifestOnlyJar>false</useManifestOnlyJar -->
+          <includes>
+            <include>**/*Test.*</include>
+            <include>**/*Suite.*</include>
+          </includes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+
+默认生成的pom.xml有bug,增加对JUnit的支持即可.
+(创建maven项目,本人操作了3次,前两次都报错,"error while loading Suite, Scala signature Suite has wrong version expected: 5.0 found: 4.1 in Suite.class")
+此错误出现的原因被我验证出来了,当引入了scala和spark,hadoop相关包,如果引入org.specs包就会报错.
+(猜测错误原因:本人使用的STS的版本相当于Eclipse的4.5.1,并且maven版本可能也比较高级了,网上有一些配置内容的版本比较低,要求引入org.specs,如下:)
+错误示例:
+    <dependency>
+      <groupId>org.specs</groupId>
+      <artifactId>specs</artifactId>
+      <version>1.2.5</version>
+      <scope>test</scope>
+    </dependency>
+所以,与如下的内容有了冲突,所以,省略配置org.specs的内容:
+    <dependency>
+			<groupId>org.specs2</groupId>
+			<artifactId>specs2-core_${scala.compat.version}</artifactId>
+			<version>2.4.16</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.specs2</groupId>
+			<artifactId>specs2-junit_${scala.compat.version}</artifactId>
+			<version>2.4.16</version>
+			<scope>test</scope>
+		</dependency>
+
+然后,修改jdk7和scala Library2.11.8
+
+使项目增加spark&hadoop支持包,并增加构建jar包,内容如下:
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.soargift</groupId>
+	<artifactId>soar</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>${project.artifactId}</name>
+	<description>My wonderfull scala app</description>
+	<inceptionYear>2015</inceptionYear>
+	<licenses>
+		<license>
+			<name>My License</name>
+			<url>http://....</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<properties>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<encoding>UTF-8</encoding>
+		<scala.version>2.11.8</scala.version>
+		<scala.compat.version>2.11</scala.compat.version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>scala-tools.org</id>
+			<name>Scala-Tools Maven2 Repository</name>
+			<url>http://scala-tools.org/repo-releases</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>scala-tools.org</id>
+			<name>Scala-Tools Maven2 Repository</name>
+			<url>http://scala-tools.org/repo-releases</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>${scala.version}</version>
+		</dependency>
+
+		<!-- 增加对spark的支持 -->
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-core_2.11</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		<!-- 增加对hadoop的支持 -->
+		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>hadoop-client</artifactId>
+			<version>2.6.0</version>
+		</dependency>
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.specs2</groupId>
+			<artifactId>specs2-core_${scala.compat.version}</artifactId>
+			<version>2.4.16</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.specs2</groupId>
+			<artifactId>specs2-junit_${scala.compat.version}</artifactId>
+			<version>2.4.16</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.scalatest</groupId>
+			<artifactId>scalatest_${scala.compat.version}</artifactId>
+			<version>2.2.6</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src/main/scala</sourceDirectory>
+		<testSourceDirectory>src/test/scala</testSourceDirectory>
+		<plugins>
+			<plugin>
+				<!-- see http://davidb.github.com/scala-maven-plugin -->
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>scala-maven-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>testCompile</goal>
+						</goals>
+						<configuration>
+							<args>
+								<arg>-make:transitive</arg>
+								<arg>-dependencyfile</arg>
+								<arg>${project.build.directory}/.scala_dependencies</arg>
+							</args>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<useFile>false</useFile>
+					<disableXmlReport>true</disableXmlReport>
+					<!-- If you have classpath issue like NoDefClassError,... -->
+					<!-- useManifestOnlyJar>false</useManifestOnlyJar -->
+					<includes>
+						<include>**/*Test.*</include>
+						<include>**/*Suite.*</include>
+					</includes>
+				</configuration>
+			</plugin>
+			<!-- 构建jar包 -->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>
+
+END!
+------------------------------------------
+在IDEA中导入Spark源码:
+
+从 Github 导入 Spark 工程
+打开IntelliJ IDEA 后，在菜单栏中选择 VCS→Check out from Version Control→Git，
+之后在 Git Repository URL 中填入 Spark 项目的地址，并指定好本地路径，如下图所示。
+

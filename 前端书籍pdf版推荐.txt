@@ -1,0 +1,101 @@
+
+前端书籍pdf版推荐.txt
+----------------------前端必备神器-------------------
+
+前端入门整套视频（我的程序入门之路）
+注：这套免费视频重点教会你知道前端是什么需要掌握哪些技能，如果想要进入实际开发，还是需要去官网
+或书籍来提高自己！！！！
+链接: https://pan.baidu.com/s/1cfaEAi 密码: ahjm
+推荐前端入门网站：（可以仔细研究一下）
+菜鸟教程：  http://www.runoob.com/
+w3cschool：https://www.w3cschool.cn/
+注：深入研究请到技术官网
+----------------------------------------------------
+菜鸟教程离线学习.zip
+链接: https://pan.baidu.com/s/1i5byA5R 密码: ahjm
+----------------------------------------------------
+html：
+
+HTML5+CSS3从入门到精通.pdf
+链接: https://pan.baidu.com/s/1gfBu64r 密码: ahjm
+
+----------------------------------------------------
+JavaScript：
+
+JavaScript高级程序设计（第3版）.pdf
+链接: https://pan.baidu.com/s/1kVvCYCB 密码: ahjm
+
+JavaScript面向对象编程指南.pdf
+链接: https://pan.baidu.com/s/1jIxaUMi 密码: ahjm
+
+JavaScript权威指南(第6版)(中文版).pdf
+链接: https://pan.baidu.com/s/1c19inbq 密码: ahjm
+
+DOJO权威指南（中文版）.pdf
+链接: https://pan.baidu.com/s/1pLfWdy7 密码: ahjm
+
+javascript学习.xmind
+链接: https://pan.baidu.com/s/1slUCViH 密码: ahjm
+
+javascript的DOM操作.xmind
+链接: https://pan.baidu.com/s/1eRC2ql0 密码: ahjm
+----------------------------------------------------
+jquery：
+
+锋利的jQuery 第2版.pdf
+链接: https://pan.baidu.com/s/1sli9MOX 密码: ahjm
+----------------------------------------------------
+angular：
+
+AngularJS权威教程.pdf
+链接: https://pan.baidu.com/s/1nvKBG4h 密码: ahjm
+----------------------------------------------------
+node.js：
+
+Node.js开发指南.pdf
+链接: https://pan.baidu.com/s/1co4ars 密码: ahjm
+Node.js权威指南.pdf
+链接: https://pan.baidu.com/s/1i522UFz 密码: ahjm
+深入浅出Node.js .pdf
+链接: https://pan.baidu.com/s/1caqZHs 密码: ahjm
+----------------------------------------------------
+微信开发：
+
+微信公众平台应用开发实战-完整扫描版.pdfss
+链接: https://pan.baidu.com/s/1nv5I9Wd 密码: ahjm
+微信公众平台开发最佳实践 第2版.pdf
+链接: https://pan.baidu.com/s/1o7RfaYI 密码: ahjm
+----------------------------------------------------
+常用api参考手册
+
+jQuery文档.chm
+链接: https://pan.baidu.com/s/1hseO1Pa 密码: ahjm
+
+html5参考手册.chm
+链接: https://pan.baidu.com/s/1c1MFEqG 密码: ahjm
+
+JavaScript语言中文参考手册.chm
+链接: https://pan.baidu.com/s/1mhPhqyO 密码: ahjm
+
+Javascript参考手册.chm
+链接: https://pan.baidu.com/s/1i4VYY9Z 密码: ahjm
+
+JavaScript核心参考手册.chm
+链接: https://pan.baidu.com/s/1i44o9tN 密码: ahjm
+
+Bootstrap-中文-API.chm
+链接: https://pan.baidu.com/s/1boA62pL 密码: ahjm
+
+CSS4.0中文参考手册.chm
+链接: https://pan.baidu.com/s/1pKKXqUf 密码: ahjm
+
+AngularJS 中文API参考手册.chm
+链接: https://pan.baidu.com/s/1kV3eOnX 密码: ahjm
+
+网页配色参考大辞典.chm
+链接: https://pan.baidu.com/s/1dF7uSEX 密码: ahjm
+-----------------------------------------------------
+**备注**
+1.推荐阅读器：福昕阅读器移动版可以通过电脑将书导入到阅读器
+2.好书需要练，只看不练不算数！！！！
+3.如果前端刚入门，请先看入门教程！！！

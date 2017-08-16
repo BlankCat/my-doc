@@ -1,0 +1,16 @@
+加密规则MD5---取.substring(8, 24);
+PasswordEncoderImpl.java
+
+http://base.zfwx.com/v3/auth/validatePwd.json?username=hzsadmin&old_password=123456t
+杭州市admin（老密码）
+c6b1bdecb65f660a7d976aeb5e9d5592
+
+（123456t）
+b65f660a7d976aeb
+
+
+
+
+
+（1-8）
+83aa400af464c76d

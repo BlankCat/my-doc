@@ -1,0 +1,222 @@
+AngularJS2 架构
+
+Angular 2 应用程序应用主要由以下 8 个部分组成：
+1、模块 (Modules)
+   declarations （声明） - 视图类属于这个模块。(视图模块，自定义的模块的引用)
+   exports - 声明（ declaration ）的子集，可用于其它模块中的组件模板 。
+   imports - 本模块组件模板中需要由其它导出类的模块。（相当于1.0中的angular.module）
+   providers - 服务的创建者。
+   bootstrap - 应用的主视图，称为根组件，它是所有其它应用视图的宿主。只有根模块需要设置 bootstrap 属性中。bootstrap: [ AppComponent ]即可
+   开发过程通常在 main.ts 文件中来引导 AppModule 
+
+2、组件 (Components)
+	从 @angular/core 中引入 Component 修饰器
+	建立一个普通的类，并用 @Component 修饰它
+	在 @Component 中，设置 selector 自定义标签，以及 template 模板
+3、模板 (Templates)
+         就是常见的html模板，但是要注意多行的时候用``这个符号操作
+4、元数据 (Metadata)
+	@Component 中的配置项说明：
+	selector - 一个 css 选择器，它告诉 Angular 在 父级 HTML 中寻找一个 <mylist> 标签，然后创建该组件，并插入此标签中。（给模板创建一个标签）
+	templateUrl - 组件 HTML 模板的地址。
+	directives - 一个数组，包含 此 模板需要依赖的组件或指令。
+	providers - 一个数组，包含组件所依赖的服务所需要的依赖注入提供者。
+5、数据绑定 (Data Binding)
+        插值 : 在 HTML 标签中显示组件值。用{{}}
+        属性绑定: 把元素的属性设置为组件中属性的值。<img [src]="userImageUrl">
+        事件绑定: 在组件方法名被点击时触发。  <button (click)="onSave()">保存</button>
+         事件绑定的话一般和1.0中的ng-click一样，不同的是将ng-click换成了(click)
+        双向绑: 使用Angular里的NgModel指令可以更便捷的进行双向绑定。 <input [(ngModel)]="hero.name" placeholder="name"/>
+6、指令 (Directives)
+        属性指令：以元素的属性形式来使用的指令。
+	结构指令：用来改变DOM树的结构
+	组件：作为指令的一个重要子类，组件本质上可以看作是一个带有模板的指令。
+	<li *ngFor="let site of sites"></li>
+	<site-detail *ngIf="selectedSite"></site-detail>
+	*ngFor 告诉 Angular 为 sites 列表中的每个项生成一个 <li> 标签。
+	*ngIf 表示只有在选择的项存在时，才会包含 SiteDetail 组件。
+7、服务 (Services)也就是可以重复利用的功能
+    Angular2中的服务是封装了某一特定功能，并且可以通过注入的方式供他人使用的独立模块。
+	服务分为很多种，包括：值、函数，以及应用所需的特性。
+	例如，多个组件中出现了重复代码时，把重复代码提取到服务中实现代码复用。
+8、依赖注入 (Dependency Injection)
+Angular 能通过查看构造函数的参数类型，来得知组件需要哪些服务。 例如， SiteListComponent 组件的构造函数需要一个 SiteService:
+constructor(private service: HeroService) { }
+当 Angular 创建组件时，会首先为组件所需的服务找一个注入器（ Injector ） 。
+
+
+2.0中的表单问题：需要再app.module中引入import { FormsModule }   from '@angular/forms';模块
+每一个组件下面的class和controller差不多，在这里面可以定义方法等属性
+
+可以在其引入任何的js和css插件   表单验证中的属性也都可以用，但是作为属性的存在要用[],
+
+
+angular中的模板语法
+class的用法是[class]
+style的用法如下（可以调用方法）
+<div [ngStyle]="setStyles()">
+<button [style.color] = "isSpecial ? 'red': 'green'">红色</button>
+
+
+服务：（也就是方法的封装）
+服务的命名，一般需要用小写服务名.service.ts命名
+服务的导出系统：
+@Injectable()装饰器不要忘记()
+HeroService服务名，一般与文件名相对照
+export class HeroService {
+   类型为Hero[]类型并return出HEROES常量
+   getHeroes(): Hero[] {
+    return HEROES;
+  }
+  HeroService使用此Promise返回getHeroes方法更新：
+  getHeroes(): Promise<Hero[]> {
+  return Promise.resolve(HEROES);
+}
+}
+
+服务的使用：（注入服务）
+在要用到的组件中注入服务 如在app.component中
+该参数同时定义了一个私有heroService属性，并将其标识为HeroService注入点。
+注入点：constructor(private heroService: HeroService) { }
+我们必须教会注射器如何HeroService通过注册一个HeroService 提供者。通过providers在@Component调用中将组件元数据的底部添加以下数组属性来实现。
+providers: [HeroService]
+
+下面就可以使用了
+getHeroes(): void {
+    this.heroes = this.heroService.getHeroes();
+    使用了promise的then方法
+    this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+  }
+
+服务中的难点：
+void一般这种类型都是用在函数的返回值上
+ngOnInit(): void {
+  }
+我们ngOnInit使用我们的初始化逻辑编写一个方法，并将它留给Angular在适当的时间调用它。在我们的例子中，我们通过调用来初始化getHeroes。
+我知道ngOnInit和constructor都能在页面初始化的时候执行，constructor比ngOnInit快，并且看到官网说尽量将复杂的内容放在ngOnInit里，我也一直是这么做的。
+
+
+onselect是当你选择文本内容是而触发的事件
+重点是angular2.0的路由机制(已经处理完毕，会用状态) 切记注入问题，
+
+
+重重点：angular2.0的服务机制（运用post和get请求拿数据）
+服务的用法并不是一成不变的，也就是事件加请求，对于angular2.0的变化，可以使用使用ajax的方法发送请求，或者使用
+http协议用法和$http相差不是太多：
+
+使用http协议需要经过下面几个步骤：（组件不能直接与http进行通信“所以数据访问始终委托给服务端”）
+    第一步：先要导入@angular/http模块  import { HttpModule, JsonpModule } from '@angular/http';
+    并且在imports:中注入这两个模块  [字面含义是：一个为http包（是必须的），一个是解析jsonp的包]
+    Angular Http客户端进行通信XMLHttpRequest (XHR)即（ajax）
+    第二步：
+
+
+在服务中使用get拿数据：在服务中引入要用的包 getHeroes()
+
+//定义要请求的url地址
+private heroesUrl = 'app/heroes';  // 请求的地址
+//在http服务注入到我们设置的服务中，以便于在页面中引用
+constructor (private http: Http) {}
+//GET请求的用法
+getHeroes (): Observable<Hero[]> {
+  return this.http.get(this.heroesUrl)  //请求数据的地址
+                  .map(this.extractData) //成功时返回数据相当于 .trun
+                  .catch(this.handleError);  //失败时返回错误信息（将记录到控制台的错误信息返回出来）
+}
+//处理响应请求（对拿到的数据进行处理“也可以直接在map中处理”）
+private extractData(res: Response) {
+  //将响应的数据变为json进行处理
+  let body = res.json();
+  此服务器始终将JSON结果封装在具有data 属性的对象中。（所以我们要解开对象进行处理）
+  return body.data || { };
+}
+
+//处理错误信息（通用）
+ private handleError (error: Response | any) {
+    // 在真实的应用程序,我们可以使用远程日志基础设施  （let相当于在js中的var但是它代表的是在特定的区域中使用）
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Observable.throw(errMsg);
+
+//最后需要在要用到服务的组件中去使用服务：用法如下
+   getHeroes() {
+   this.heroService.getHeroes()
+                   .subscribe(
+                     heroes => this.heroes = heroes,
+                     error =>  this.errorMessage = <any>error);
+    }
+
+post请求的运用：
+
+RxJS 是第三方库，由Angular认可，实现 异步可观察模式。（常用在http请求中的.map）
+使用的时候需要引入：这些模块：
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+
+ngOnInit详细理解:生命周期内的调用，调用后就结束，如果改变就再次调用
+
+
+思路：每一个小的组件都有一个对应的 n.component.js的组件设置，其中包含服务，模板等性质，
+一般一个angular2.0的应用，需要建立组件自己的文件夹，和服务的文件夹，以便于管理多个应用，
+angular的导出都是用export和导入import { AppComponent }  from './app.component';这一种方法
+前面是类名后面为路径，模板的话有模板名，后面可以跟相对应的模板或者模板地址
+
+学习思路先看懂小项目，然后在学习细的东西
+重要的是 模块-->组件-->模板-->服务--->
+
+项目运行机制：
+先下载我的源码
+然后安装淘宝镜像
+$ npm install -g cnpm --registry=https://registry.npm.taobao.org
+之后安装模块包
+$ cnpm install
+最后运行
+
+http://git.oschina.net/hjm100/codes/4lvz0fa5u1r9jx2e7osdi19
+
+npm start
+
+项目架构：
+如果遇到ts中的变量错误，就可以执行npm run liet来直接运行所有文件，已达到我们想要的效果
+
+
+
+路由问题深入研究
+angular2 毕竟是客户端执行的，当直接访问路由地址时服务器也不知到底是什么请求，
+
+解决路由2次刷新出现404的情况
+//配置app.module.ts
+import {LocationStrategy,HashLocationStrategy} from '@angular/common';
+
+providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},HeroService]
+
+这样设置后，访问angular站点，会自动在根节点后面加一个#锚点。再次刷新便不会报404错误了。
+
+
+第二种解决方法：
+
+解决方法：只需要将路由转换成哈希值: userHash: true，将路由转化成“#”号的形式
+
+哈希路由形式：“http://localhost:8080/#/login”
+
+在模块中注册路由的时候，添加{useHash: true}就可以了。
+
+在app.routing.module.ts中添加，   （最简单的方法）
+imports: [
+    RouterModule.forRoot(myRouter, {useHash: true})
+],
+
+
+angular2中的模态弹框
+
+
+//angular2的知识点持续更新中
+

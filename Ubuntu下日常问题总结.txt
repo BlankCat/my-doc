@@ -1,0 +1,205 @@
+http://git.oschina.net/xiaoguozhier/codes/gwvfy8rnz7adb1o6j4spe16
+
+
+
+1、有些软件打开报错（比如打开Qt creator）：缺少libgstreamer0.10.so或者名字类似的库。
+解决方法：
+$sudo apt install libgstreamer0.10-dev
+$sudo apt install libgstreamer-plugins-base0.10-dev
+
+2、缺少opengl或者Qt编译程序提示 not find -lGL类似的问题。
+解决方法：
+$sudo apt install build-essential
+$sudo apt install libgl1-mesa-dev
+
+3、ubuntu arm板子语言设置，不设置的话报:
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LANG = "zh_CN.UTF-8"
+解决方法：
+$apt-get install language-pack-zh-hans
+
+4、ubuntu14.04 arm源：
+deb http://mirrors.ustc.edu.cn/ubuntu-ports/ trusty main multiverse restricted universe
+deb http://mirrors.ustc.edu.cn/ubuntu-ports/ trusty-backports main multiverse restricted universe
+deb http://mirrors.ustc.edu.cn/ubuntu-ports/ trusty-proposed main multiverse restricted universe
+deb http://mirrors.ustc.edu.cn/ubuntu-ports/ trusty-security main multiverse restricted universe
+deb http://mirrors.ustc.edu.cn/ubuntu-ports/ trusty-updates main multiverse restricted universe
+deb-src http://mirrors.ustc.edu.cn/ubuntu-ports/ trusty main multiverse restricted universe
+deb-src http://mirrors.ustc.edu.cn/ubuntu-ports/ trusty-backports main multiverse restricted universe
+deb-src http://mirrors.ustc.edu.cn/ubuntu-ports/ trusty-proposed main multiverse restricted universe
+deb-src http://mirrors.ustc.edu.cn/ubuntu-ports/ trusty-security main multiverse restricted universe
+deb-src http://mirrors.ustc.edu.cn/ubuntu-ports/ trusty-updates main multiverse restricted universe
+
+5、ubuntu core 的下载地址:
+http://cdimage.ubuntu.com/
+
+6、解决Qt中不能输入中文
+解决方法：
+(1、安装小企鹅输入法(搜狗输入法linux 版)，并安装fcitx-frontend-qt5
+$sudo apt install fcitx-frontend-qt5
+(2、查看安装的fcitx-frontend-qt5的路径：
+$dpkg -L fcitx-frontend-qt5
+输出 ：
+/.
+/usr
+/usr/lib
+/usr/lib/x86_64-linux-gnu
+/usr/lib/x86_64-linux-gnu/qt5
+/usr/lib/x86_64-linux-gnu/qt5/plugins
+/usr/lib/x86_64-linux-gnu/qt5/plugins/platforminputcontexts
+/usr/lib/x86_64-linux-gnu/qt5/plugins/platforminputcontexts/libfcitxplatforminputcontextplugin.so
+......
+说明fcitx-frontend-qt5在/usr/lib/x86_64-linux-gnu/qt5/plugins/platforminputcontexts/路径下有libfcitxplatforminputcontextplugin.so
+(3、复制libfcitxplatforminputcontextplugin.so到Qt Creator的两个平台插件文件夹下，
+/opt/Qt5.7.0/5.7/gcc_64/plugins/platforminputcontexts和
+/opt/Qt5.7.0/Tools/QtCreator/lib/Qt/plugins/platforminputcontexts/（有时该路劲略有差别）
+命令：
+$cd /usr/lib/x86_64-linux-gnu/qt5/plugins/platforminputcontexts/
+$sudo cp libfcitxplatforminputcontextplugin.so /opt/Qt5.7.0/5.7/gcc_64/plugins/platforminputcontexts/
+$sudo cp libfcitxplatforminputcontextplugin.so /opt/Qt5.7.0/Tools/QtCreator/lib/Qt/plugins/platforminputcontexts/
+(4、重启QtCreator。
+
+7、安装arm编译器arm-gcc和arm-g++:
+$sudo apt install gcc-arm-linux-gnueabihf
+$sudo apt install g++-arm-linux-gnueabihf
+
+8、ubuntu安装软件时出现依赖错误，即装不上又卸不掉，怎么办？
+解决方法：
+(1、先卸载：
+$sudo apt remove 软件名
+这时会报该软件依赖XXX，无法卸载之类的错误，解决方法就是在上面这个命令后面，空格加上被依赖的文件名，
+继续卸载，如果还有依赖的，把依赖的软件继续加在后面，继续卸载，直到能够正确执行。
+简单来说就是，依赖什么，就连什么一起卸载，直到能够正确卸载。
+(2、上面的正确卸载完之后，执行以下命令：
+$sudo apt autoremove
+即执行自动删除，把残留的没有用的库和软件都卸载干净。
+
+9、ubuntu 16.04 安装32位兼容运行库
+$sudo apt-get install libc6:i386
+
+10、编译内核报：
+*** Unable to find the ncurses libraries or the
+ *** required header files.
+ *** 'make menuconfig' requires the ncurses libraries.
+ *** 
+ *** Install ncurses (ncurses-devel) and try again.
+ *** 
+/home/weifen/workdir/linux-3.8/scripts/kconfig/Makefile:196: recipe for target 'scripts/kconfig/dochecklxdialog' failed
+make[1]: *** [scripts/kconfig/dochecklxdialog] Error 1
+Makefile:513: recipe for target 'menuconfig' failed
+make: *** [menuconfig] Error 2
+
+解决方法：
+$ sudo apt install libncurses5-dev
+
+10、解决MYSQL support cannot be enabled due to functionality test !
+解决方法：
+先查看都有那些软件，然后装和当前mysql版本相同的，一般是最新的比如下面：
+$apt list mysql*                              
+$sudo apt install  libmysqlclient20
+$sudo apt install  libmysqlclient-dev
+
+11、解决Qt mysql driver 编译不过报：找不到 -llibmysqlclient_r
+sudo ln -s /usr/lib/x86_64-linux-gnu/libmysqlclient.so.20.2.1 /usr/lib/x86_64-linux-gnu/libmysqlclient_r.so
+这里的20.2.1按照具体版本决定
+
+12、mysql不识别中文问题：
+解决方法：
+在/etc/mysql/my.cnf中添加：
+[client]
+default-character-set = utf8
+[mysqld]
+character-set-server = utf8
+init_connect = 'SET NAMES utf8'
+
+13、解决 makeinfo: command not found
+解决方法：sudo apt install texinfo
+
+14、解决yacc:command not found 
+解决方法：sudo apt install bison
+
+15、解决ubuntu16.04无法安装.deb软件包的问题：
+$sudo apt install gdebi
+然后“右键”deb软件包，选择“用其他方式打开”，选择用gdeb打开文件，点击gdeb界面中的“安装”即可。
+
+16、java环境变量配置：
+解决方法：下载JDK包jdk1.8.0_91.tar.gz解压，将解压后文件夹放在一个目录中（如：/opt/下，目录结构为/opt/jdk1.8.0_91）,
+然后打开.bashrc配置文件（在当前用户的家目录下），添加以下代码：
+export JAVA_HOME=/opt/jdk1.8.0_91
+export CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib:$CLASSPATH
+export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH
+命令：
+$tar zxvf jdk1.8.0_91.tar.gz
+$sudo mv jdk1.8.0_91 /opt/
+$gedit .bashrc
+添加代码即可，然后注销电脑后重新登录，在终端中输入java和javac验证。
+
+17、ubuntu检测库文件依赖,"ldd 库文件名"比如：
+$ldd libc6.so
+
+18、解决Qt “Ther QMediaPlayer object does not have a valid service.
+Please check the media service plugin are installed.”
+解决方法：
+$sudo apt install libgstreamer0.10-dev gstreamer-tools gstreamer0.10-tools gstreamer0.10-dochecklxdialog
+$sudo apt install gstreamer0.10-plugins-base gstreamer0.10-plugins-good gstremer0.10-plugin-ugly 
+gstreamer0.10-plugins-bad gstreamer0.10-plugins-bad-multiverse
+
+19、Qt 2D render渲染：
+https://github.com/qtproject/qtdeclarative-render2d/tree/dev/tools/opengldummy
+
+20、ubuntu登录后不显示桌面窗体边框和顶部任务栏，在桌面上右键打开终端或者ctrl+alt+F1（如果有功能键的话ctrl+alt+Fn+F1）。
+解决方法：
+$cd ~
+$rm -rf .compiz
+$rm -rf .cache/compizconfig-1
+$rm -rf .config/compiz-1
+$reboot
+
+21、连接wifi
+1.加载驱动，配置网卡
+$insmod /lib/modules/bcmdhd.ko
+$ifconfig -a
+$ifconfig wlan0 updates
+$ifconfig wlan0 192.168.1.230
+2.修改配置文件wpa_supplicant.conf 
+$vi /etc/wifi/supplicant.conf 
+
+network={
+ssid="tplink123"								//wifi 名称
+    scan_ssid=1
+    key_mgmt=WPA-EAP WPA-PSK IEEE8021X NONE
+    pairwise=CCMP TKIP
+    group=CCMP TKIP WEP104 WEP40
+psk="12345678"                              //wifi密码
+    eap=TTLS PEAP TLS
+}
+3.然后连接wifi网络：
+$wpa_supplicant -D wext -i wlan0 -c /etc/wifi/wpa_supplicant.conf &
+
+22、Linux下载软件：
+使用wget命令下载，命令如下：
+$wget http://ftp.gnu.org/gnu/gcc/gcc-6.2.0/gcc-6.2.0.tar.bz2
+以上命令会将gcc源代码下载到当前目录下
+如何下载大量软件？
+答：将软件下载链接保存在文件中，一个链接作为一行，假设文件名为wget-list然后用如下命令：
+$wget --input-file=wget-list --continue --directory-prefix=~/sources
+这条命令会将wget-list中下载链接全部下载到home目录下的sources目录中。
+
+23.centos mysql修改密码：
+在my.cnf中添加skip-grant-tables
+重启不需密码即可登录Mysql,然后：
+update mysql.user set authentication_string=password('root') where user='root' ;
+
+25.找不到-lpulse
+答：sudo cp /usr/lib/x86_64-linux-gnu/libpulse.so.0 /usr/lib/libpulse.so
+26.找不到-lpulse-mainloop-glib
+答：sudo cp /usr/lib/x86_64-linux-gnu/libpulse-mainloop-glib.so.0 /usr/lib/libpulse.mainloop-glib.so
+
+26. ubuntu 死机重启无法进入系统，提示：
+/dev/sda1 contains a file system error …… (initramfs)的问题。
+解决办法：
+$fsck -yv /dev/sda1
+$reboot

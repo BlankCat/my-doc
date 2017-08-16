@@ -1,0 +1,62 @@
+Android 6.0权限管理
+
+
+
+
+private static final String TAG = "MainActivity";
+  private static final int REQUEST_CODE_CAMERA = 0x01;
+  private RelativeLayout activity_main;
+  private PermissionManager mPermissionManager= null;
+
+  @Override protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    activity_main = (RelativeLayout) findViewById(R.id.activity_main);
+    getPermission();
+  }
+
+  public void getPermission() {
+    mPermissionManager = PermissionManager.with(this)
+        // 添加权限请求码
+        .addRequestCode(REQUEST_CODE_CAMERA)
+        // 设置权限
+        .permissions(Manifest.permission.CAMERA)
+        // 设置权限监听器
+        .setPermissionsListener(new PermissionListener() {
+          @Override public void onGranted() {
+            // 当权限被授予时
+            Log.e(TAG, "onGranted: 权限被授予");
+          }
+
+          @Override public void onDenied() {
+            // 用户拒绝该权限
+            Log.e(TAG, "onDenied: 用户拒绝该权限");
+          }
+
+          @Override public void onShowRationale(String[] permissions) {
+            Log.e(TAG, "onShowRationale: 再次请求");
+            // 当用户拒绝某权限时并点击`不再提醒`的按钮时，下次应用再请求该权限时，
+            // 需要给出合适的响应（比如,给个展示对话框来解释应用为什么需要该权限）
+            Snackbar.make(activity_main, "需要相机权限", Snackbar.LENGTH_INDEFINITE)
+                .setAction("ok", new View.OnClickListener() {
+                  @Override public void onClick(View v) {
+                    // 必须调用manager.setIsPositive(true);
+                    mPermissionManager.setIsPositive(true);
+                    mPermissionManager.request();
+                  }
+                })
+                .show();
+          }
+        })
+        .request();
+  }
+
+  @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+      @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    switch (requestCode){
+      case REQUEST_CODE_CAMERA:
+        mPermissionManager.onPermissionResult(permissions,grantResults);
+        break;
+    }
+  }
