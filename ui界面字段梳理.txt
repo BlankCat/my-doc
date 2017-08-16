@@ -1,0 +1,53 @@
+        realName : '',             // 真实姓名
+        userName : '',             // 用户名
+        sex      : '',             // 性别
+        birth    : '',             // 出生年月 
+        unit     : '',             // 执业单位
+        unitId   : '',             // 执业id
+        phone    : '',             // 手机号
+        tel      : '',             // 电话
+        fax      : '',             // 传真
+        email    : '',             // 邮箱
+        idNum    : '',             // 身份证号
+        nativePlace : '',          // 籍贯
+        health   : '',             // 健康状况
+        address  : '',             // 地址
+        zipCode  : '' ,            // 邮编
+        individualResume : '',     // 个人简介
+
+
+        userName : '',             // 用户名
+        charteredType : '',        // 执业类型
+        charteredYear : '',        // 执业年限 
+        businessRange : '',        // 业务范围
+
+        zyList : [                    // 职务机构 
+            {
+                name : '',
+                startTime : '',
+                endTime : ''
+                zyZw:''
+            }
+        ],
+
+        professional : '',
+        maxQualifications : '',    // 最高学历
+        maxDegree : '',            // 最高学位
+        english : '',              // 英语水平 
+        politicalStatus : '',      // 政治面貌
+        joinPartyTime : '',        // 入党时间
+        eduList : [                  // 培训经历 
+            {
+                name : '',
+                startTime : '',
+                endTime : ''
+                eduZz:""
+            }
+        ],
+
+
+        speciality : '',           // 特长
+        awardPunish : '',          // 奖惩情况
+        mainStory : ''             // 主要事迹
+        train : '',                // 培训状况
+lawyerType : '',
