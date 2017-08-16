@@ -1,0 +1,11 @@
+git命令
+
++--git上传代码--
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/BlankCat/my-doc.git
+git push -u origin master
+git remote add origin https://github.com/BlankCat/my-doc.git
+git push -u origin master
++--git上传代码--
