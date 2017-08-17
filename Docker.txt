@@ -1,4 +1,4 @@
- CentOS�ϰ�װDocker
+ CentOS上安装Docker
 http://blog.csdn.net/qwer026/article/details/50540705
 
 $ uname -r
