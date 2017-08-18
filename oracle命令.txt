@@ -1,0 +1,199 @@
+
+oracle命令（-）Oracle登录命令
++---
+http://www.cnblogs.com/NaughtyBoy/p/3181052.html
+1、运行SQLPLUS工具
+
+　　C:\Users\wd-pc>sqlplus
+
+2、直接进入SQLPLUS命令提示符
+
+　　C:\Users\wd-pc>sqlplus /nolog
+
+3、以OS身份连接 
+
+　　C:\Users\wd-pc>sqlplus / as sysdba   或
+
+　　SQL>connect / as sysdba
+
+4、普通用户登录
+
+　　C:\Users\wd-pc>sqlplus scott/123456 　或
+
+　　SQL>connect scott/123456  或
+
+　　SQL>connect scott/123456@servername
+
+5、以管理员登录
+
+　　C:\Users\wd-pc>sqlplus sys/123456 as sysdba　或
+
+　　SQL>connect sys/123456 as sysdba
+
+6、切换用户
+
+　　SQL>conn hr/123456 
+
+　　注：conn同connect
+
+ 7、退出
+
+　　exit
+
++---
+Oracle命令（二）：Oracle数据库几种启动和关闭方式
+一、Oracle数据库几种启动方式
+
+1、startup nomount
+
+　　非安装启动，这种方式下启动可执行：重建控制文件、重建数据库，读取init.ora文件，启动instance，即启动SGA和后台进程，这种启动只需要init.ora文件。
+
+2、startup mount (dbname)
+
+　　安装启动，这种方式启动下可执行：数据库日志归档、数据库介质恢复、使数据文件联机或脱机、重新定位数据文件、重做日志文件。
+
+　　执行“nomount”，然后打开控制文件，确认数据文件和联机日志文件的位置，但此时不对数据文件和日志文件进行校验检查。
+
+3、startup open (dbname)
+
+　　先执行“nomount”，然后执行“mount”，再打开包括Redo log文件在内的所有数据库文件，这种方式下可访问数据库中的数据。
+
+4、startup 等于以下三个命令
+
+　　startup nomount
+
+　　alter database mount
+
+　　alter database open
+
+5、startup restrict
+
+　　约束方式启动，这种方式能够启动数据库，但只允许具有一定特权的用户访问，非特权用户访问时，会出现以下提示：
+
+　　ERROR：ORA-01035: ORACLE 只允许具有 RESTRICTED SESSION 权限的用户使用
+
+6、startup force
+
+　　强制启动方式，当不能关闭数据库时，可以用startup force来完成数据库的关闭，先关闭数据库，再执行正常启动数据库命令
+
+7、startup pfile=参数文件名
+
+　　带初始化参数文件的启动方式，先读取参数文件，再按参数文件中的设置启动数据库
+
+　　例：startup pfile=E:\Oracle\admin\oradb\pfile\init.ora
+
+8、startup EXCLUSIVE
+
+　　独占和共享启动
+
+ 
+
+二、Oracle三种关闭方式
+
+1、shutdown normal
+　　正常方式关闭数据库
+
+2、shutdown immediate
+
+　　立即方式关闭数据库，在SVRMGRL中执行shutdown immediate，数据库并不立即关闭，而是在Oracle执行某些清除工作后才关闭（终止会话、释放会话资源），当使用
+
+　　shutdown不能关闭数据库时，shutdown immediate可以完成数据库关闭的操作。
+
+3、shutdown abort
+
+　　直接关闭数据库，正在访问数据库的会话会被突然终止，如果数据库中有大量操作正在执行，这时执行shutdown abort后，重新启动数据库需要很长时间。
+
+
+
+
+
+
+
++---
+http://www.cnblogs.com/NaughtyBoy/p/3185099.html
+Oracle命令（三）：Oracle用户
+1、显示当前用户名 
+　　select user from dual;
+　　show user
+
+2、显示当然用户有哪些表 
+　　select * from tab;
+
+3、显示当所有用户的表 
+　　select * from user_tables;
+
+4、显示当有用户可以访问表 
+　　select * from all_tables;
+
+5、显示用户为SCOTT的表 
+　　select * from dba_tables where owner='SCOTT';
+
+6、显示所有用户名和帐户的状态 
+　　select username,account_status from dba_users;
+
+7、显示所有用户信息 
+　　select * from dba_users;
+
+8、将SCOTT帐号解锁(加锁) 
+　　alter user scott account unlock(lock);
+
+9、当前用户的缺省表空间 
+　　SELECT DEFAULT_TABLESPACE FROM DBA_USERS WHERE USERNAME=(select user from dual);
+
+10、显示当前数据库的用户 
+　　SELECT USERNAME,ACCOUNT_STATUS,DEFAULT_TABLESPACE,TEMPORARY_TABLESPACE FROM DBA_USERS;
+
+11、建立一个新用户 
+　　create user edpthw identified by "123456" 
+　　default tablespace users 
+　　temporary tablespace temp 
+　　quota unlimited on users 
+　　quota 10m on mytbs2;
+
+12、给用户授权 
+　　grant connect,resource to edpthw;
+
+13、分别授权 
+　　GRANT CREATE ANY TABLE TO "hmtong" 
+　　GRANT CREATE TABLE TO "hmtong" 
+　　GRANT DROP ANY TABLE TO "hmtong" 
+　　GRANT SELECT ANY TABLE TO "hmtong"
+
+14、对象授权 
+　　GRANT SELECT ON "hmtong"."A" TO "edpthw"
+
+15、折消授权 
+　　REVOKE UNLIMITED TABLESPACE FROM "hmtong"
+
+16、折消对象授权 
+　　REVOKE SELECT ON "hmtong"."A" FROM "edpthw"
+
+17、用户改密码 
+
+　　alter user edpthw identified by edpthw;
+
+18、授权sysdba给指定用户 
+　　grant sysdba to hmtong;
+
+19、取消指定用户的sysdba权限 
+　　revoke sysdba from hmtong;
+
+20、修改系统的授权的属性 
+　　alter system set remote_login_passwordfile=exclusive;
+
+　　能sysdba登录,能授权 
+　　alter system set remote_login_passwordfile=shared scope=spfile; 只能sysdba登录,不能授权 
+　　alter system set remote_login_passwordfile=NONE; 取消
+
+21、授权连接给指定用户 
+　　GRANT "CONNECT" TO "hmtong"; GRANT UNLIMITED TABLESPACE,CONNECT,RESOURCE TO HMTONG;
+
+22、查询Pwfile中存放的用户信息 
+　　select * from v$pwfile_users;
+
+ 
+
+
+
+
+
