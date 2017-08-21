@@ -7,8 +7,6 @@ base工程服务器地址
 密码
 
 
-oGcnhnrjmnififtc2GX3v6bfXVxnqPrkSu7jcfxp
-
 启动服务器
 /etc/init.d/tomcat2 restart
 tail -f /usr/local/tomcat2/logs/catalina-daemon.out
@@ -49,7 +47,7 @@ vi 编辑保存
 用户名
 root
 密码
-pfrNzrgp6ajpfrNzrgp6aQQV9mepi4jpfrNzrgp6aQ
+
 
 
 查询redis
@@ -211,8 +209,6 @@ http://alibaba.github.io/dubbo-doc-static/Telnet+Command+Reference-zh-showCommen
 
 ======================================================================
 管理后台界面
-账号yangdebao
-密码yangdebao
 http://admin.zfwx.com/admin/index.jsp
 
 -----------定位action------------
