@@ -1,0 +1,463 @@
+线上文件路径
+\\192.168.1.206\softMgr\jc
+
+base工程服务器地址
+121.40.51.43	
+用户名:root
+密码
+
+
+oGcnhnrjmnififtc2GX3v6bfXVxnqPrkSu7jcfxp
+
+启动服务器
+/etc/init.d/tomcat2 restart
+tail -f /usr/local/tomcat2/logs/catalina-daemon.out
+
+
+
+cd /data0/wwwroot/
+ls
+cd base
+
+端口号 9282
+
+
+
+
+http://base.zfwx.com
+去host文件里面根据域名找对应的ip
+http://base.zfwx.com/register.do;jsessionid=2273D8E3BE7EEE9124BB8082EE045D2C
+
+
+=====================================================================
+
+207服务器查看zookeeper查看服务是否启动
+192.168.1.207
+用户名
+root
+密码
+asdf!@#$
+
+
+
+vi 编辑保存
+
+
+=====================================================================
+查询redis服务
+121.40.34.17
+用户名
+root
+密码
+pfrNzrgp6ajpfrNzrgp6aQQV9mepi4jpfrNzrgp6aQ
+
+
+查询redis
+ps -ef |grep redis
+cd /usr/local/redis/bin
+ls
+启动客户端软件
+./redis-cli
+选择库
+select 3 选择3号库
+ok
+get |lstangrongzhi  查询出对应的值
+keys *
+keys 
+
+
+http://redisdoc.com/
+
+
+===================================================================
+设置时效，过期后就自动删除
+set a f
+expire a 144000/3600 4个小时
+查看时效
+ttl a
+
+
+=====================================================================
+
+//30机器 data0目录是工程目录
+政法网校api
+114.55.36.30
+用户名
+root
+密码
+
+
+启动服务器
+/etc/init.d/tomcat2 restart
+tail -f /usr/local/tomcat1/logs/catalina-daemon.out
+
+
+api 监听的端口号：6088
+
+正式网
+http://devapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=12345678&version=4.13&j_username=13555566666&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+http://api.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=12345678&version=4.13&j_username=13555566666&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+测试网
+https://zjapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=12345678&version=4.13&j_username=13555566666&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+
+https://zjapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=12345678&version=4.13&j_username=299797&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+https://zjapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=12345678&version=4.13&j_username=13555566666&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+
+https://zjapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=12345678&version=4.13&j_username=yangjuanjuan12345&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+6088端口
+
+
+=====================================================================
+
+115.29.221.112
+mobile工程测试服务器
+用户名
+root
+密码
+
+
+
+
+115.29.221.112   
+
+5098端口
+5099端口
+
+
+
+步骤1
+进入tomcat的conf执行命令
+cat server.xml
+产看工程部署目录
+
+步骤2
+查看tomcat的环境变量
+cat /etc/profile
+查看tomcat环境变量
+步骤3
+进入/etc/init.d目录下查看有没有tomcat的启动脚本
+执行命令(在tomcat的脚本上面检索环境变量)
+grep "CATALINA_HOME" /etc/init.d/tomcat
+
+
+启动服务器
+/etc/init.d/tomcat2 restart
+tail -f /usr/local/tomcat1/logs/catalina-daemon.out
+
+
+112机器部署这所有的服务/data0/service/*_service
+
+=====================================================================
+207机器zookeeper配置
+192.168.1.207
+用户名
+root
+密码
+
+
+
+测试端口是否成功
+telnet 192.168.1.207 2181 
+
+
+
+课程详情接口
+http://mm.zfwx.com/tdk/get_detail.json?courseId=3288
+
+去购买接口
+http://mm.zfwx.com/tdk/gopay_mysignup.json?courseId=3288
+
+
+
+select distinct cg_id as id,cg_name as name,cs.cg_count as count from dj_cscategory cs  where cs.cg_count != 0 and cg_pcategory = -10 and cg_belong LIKE '%1%' order by cg_order;
+
+
+
+mobile 端口5098
+
+
+
+====================================================
+
+测试服务器数据库
+http://myadmin.51dj.cn:7070/tbl_select.php?db=dj_tkb&table=dj_tkphb&server=1&target=&token=4926f39db35c9df6d886888b67fa12f8#PMAURL-0:tbl_select.php?db=dj_tkb&table=dj_tkphb&server=1&target=&token=d49e06f9d25a3c066da61a7e650a1983
+
+用户名:
+EvmU5g9
+密码
+mwnFzB5aco8mEmU5g9
+
+
+===========================
+查看注册中心注册的服务
+进入zookeeper的安装目录，进入bin 目录 cd /usr/local/zookeeper/bin
+./zkCli.sh
+ls /dubbo/com.blank.service.servicename
+===========================
+
+
+
+查看服务端口
+http://itindex.net/detail/53125-dubbo-%E6%9C%8D%E5%8A%A1-telnet
+http://alibaba.github.io/dubbo-doc-static/Telnet+Command+Reference-zh-showComments=true&showCommentArea=true.htm
+
+
+
+======================================================================
+管理后台界面
+账号yangdebao
+密码yangdebao
+http://admin.zfwx.com/admin/index.jsp
+
+-----------定位action------------
+打开管理后台界面
+随便找一个url-->右键-->在新的标签页面打开（t）
+http://admin.zfwx.com/admin/DjStucourse/batchSelectCourseForMembers.do
+分析这个路由规则--admin（管理后台）--（DjStucourse:DjStucourseAction 定位到action）---（batchSelectCourseForMembers方法）
+
+-----------定位模板------------
+定位界面在路由方法里面return STUSELECT_JSP;这个页面规则
+protected static final String STUSELECT_JSP = "/admin/DjStucourse/stuselectcs.jsp";
+ctrl+shift+r查找到对应的jsp页面
+
+-----------模板讲解------------
+http://admin.zfwx.com/admin/DjCourse/edit.do?courseId=3501&
+edit.jsp页面嵌入一个模板
+<%@ include file="form_include.jsp" %>
+jsp中struts2框架的标签
+<s:form></s:form> 
+
+
+/**推送消息添加**/
+课程列表--课程&选课--操作（推送）
+
+
+121.40.51.45
+用户名:root
+密码
+
+
+zfwx_api 8088
+
+步骤1
+进入tomcat的conf执行命令
+cat server.xml
+产看工程部署目录
+
+步骤2
+查看tomcat的环境变量
+cat /etc/profile
+查看tomcat环境变量
+步骤3
+进入/etc/init.d目录下查看有没有tomcat的启动脚本
+执行命令(在tomcat的脚本上面检索环境变量)
+grep "CATALINA_HOME" /etc/init.d/tomcat
+
+
+启动服务器
+/etc/init.d/tomcat2 restart
+tail -f /usr/local/tomcat1/logs/catalina-daemon.out
+
+
+
+
+面授审核人员账号密码
+https://devapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=12345678&version=4.13&j_username=747343&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+
+
+机构账号登录
+https://devapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=123456&version=4.13&j_username=hzsadmin&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+
+https://devapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=12345678&version=4.13&j_username=yangjuanjuan12345&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+
+https://devapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=121212&version=4.13&j_username=lstangrongzhi&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+
+https://devapi.zfwx.com/v3/user/get_wxkey.json?access_token=613aa62822d341fc8a4cc21df2d358e0&product=%E5%A5%A5%E5%B7%B4%E9%A9%AC%E6%97%B6%E4%BB%A3%E5%8D%B3%E5%B0%86%E5%AE%A3%E5%91%8A%E7%BB%93%E6%9D%9F%20%E4%BB%8A%E6%97%A5%E4%B8%8A%E5%8D%88%E5%8F%91%E8%A1%A8%E5%91%8A%E5%88%AB%E6%BC%94%E8%AE%B2&price=0.01&good_type=LDT&good_id=4295&terminal=1&pay_type=W
+
+https://devapi.zfwx.com/v3/test/test.json?access_token=54c825f7dbac4386abdbf62f53182190
+zfwxManage 8084
+
+https://devapi.zfwx.com/v3/listen/ldtHomePage.json
+
+
+
+----------------------------------
+步骤1
+进入tomcat的conf执行命令
+cat server.xml
+产看工程部署目录
+
+步骤2
+查看tomcat的环境变量
+cat /etc/profile
+查看tomcat环境变量
+步骤3
+进入/etc/init.d目录下查看有没有tomcat的启动脚本
+执行命令(在tomcat的脚本上面检索环境变量)
+grep "CATALINA_HOME" /etc/init.d/tomcat
+
+
+/etc/init.d/tomcat2 restart
+tail -f /usr/local/tomcat1/logs/catalina-daemon.out
+
+账号密码:yangdebao
+
+http://admin.zfwx.com/admin/index.jsp
+
+---------------------------------------------------
+
+
+
+
+
+线上代码查找
+win+r
+\\192.168.1.206\softMgr\jc
+
+
+
+
+测试服务器数据库密码
+djcourse密码 ssh密钥
+
+casserver密码 ssh密钥
+
+
+
+
+
+
+
+
+
+=======================================================================
+1查看tomcat监听的端口号
+2 ps -ef| grep tomcat
+  netstat -ntlp | grep 端口号/进程号
+3 jps
+4 杀死进程
+5 重启tomcat
+
+=========================================================================
+查看进程号
+lsof -i | grep 端口号
+lsof -i:端口号
+netstat -ntlp| grep 端口号
+
+例子：
+nststat -nflp|grep 20884
+lsof -i:20884
+lsof -i | grep 20884
+
+$ ps -ef | grep Name  
+
+根据进程号查看监听的端口号
+$ netstat -nap | grep pid  
+
+
+
+
+
+后台管理账号
+chaochao 880922
+
+
+
+==============================================================
+端口号被占用
+端口被占用 直接到tomcat下面的bin里面shutdown就行了
+
+
+
+运行tomcat出现Error initializing endpoint 和 Failed to start connector[http/1.1-8080]错误  
+文章链接：
+1.        #netstat -anl |grep :8080  //显示该端口正常
+2.        # lsof -i :8080 //显示该端口被java进程占用，
+3.        #kill  -9 进程号 //杀死当前运行的进程
+4.        /usr/local/tomcat/bin/startup.sh  //启动tomcat进程
+小节：该进程僵死或程序错误。杀掉僵死的进程，启动tomcat
+
+
+
+
+==============================================================
+有其他的程序占用8080端口，或有之前的运行的tomcat程序未停止。
+
+解决方案：
+
+1. 通过下述命令查询8080端口所被占用的程序。
+
+netstat -nao
+lsof -i:8080
+以上两条其中一条均可。若为java则继续进行下述操作。
+
+2. 通过下述命令查询之前运行的tomcat。
+
+ps -awwef | grep tomcat
+3. 若2中出现多条tomcat信息。利用kill命令将其中止。
+
+kill -15 [PID]
+9  正常关闭会将内存中的数据写到磁盘等，
+15 直接内存中的数据都不管
+
+
+
+==============================================================
+netstat -a -o -n
+taskkill /F /PID 892
+=============================================================
+
+Linux信号列表
+http://blog.csdn.net/baobao8505/article/details/1115820
+kill -l 这是linux支持的所有信号
+$ kill -l
+1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL
+ 5) SIGTRAP      6) SIGABRT      7) SIGBUS       8) SIGFPE
+ 9) SIGKILL     10) SIGUSR1     11) SIGSEGV     12) SIGUSR2
+13) SIGPIPE     14) SIGALRM     15) SIGTERM     17) SIGCHLD
+18) SIGCONT     19) SIGSTOP     20) SIGTSTP     21) SIGTTIN
+22) SIGTTOU     23) SIGURG      24) SIGXCPU     25) SIGXFSZ
+26) SIGVTALRM   27) SIGPROF     28) SIGWINCH    29) SIGIO
+30) SIGPWR      31) SIGSYS      34) SIGRTMIN    35) SIGRTMIN+1
+36) SIGRTMIN+2  37) SIGRTMIN+3  38) SIGRTMIN+4  39) SIGRTMIN+5
+40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+8  43) SIGRTMIN+9
+44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12 47) SIGRTMIN+13
+48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14 51) SIGRTMAX-13
+52) SIGRTMAX-12 53) SIGRTMAX-11 54) SIGRTMAX-10 55) SIGRTMAX-9
+56) SIGRTMAX-8  57) SIGRTMAX-7  58) SIGRTMAX-6  59) SIGRTMAX-5
+60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2  63) SIGRTMAX-1
+64) SIGRTMAX
+
+====================================================================
+查看进程号
+ps -ef | grep tomcat1
+
+杀死应用进程，一个应用进程，一个守护进程，杀掉应用进程
+kill -9 18957
+
+
+重启tomcat
+/usr/local/tomcat1/bin//startup.sh
+
+/usr/local/tomcat1/bin/startup.sh
+
+
+重启tomcat命令
+cd /usr/local/tomcat1/bin/
+关闭
+./shutdown.sh
+
+启动
+./startup.sh
+
+
