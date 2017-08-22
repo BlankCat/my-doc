@@ -1,0 +1,130 @@
+https://segmentfault.com/a/1190000002646193#articleHeader0
+泛型类
+泛型接口
+泛型方法
+public class Container {
+    private String key;
+    private String value;
+
+    public Container(String k, String v) {
+        key = k;
+        value = v;
+    }
+    
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+}
+
+就出现了泛型。
+public class Container<K, V> {
+    private K key;
+    private V value;
+
+    public Container(K k, V v) {
+        key = k;
+        value = v;
+    }
+
+    public K getKey() {
+        return key;
+    }
+
+    public void setKey(K key) {
+        this.key = key;
+    }
+
+    public V getValue() {
+        return value;
+    }
+
+    public void setValue(V value) {
+        this.value = value;
+    }
+}
+public class Main {
+
+    public static void main(String[] args) {
+        Container<String, String> c1 = new Container<String, String>("name", "findingsea");
+        Container<String, Integer> c2 = new Container<String, Integer>("age", 24);
+        Container<Double, Double> c3 = new Container<Double, Double>(1.1, 2.2);
+        System.out.println(c1.getKey() + " : " + c1.getValue());
+        System.out.println(c2.getKey() + " : " + c2.getValue());
+        System.out.println(c3.getKey() + " : " + c3.getValue());
+    }
+}
+
++--------------
+泛型接口
+public interface Generator<T> {
+    public T next();
+}
+public class FruitGenerator implements Generator<String> {
+
+    private String[] fruits = new String[]{"Apple", "Banana", "Pear"};
+
+    @Override
+    public String next() {
+        Random rand = new Random();
+        return fruits[rand.nextInt(3)];
+    }
+}
+public class Main {
+
+    public static void main(String[] args) {
+        FruitGenerator generator = new FruitGenerator();
+        System.out.println(generator.next());
+        System.out.println(generator.next());
+        System.out.println(generator.next());
+        System.out.println(generator.next());
+    }
+}
+
++--------------
++--------------
+泛型方法
+public class Main {
+
+    public static <T> void out(T t) {
+        System.out.println(t);
+    }
+
+    public static void main(String[] args) {
+        out("findingsea");
+        out(123);
+        out(11.11);
+        out(true);
+    }
+}
+
+public class Main {
+
+    public static <T> void out(T... args) {
+        for (T t : args) {
+            System.out.println(t);
+        }
+    }
+
+    public static void main(String[] args) {
+        out("findingsea", 123, 11.11, true);
+    }
+}
+
+
+
+
+
+
+
