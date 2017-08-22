@@ -1,0 +1,277 @@
+Lucene搭建搜索服务
+
+
+这个就是插入动作
+数据不过java
+直接在数据库里插入
+
+
+id在临时表里没有的,就是新的
+那这个id啥时候给他填写呢
+定时任务执行的时候
+
+
+同步数据sql
+
+//查找到新增的课程
+NSERT INTO djcourse.dj_lisrea_index_temp
+		(
+		course_id,
+		cs_name,
+		pay_type,
+		cs_info,
+		cs_advertising,
+		classic_word,
+		course_tag,
+		cs_addtime,
+		cs_updatetime,
+		tch_names,
+		tch_desc,
+		tch_spedesc,
+		tch_note,
+		cg_name,
+		cg_people
+		)
+		(SELECT
+		da.course_id AS course_id,
+		da.cs_name AS cs_name,
+		da.pay_type AS pay_type,
+		da.cs_info AS cs_info,
+		da.cs_advertising AS cs_advertising,
+		da.classic_word AS classic_word,
+		da.course_tag AS course_tag,
+		da.cs_addtime AS cs_addtime,
+		da.cs_updatetime AS cs_updatetime,
+		(SELECT
+		Group_concat(dte.tch_name
+		SEPARATOR '|') FROM djcourse.dj_teacher dte
+		LEFT JOIN
+		djcourse.dj_tchcourse dtc ON dte.teacher_id = dtc.teacher_id
+		WHERE
+		dtc.course_id = da.course_id) AS tch_names,
+		(SELECT
+		Group_concat(dte.tch_desc SEPARATOR '|') FROM djcourse.dj_teacher dte
+		LEFT JOIN djcourse.dj_tchcourse dtc ON dte.teacher_id = dtc.teacher_id
+		WHERE dtc.course_id = da.course_id) AS tch_desc,
+		(SELECT
+		Group_concat(dte.tch_spedesc SEPARATOR '|') FROM djcourse.dj_teacher
+		dte LEFT JOIN djcourse.dj_tchcourse dtc ON dte.teacher_id =
+		dtc.teacher_id WHERE dtc.course_id = da.course_id) AS tch_spedesc,
+		(SELECT Group_concat(dte.tch_note SEPARATOR '|') FROM
+		djcourse.dj_teacher dte LEFT JOIN djcourse.dj_tchcourse dtc ON
+		dte.teacher_id = dtc.teacher_id WHERE dtc.course_id = da.course_id) AS
+		tch_note,
+		(SELECT Group_concat(dcg.cg_name SEPARATOR '|') FROM
+		djcourse.dj_cscategory dcg LEFT JOIN djcourse.dj_cgcourse dccg ON
+		dcg.cg_id = dccg.cg_id WHERE dccg.course_id = da.course_id) AS
+		cg_name,
+		(SELECT Group_concat(dcg.cg_people SEPARATOR '|') FROM
+		djcourse.dj_cscategory dcg LEFT JOIN djcourse.dj_cgcourse dccg ON
+		dcg.cg_id = dccg.cg_id WHERE dccg.course_id = da.course_id) AS
+		cg_people
+		FROM djcourse.dj_course da
+		LEFT JOIN
+		djcourse.dj_lisrea_index_temp dydit ON (da.course_id =
+		dydit.course_id)
+		WHERE
+		dydit.course_id IS NULL AND da.cs_type = 1 AND
+		da.cs_isdisplay = 1 AND
+		da.lisrea_status = 8 GROUP BY da.course_id)
+
+
+
+
++------------------
+定时任务调用此方法
+
+public List<DjLisreaCourseModel> getLisreaIndexTempList()
+  {
+    List<DjLisreaCourseModel> indexs = null;
+    indexs = this.luceneMapper.getLisreaIndexTempList();
+    if ((indexs != null) && (indexs.size() > 0)) {
+      this.luceneMapper.insertLisreaIndexTemp();
+    } else {
+      return indexs;
+    }
+    return indexs;
+  }
+
+【***********定时任务更新数据************】
+  1先查询是否有新增加数据（对比新表与临时表数据）
+  2如果有新增数据，更新临时表数据
+  3返回新增数据--执行创建文档业务操作
+  
+  搜索服务直接在文档中查询数据
+
+ 【***********手动更新两表数据************】
+ （1）先查询课程表与临时表里面是否有新增的记录
+SELECT
+		count(cw.cw_id)
+		FROM djcourse.dj_courseware cw
+		LEFT JOIN djcourse.dj_courseware_info cwi ON cw.cw_id = cwi.courseware_id
+		WHERE
+		cwi.courseware_id IS NULL
+
+在执行新增加操作
+手动同步数据业务
+查询是否有新数据--》如果有新增数据，接口直接触发
+Integer count = luceneMapper.getCoursewareIncrease();
+if (count > 0) {//执行同步数据接口
+			luceneMapper.insertCoursewareInfo();
+}
+
+
+
+
+
+
+
+  +---sql---查询新增课程，并同步临时表数据----
+
+INSERT INTO djcourse.dj_lisrea_index_temp
+		(
+		course_id,
+		cs_name,
+		pay_type,
+		cs_info,
+		cs_advertising,
+		classic_word,
+		course_tag,
+		cs_addtime,
+		cs_updatetime,
+		tch_names,
+		tch_desc,
+		tch_spedesc,
+		tch_note,
+		cg_name,
+		cg_people
+		)
+		(SELECT
+		da.course_id AS course_id,
+		da.cs_name AS cs_name,
+		da.pay_type AS pay_type,
+		da.cs_info AS cs_info,
+		da.cs_advertising AS cs_advertising,
+		da.classic_word AS classic_word,
+		da.course_tag AS course_tag,
+		da.cs_addtime AS cs_addtime,
+		da.cs_updatetime AS cs_updatetime,
+		(SELECT
+		Group_concat(dte.tch_name
+		SEPARATOR '|') FROM djcourse.dj_teacher dte
+		LEFT JOIN
+		djcourse.dj_tchcourse dtc ON dte.teacher_id = dtc.teacher_id
+		WHERE
+		dtc.course_id = da.course_id) AS tch_names,
+		(SELECT
+		Group_concat(dte.tch_desc SEPARATOR '|') FROM djcourse.dj_teacher dte
+		LEFT JOIN djcourse.dj_tchcourse dtc ON dte.teacher_id = dtc.teacher_id
+		WHERE dtc.course_id = da.course_id) AS tch_desc,
+		(SELECT
+		Group_concat(dte.tch_spedesc SEPARATOR '|') FROM djcourse.dj_teacher
+		dte LEFT JOIN djcourse.dj_tchcourse dtc ON dte.teacher_id =
+		dtc.teacher_id WHERE dtc.course_id = da.course_id) AS tch_spedesc,
+		(SELECT Group_concat(dte.tch_note SEPARATOR '|') FROM
+		djcourse.dj_teacher dte LEFT JOIN djcourse.dj_tchcourse dtc ON
+		dte.teacher_id = dtc.teacher_id WHERE dtc.course_id = da.course_id) AS
+		tch_note,
+		(SELECT Group_concat(dcg.cg_name SEPARATOR '|') FROM
+		djcourse.dj_cscategory dcg LEFT JOIN djcourse.dj_cgcourse dccg ON
+		dcg.cg_id = dccg.cg_id WHERE dccg.course_id = da.course_id) AS
+		cg_name,
+		(SELECT Group_concat(dcg.cg_people SEPARATOR '|') FROM
+		djcourse.dj_cscategory dcg LEFT JOIN djcourse.dj_cgcourse dccg ON
+		dcg.cg_id = dccg.cg_id WHERE dccg.course_id = da.course_id) AS
+		cg_people
+		FROM djcourse.dj_course da
+		LEFT JOIN
+		djcourse.dj_lisrea_index_temp dydit ON (da.course_id =
+		dydit.course_id)
+		WHERE
+		dydit.course_id IS NULL AND da.cs_type = 1 AND
+		da.cs_isdisplay = 1 AND
+		da.lisrea_status = 8 GROUP BY da.course_id)
+
+
+  +---sql---查询新增课程的所有数据----
+
+SELECT
+		da.course_id AS course_id,
+		da.cs_name AS cs_name,
+		da.pay_type AS pay_type,
+		da.cs_info AS cs_info,
+		da.cs_advertising AS cs_advertising,
+		da.classic_word AS classic_word,
+		da.course_tag AS course_tag,
+		da.cs_addtime AS cs_addtime,
+		da.cs_updatetime AS cs_updatetime,
+		(SELECT Group_concat(dte.tch_name
+		SEPARATOR '|') FROM djcourse.dj_teacher dte LEFT JOIN
+		djcourse.dj_tchcourse dtc ON dte.teacher_id = dtc.teacher_id WHERE
+		dtc.course_id = da.course_id) AS tch_names,
+		(SELECT
+		Group_concat(dte.tch_desc SEPARATOR '|') FROM djcourse.dj_teacher dte
+		LEFT JOIN djcourse.dj_tchcourse dtc ON dte.teacher_id = dtc.teacher_id
+		WHERE dtc.course_id = da.course_id) AS tch_desc,
+		(SELECT
+		Group_concat(dte.tch_spedesc SEPARATOR '|') FROM djcourse.dj_teacher
+		dte LEFT JOIN djcourse.dj_tchcourse dtc ON dte.teacher_id =
+		dtc.teacher_id WHERE dtc.course_id = da.course_id) AS tch_spedesc,
+		(SELECT Group_concat(dte.tch_note SEPARATOR '|') FROM
+		djcourse.dj_teacher dte LEFT JOIN djcourse.dj_tchcourse dtc ON
+		dte.teacher_id = dtc.teacher_id WHERE dtc.course_id = da.course_id) AS
+		tch_note,
+		(SELECT Group_concat(dcg.cg_name SEPARATOR '|') FROM
+		djcourse.dj_cscategory dcg LEFT JOIN djcourse.dj_cgcourse dccg ON
+		dcg.cg_id = dccg.cg_id WHERE dccg.course_id = da.course_id) AS
+		cg_name,
+		(SELECT Group_concat(dcg.cg_people SEPARATOR '|') FROM
+		djcourse.dj_cscategory dcg LEFT JOIN djcourse.dj_cgcourse dccg ON
+		dcg.cg_id = dccg.cg_id WHERE dccg.course_id = da.course_id) AS
+		cg_people
+		FROM djcourse.dj_course da
+		LEFT JOIN
+		djcourse.dj_lisrea_index_temp dydit ON (da.course_id =
+		dydit.course_id)
+		WHERE
+		dydit.course_id IS NULL AND da.cs_type = 1 AND
+		da.cs_isdisplay = 1 AND
+		da.lisrea_status = 8 GROUP BY da.course_id
+
+
+
+
+-----------------------------------------------------------------------------------------------------
+
+接口使用泛型
+http://www.cnblogs.com/dennisac/archive/2012/03/14/2396524.html
+http://blog.csdn.net/qq_34590943/article/details/52313694
+
+
+group_concat函数详解
+http://hchmsguo.iteye.com/blog/555543
+
+分组添加
+select id,group_concat(name) from aa group by id; 
+select id,group_concat(name separator ';') from aa group by id;  
+
+
++-------------------------------------
+程序的理解
+程序就是地址和数据的组合啊
+就是数据再内存中的位置
+指针也是地址啊
+100行以上sql算长的了
+
+所有的业务都能用sql实现
+
+sql写法
+sql要比java代码的写法还要多
+所有的逻辑操作都能在sql里实现
+
+sql有游标等/可以直接控制内存
+
++-------------------------------------
+
+
+
