@@ -1,0 +1,25 @@
+Android 工具表
+
+https://www.codota.com/ 代码搜索 
+
+http://www.atool.org/httptest.php  在线HTTP POST/GET接口测试工具 - aTool在线工具 (也可以使用postman)
+
+http://www.aigei.com/bgremover/ 在线图片去底工具 - 将纯色背景的图片转换为背景透明的图片
+
+http://isparta.github.io/ PNG压缩与格式转换工具
+
+http://www.sioe.cn/yingyong/yanse-rgb-16/ RGB颜色值与十六进制颜色码转换工具
+
+http://tool.css-js.com/rgba.html  RGB与16进制色互转
+
+http://inloop.github.io/shadow4android/ Android 9-patch shadow generator
+
+http://www.json.cn/  json在线解析
+
+http://www.ijiami.cn/ 爱加密
+
+https://www.bmob.cn/ bmob后端云
+
+http://lbsyun.baidu.com/ 百度地图SDK
+
+ 

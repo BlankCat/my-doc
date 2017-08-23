@@ -1,0 +1,32 @@
+gitbook 学习记录
+https://my.oschina.net/hailongqiu/blog/1517589
+
+
+gitbook 是个不错的东西，我现在的电子书都是用makrdown来写的，然后使用gitbook pdf生成pdf的电子书.
+
+http://blog.csdn.net/axi295309066/article/details/61420694
+
+npm config set registry http://registry.npm.taobao.org 设置国内镜像地址.
+
+npm install gitbook-cli -g 全局安装 gitbook
+
+gitbook -v 查看安装的版本信息
+
+gitbook book.json配置：
+
+----
+{
+  "pdf": {
+    "pageNumbers": true, 
+    "fontFamily": "Arial",
+    "fontSize": 12,
+    "paperSize": "a4",
+    "margin": {
+      "right": 62,
+      "left": 62,
+      "top": 56,
+      "bottom": 56
+    }
+  }
+}
+----

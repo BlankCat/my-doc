@@ -1,0 +1,78 @@
+Windows 技巧集
+
+
++----------------
+windows系统获取所有连接过的WIFI密码
+https://my.oschina.net/aijiaoer0624/blog/743696
+按win+R，输入CMD，回车。 2.复制后面引号中的内容“for /f "skip=9 tokens=1,2 delims=:" %i in ('netsh wlan show profiles') do @echo %j | findstr -i -v echo | netsh wlan show profiles %j key=clear ”，在DOS界面下右键，回车。
+
+for /f "skip=9 tokens=1,2 delims=:" %i in ('netsh wlan show profiles') do @echo %j | findstr -i -v echo | netsh wlan show profiles %j key=clear 
+
++----------------
+
+
+
+启动放大镜
+
+Win + -/+启动放大镜 进行放大或缩小
+
+
+并排显示窗口
+
+Shift + 右击程序图标 呼出 堆叠显示窗口 并排显示窗口菜单
+
+ 
+
+步骤记录器
+
+在键盘上，按“Win+R”，调出“运行”命令；输入psr.exe，按回车键，打开“问题步骤记录器”工具栏；
+
+https://support.microsoft.com/zh-cn/kb/980394
+
+ 
+
+特殊菜单
+
+Win键+X键 Win10特有左下角菜单
+
+ 
+
+Win10取消自动更新
+
+在“搜索web和windows”框中输入 “服务”，找到Windows Update，关闭并禁止
+
+ 
+
+安装无数字签名的驱动
+
+Win10是通过设置里面里面通过高级重启的方式进入无数字签名强制安装驱动
+
+ 
+
+回收站显示确认删除对话框灰色的情况
+
+使用“Win+R”快捷键打开“运行”窗口，输入“gpedit.msc”命令并确认。在Win8系统的“本地组策略编辑器”中找依次到“用户配置—管理模板—Windows组件—文件资源管理器”，然后在右侧找到“删除文件时显示确认对话框”并双击它。
+
+ 
+
+电脑无IP无法上网
+
+腾讯电脑管家 → 工具箱 → 网络修复
+
+ 
+
+清空DNS缓存
+
+ipconfig/flushdns
+
+ 
+
+Host位置
+
+C:\Windows\System32\drivers\etc\
+
+ 
+
+更改默认的系统字体
+
+软媒魔方 - 美化大师 - 系统外观 - 系统默认字体
