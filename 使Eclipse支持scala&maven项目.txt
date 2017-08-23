@@ -1,22 +1,29 @@
-Ê¹EclipseÖ§³Öscala&mavenÏîÄ¿
+
+
+Eclipseè¯¯åˆ Maven Dependenciesåæ·»åŠ maven libraries
+http://www.codingwhy.com/view/760.html
+https://gxnotes.com/article/69976.html
+
+
+ä½¿Eclipseæ”¯æŒscala&mavené¡¹ç›®
 
 http://git.oschina.net/accuser/codes/8wjyl6obh5evap0c2tkmr82
 
 
-±¾ÈËÏ°¹ßÊ¹ÓÃSTS(Spring IDE)¹¤¾ß×÷Îª¿ª·¢IDE,STS°æ±¾:
+æœ¬äººä¹ æƒ¯ä½¿ç”¨STS(Spring IDE)å·¥å…·ä½œä¸ºå¼€å‘IDE,STSç‰ˆæœ¬:
 Version: 3.7.2.RELEASE
 Build Id: 201511261048
 Platform: Eclipse Mars.1 (4.5.1)
-Ê¹ÓÃµÄÊÇEclipse4.5.1µÄÄÚºË
+ä½¿ç”¨çš„æ˜¯Eclipse4.5.1çš„å†…æ ¸
 
-´ÓScala-IDEÍøÕ¾ÏÂÔØ²å¼ş:
+ä»Scala-IDEç½‘ç«™ä¸‹è½½æ’ä»¶:
 http://scala-ide.org/download/prev-stable.html
     4.4.1 Release for Scala 2.11.8
     This release is only available for Eclipse 4.x and can be retrieved as zipfile.
-    µÃµ½base-20160504-1321.zip²¢½âÑ¹
+    å¾—åˆ°base-20160504-1321.zipå¹¶è§£å‹
 
-ÔÚEclipseÖĞÑ¡ÔñHelp->Install new Software,¼ÓÔØ±¾µØ²å¼ş,Ìí¼Ó²å¼şÏÂÔØÁ´½Ó°²×°ºó£¬»áÌáÊ¾ÖØĞÂÆô¶¯Eclipse
-ĞÂ½¨Scala Project¹¤³ÌTest£¬²âÊÔÊÇ·ñ¿ÉÕıÈ·Ê¹ÓÃ£¬ÔÚproject¹¤³ÌÀï³ıÁË¼ÓÔØJRE Library£¬ĞŞ¸Ä²¢¼ÓÔØScala Library(2.10.6)
+åœ¨Eclipseä¸­é€‰æ‹©Help->Install new Software,åŠ è½½æœ¬åœ°æ’ä»¶,æ·»åŠ æ’ä»¶ä¸‹è½½é“¾æ¥å®‰è£…åï¼Œä¼šæç¤ºé‡æ–°å¯åŠ¨Eclipse
+æ–°å»ºScala Projectå·¥ç¨‹Testï¼Œæµ‹è¯•æ˜¯å¦å¯æ­£ç¡®ä½¿ç”¨ï¼Œåœ¨projectå·¥ç¨‹é‡Œé™¤äº†åŠ è½½JRE Libraryï¼Œä¿®æ”¹å¹¶åŠ è½½Scala Library(2.10.6)
 
 object Testd {
   def main(args: Array[String]): Unit = {
@@ -24,23 +31,23 @@ object Testd {
      array.foreach(println)
   }
 }
-ÔËĞĞ¸úJava³ÌĞòÒ»Ñù£¬±»±àÒë³ÉclassÎÄ¼şÔÚJVMÖĞÔËĞĞ
+è¿è¡Œè·ŸJavaç¨‹åºä¸€æ ·ï¼Œè¢«ç¼–è¯‘æˆclassæ–‡ä»¶åœ¨JVMä¸­è¿è¡Œ
 scala 2.11.8
 spark x.x.0
 
 DONE!
 -----------------------------------------------------------------------
-Ê¹EclipseÖ§³ÖScalaµÄMaven¹¤³Ì:
-°´ÕÕÉÏÊö¹ı³ÌÍê³ÉµÚÒ»²½µÄ°æ±¾¼ÓÔØ¹ı³Ìºó,½ÓÏÂÀ´ÈÃeclipseÄÜ¹»ĞÂ½¨scalaµÄmaven¹¤³Ì.
-Í¬µÚÒ»²½°²×°²å¼şÒ»Ñù,Á´½Ó:http://alchim31.free.fr/m2e-scala/update-site/´ËURLÊÇ°²×°Maven for Eclipse.
-(Ò»¹²ĞèÒªÏÂÔØ15²½,Èç¹ûÒ»±é²»ÄÜ°²×°³É¹¦,²»ÒªĞ¹Æø,¶àÏÂÔØ²¢°²×°¼¸´Î.±¾ÈËÊ¹ÓÃÁËvpn°²×°ÁË3´Î²ÅÍê³É)
-¿É¼û¸½¼ş1
+ä½¿Eclipseæ”¯æŒScalaçš„Mavenå·¥ç¨‹:
+æŒ‰ç…§ä¸Šè¿°è¿‡ç¨‹å®Œæˆç¬¬ä¸€æ­¥çš„ç‰ˆæœ¬åŠ è½½è¿‡ç¨‹å,æ¥ä¸‹æ¥è®©eclipseèƒ½å¤Ÿæ–°å»ºscalaçš„mavenå·¥ç¨‹.
+åŒç¬¬ä¸€æ­¥å®‰è£…æ’ä»¶ä¸€æ ·,é“¾æ¥:http://alchim31.free.fr/m2e-scala/update-site/æ­¤URLæ˜¯å®‰è£…Maven for Eclipse.
+(ä¸€å…±éœ€è¦ä¸‹è½½15æ­¥,å¦‚æœä¸€éä¸èƒ½å®‰è£…æˆåŠŸ,ä¸è¦æ³„æ°”,å¤šä¸‹è½½å¹¶å®‰è£…å‡ æ¬¡.æœ¬äººä½¿ç”¨äº†vpnå®‰è£…äº†3æ¬¡æ‰å®Œæˆ)
+å¯è§é™„ä»¶1
 
-ÔÚmaven¹¤³ÌÖĞ,ËÑË÷"scala-arch",Èç¹û²»ÄÜÕÒµ½scalaÏîÄ¿,ÔòÔÚWindow->Preferences->Maven->ArchetypesÔö¼ÓÒ»¸öRemote Catalog
+åœ¨mavenå·¥ç¨‹ä¸­,æœç´¢"scala-arch",å¦‚æœä¸èƒ½æ‰¾åˆ°scalaé¡¹ç›®,åˆ™åœ¨Window->Preferences->Maven->Archetypeså¢åŠ ä¸€ä¸ªRemote Catalog
 url:http://repo.maven.apache.org/maven2/archetype-catalog.xml
 description:Remote Catalog
 
-pom.xmlÎÄ¼şÄÚÈİÈçÏÂ:
+pom.xmlæ–‡ä»¶å†…å®¹å¦‚ä¸‹:
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.soargift</groupId>
@@ -86,7 +93,7 @@ pom.xmlÎÄ¼şÄÚÈİÈçÏÂ:
       <scope>test</scope>
     </dependency>
 
-    <!---Ôö¼Ó´ËÅäÖÃÎªÁË½â¾öJunitµÄ´íÎó-->
+    <!---å¢åŠ æ­¤é…ç½®ä¸ºäº†è§£å†³Junitçš„é”™è¯¯-->
     <dependency>
         <groupId>org.specs2</groupId>
         <artifactId>specs2-junit_${scala.compat.version}</artifactId>
@@ -145,18 +152,18 @@ pom.xmlÎÄ¼şÄÚÈİÈçÏÂ:
   </build>
 </project>
 
-Ä¬ÈÏÉú³ÉµÄpom.xmlÓĞbug,Ôö¼Ó¶ÔJUnitµÄÖ§³Ö¼´¿É.
-(´´½¨mavenÏîÄ¿,±¾ÈË²Ù×÷ÁË3´Î,Ç°Á½´Î¶¼±¨´í,"error while loading Suite, Scala signature Suite has wrong version expected: 5.0 found: 4.1 in Suite.class")
-´Ë´íÎó³öÏÖµÄÔ­Òò±»ÎÒÑéÖ¤³öÀ´ÁË,µ±ÒıÈëÁËscalaºÍspark,hadoopÏà¹Ø°ü,Èç¹ûÒıÈëorg.specs°ü¾Í»á±¨´í.
-(²Â²â´íÎóÔ­Òò:±¾ÈËÊ¹ÓÃµÄSTSµÄ°æ±¾Ïàµ±ÓÚEclipseµÄ4.5.1,²¢ÇÒmaven°æ±¾¿ÉÄÜÒ²±È½Ï¸ß¼¶ÁË,ÍøÉÏÓĞÒ»Ğ©ÅäÖÃÄÚÈİµÄ°æ±¾±È½ÏµÍ,ÒªÇóÒıÈëorg.specs,ÈçÏÂ:)
-´íÎóÊ¾Àı:
+é»˜è®¤ç”Ÿæˆçš„pom.xmlæœ‰bug,å¢åŠ å¯¹JUnitçš„æ”¯æŒå³å¯.
+(åˆ›å»ºmavené¡¹ç›®,æœ¬äººæ“ä½œäº†3æ¬¡,å‰ä¸¤æ¬¡éƒ½æŠ¥é”™,"error while loading Suite, Scala signature Suite has wrong version expected: 5.0 found: 4.1 in Suite.class")
+æ­¤é”™è¯¯å‡ºç°çš„åŸå› è¢«æˆ‘éªŒè¯å‡ºæ¥äº†,å½“å¼•å…¥äº†scalaå’Œspark,hadoopç›¸å…³åŒ…,å¦‚æœå¼•å…¥org.specsåŒ…å°±ä¼šæŠ¥é”™.
+(çŒœæµ‹é”™è¯¯åŸå› :æœ¬äººä½¿ç”¨çš„STSçš„ç‰ˆæœ¬ç›¸å½“äºEclipseçš„4.5.1,å¹¶ä¸”mavenç‰ˆæœ¬å¯èƒ½ä¹Ÿæ¯”è¾ƒé«˜çº§äº†,ç½‘ä¸Šæœ‰ä¸€äº›é…ç½®å†…å®¹çš„ç‰ˆæœ¬æ¯”è¾ƒä½,è¦æ±‚å¼•å…¥org.specs,å¦‚ä¸‹:)
+é”™è¯¯ç¤ºä¾‹:
     <dependency>
       <groupId>org.specs</groupId>
       <artifactId>specs</artifactId>
       <version>1.2.5</version>
       <scope>test</scope>
     </dependency>
-ËùÒÔ,ÓëÈçÏÂµÄÄÚÈİÓĞÁË³åÍ»,ËùÒÔ,Ê¡ÂÔÅäÖÃorg.specsµÄÄÚÈİ:
+æ‰€ä»¥,ä¸å¦‚ä¸‹çš„å†…å®¹æœ‰äº†å†²çª,æ‰€ä»¥,çœç•¥é…ç½®org.specsçš„å†…å®¹:
     <dependency>
 			<groupId>org.specs2</groupId>
 			<artifactId>specs2-core_${scala.compat.version}</artifactId>
@@ -170,9 +177,9 @@ pom.xmlÎÄ¼şÄÚÈİÈçÏÂ:
 			<scope>test</scope>
 		</dependency>
 
-È»ºó,ĞŞ¸Äjdk7ºÍscala Library2.11.8
+ç„¶å,ä¿®æ”¹jdk7å’Œscala Library2.11.8
 
-Ê¹ÏîÄ¿Ôö¼Óspark&hadoopÖ§³Ö°ü,²¢Ôö¼Ó¹¹½¨jar°ü,ÄÚÈİÈçÏÂ:
+ä½¿é¡¹ç›®å¢åŠ spark&hadoopæ”¯æŒåŒ…,å¹¶å¢åŠ æ„å»ºjaråŒ…,å†…å®¹å¦‚ä¸‹:
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -223,13 +230,13 @@ pom.xmlÎÄ¼şÄÚÈİÈçÏÂ:
 			<version>${scala.version}</version>
 		</dependency>
 
-		<!-- Ôö¼Ó¶ÔsparkµÄÖ§³Ö -->
+		<!-- å¢åŠ å¯¹sparkçš„æ”¯æŒ -->
 		<dependency>
 			<groupId>org.apache.spark</groupId>
 			<artifactId>spark-core_2.11</artifactId>
 			<version>1.2.1</version>
 		</dependency>
-		<!-- Ôö¼Ó¶ÔhadoopµÄÖ§³Ö -->
+		<!-- å¢åŠ å¯¹hadoopçš„æ”¯æŒ -->
 		<dependency>
 			<groupId>org.apache.hadoop</groupId>
 			<artifactId>hadoop-client</artifactId>
@@ -302,7 +309,7 @@ pom.xmlÎÄ¼şÄÚÈİÈçÏÂ:
 					</includes>
 				</configuration>
 			</plugin>
-			<!-- ¹¹½¨jar°ü -->
+			<!-- æ„å»ºjaråŒ… -->
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.6</version>
@@ -319,9 +326,9 @@ pom.xmlÎÄ¼şÄÚÈİÈçÏÂ:
 
 END!
 ------------------------------------------
-ÔÚIDEAÖĞµ¼ÈëSparkÔ´Âë:
+åœ¨IDEAä¸­å¯¼å…¥Sparkæºç :
 
-´Ó Github µ¼Èë Spark ¹¤³Ì
-´ò¿ªIntelliJ IDEA ºó£¬ÔÚ²Ëµ¥À¸ÖĞÑ¡Ôñ VCS¡úCheck out from Version Control¡úGit£¬
-Ö®ºóÔÚ Git Repository URL ÖĞÌîÈë Spark ÏîÄ¿µÄµØÖ·£¬²¢Ö¸¶¨ºÃ±¾µØÂ·¾¶£¬ÈçÏÂÍ¼ËùÊ¾¡£
+ä» Github å¯¼å…¥ Spark å·¥ç¨‹
+æ‰“å¼€IntelliJ IDEA åï¼Œåœ¨èœå•æ ä¸­é€‰æ‹© VCSâ†’Check out from Version Controlâ†’Gitï¼Œ
+ä¹‹ååœ¨ Git Repository URL ä¸­å¡«å…¥ Spark é¡¹ç›®çš„åœ°å€ï¼Œå¹¶æŒ‡å®šå¥½æœ¬åœ°è·¯å¾„ï¼Œå¦‚ä¸‹å›¾æ‰€ç¤ºã€‚
 
