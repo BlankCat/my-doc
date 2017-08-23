@@ -1,16 +1,38 @@
-���ܹ���MD5---ȡ.substring(8, 24);
+加密规则
+
+动态token加密
+服务器动态生成token
+
+接口加密规则
+1参数加密规则
+	token
+	userName
+	password
+	timeStamp
+	【对某几个参数进行加密token，userName，password】生成sign
+	传入后台，进行解密
+	从参数列表里面拿到sign，Map移出sign，对加密参数重新加密，对比sign
+
+
+2账号密码生成规则
+password加密规则：MD5(MD5(明文密码+"BlankCat")+":blankcat:"+salt)
+				  明文Md5加密【取8-24位】
+
+
+
+加密规则MD5---取.substring(8, 24);
 PasswordEncoderImpl.java
 
 http://base.zfwx.com/v3/auth/validatePwd.json?username=hzsadmin&old_password=123456t
-������admin�������룩
+杭州市admin（老密码）
 c6b1bdecb65f660a7d976aeb5e9d5592
 
-��123456t��
+（123456t）
 b65f660a7d976aeb
 
 
 
 
 
-��1-8��
+（1-8）
 83aa400af464c76d
