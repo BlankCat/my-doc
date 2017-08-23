@@ -1,37 +1,47 @@
+redisæ¨¡å¼
+	å•èŠ‚ç‚¹æ¨¡å¼
+	åˆ†ç‰‡æ¨¡å¼ï¼ˆä¸»å¤‡é«˜å¯ç”¨ï¼‰Sharding
+	åˆ†ç‰‡+æ•…éšœç›‘æ§Sharding+Sentinelå®ç°redisåˆ†å¸ƒå¼é›†ç¾¤ç›‘æ§
+	
+http://blog.csdn.net/zljjava/article/details/41454993
+http://blog.csdn.net/u012477338/article/details/51719309
+
+
+
 http://redisdoc.com/
-³£ÓÃÃüÁî
+å¸¸ç”¨å‘½ä»¤
 http://www.cnblogs.com/saneri/p/5984653.html
 
-Æô¶¯redis¿Í»§¶Ë
+å¯åŠ¨rediså®¢æˆ·ç«¯
 ./redis-cli
-Ñ¡Ôñ3ºÅ¿â
+é€‰æ‹©3å·åº“
 select 3
-²é¿´ËùÓĞµÄkey
+æŸ¥çœ‹æ‰€æœ‰çš„key
 keys *
 
 http://blog.csdn.net/spring21st/article/details/15771861
 
-//É¾³ıµ±Ç°Êı¾İ¿âÖĞµÄËùÓĞKey
+//åˆ é™¤å½“å‰æ•°æ®åº“ä¸­çš„æ‰€æœ‰Key
 flushdb
-//É¾³ıËùÓĞÊı¾İ¿âÖĞµÄkey
+//åˆ é™¤æ‰€æœ‰æ•°æ®åº“ä¸­çš„key
 flushall
 
 
 
-Redis ÖĞÓĞÉ¾³ıµ¥¸ö Key µÄÖ¸Áî DEL£¬µ«ºÃÏñÃ»ÓĞÅúÁ¿É¾³ı Key µÄÖ¸Áî£¬²»¹ıÎÒÃÇ¿ÉÒÔ½èÖú Linux µÄ xargs Ö¸ÁîÀ´Íê³ÉÕâ¸ö¶¯×÷
+Redis ä¸­æœ‰åˆ é™¤å•ä¸ª Key çš„æŒ‡ä»¤ DELï¼Œä½†å¥½åƒæ²¡æœ‰æ‰¹é‡åˆ é™¤ Key çš„æŒ‡ä»¤ï¼Œä¸è¿‡æˆ‘ä»¬å¯ä»¥å€ŸåŠ© Linux çš„ xargs æŒ‡ä»¤æ¥å®Œæˆè¿™ä¸ªåŠ¨ä½œ
 
 
 redis-cli keys "*" | xargs redis-cli del
-//Èç¹ûredis-cliÃ»ÓĞÉèÖÃ³ÉÏµÍ³±äÁ¿£¬ĞèÒªÖ¸¶¨redis-cliµÄÍêÕûÂ·¾¶
-//Èç£º/opt/redis/redis-cli keys "*" | xargs /opt/redis/redis-cli del
-Èç¹ûÒªÖ¸¶¨ Redis Êı¾İ¿â·ÃÎÊÃÜÂë£¬Ê¹ÓÃÏÂÃæµÄÃüÁî
+//å¦‚æœredis-cliæ²¡æœ‰è®¾ç½®æˆç³»ç»Ÿå˜é‡ï¼Œéœ€è¦æŒ‡å®šredis-cliçš„å®Œæ•´è·¯å¾„
+//å¦‚ï¼š/opt/redis/redis-cli keys "*" | xargs /opt/redis/redis-cli del
+å¦‚æœè¦æŒ‡å®š Redis æ•°æ®åº“è®¿é—®å¯†ç ï¼Œä½¿ç”¨ä¸‹é¢çš„å‘½ä»¤
 
 
 redis-cli -a password keys "*" | xargs redis-cli -a password del
-Èç¹ûÒª·ÃÎÊ Redis ÖĞÌØ¶¨µÄÊı¾İ¿â£¬Ê¹ÓÃÏÂÃæµÄÃüÁî
+å¦‚æœè¦è®¿é—® Redis ä¸­ç‰¹å®šçš„æ•°æ®åº“ï¼Œä½¿ç”¨ä¸‹é¢çš„å‘½ä»¤
 
-//ÏÂÃæµÄÃüÁîÖ¸¶¨Êı¾İĞòºÅÎª0£¬¼´Ä¬ÈÏÊı¾İ¿â
+//ä¸‹é¢çš„å‘½ä»¤æŒ‡å®šæ•°æ®åºå·ä¸º0ï¼Œå³é»˜è®¤æ•°æ®åº“
 redis-cli -n 0 keys "*" | xargs redis-cli -n 0 del
-É¾³ıËùÓĞKey
-É¾³ıËùÓĞKey£¬¿ÉÒÔÊ¹ÓÃRedisµÄflushdbºÍflushallÃüÁî
+åˆ é™¤æ‰€æœ‰Key
+åˆ é™¤æ‰€æœ‰Keyï¼Œå¯ä»¥ä½¿ç”¨Redisçš„flushdbå’Œflushallå‘½ä»¤
 
