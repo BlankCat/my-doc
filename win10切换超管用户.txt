@@ -1,0 +1,28 @@
+win10启用管理员账户登录
+http://jingyan.baidu.com/article/3d69c5518f1be2f0ce02d771.html
+
++---
+右键我的电脑--管理--计算机管理--本地用户组--找到Administrator
+
+
+
+win+x--以管理员身份运行cmd
+命令：
+net user administrator /active:yes
+net user administrator /active:no
+
+
+
++---用户和组---
+以管理员身份执行cmd
+1.利用命令查看当前系统用户：net user
+2.查看用户组 net localgroup–查看用户组；
+3.查看ora_dba用户组下的具体用户：net localgroup ora_dba;
+
+4.添加本机管理员用户到ora_dba用户组下：
+net localgroup ora_dba administrator /add
+也可以添加用户组到该组下 
+net localgroup ora_dba administratos /add
+例子【我的用户名blankcat】
+net localgroup ora_dba blankcat /add
+5.此时，成功执行 “sqlplus / as sysdba”

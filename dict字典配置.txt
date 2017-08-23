@@ -1,0 +1,208 @@
+SELECT dd_desc FROM dj_dictdata WHERE di_item='lawyer_politics_type'  ORDER BY dd_order asc
+SELECT dd_desc FROM dj_dictdata WHERE di_item='zy_org_type'  ORDER BY dd_order asc
+List<String> menuListStr=djApplyService.selectMenuByHsql(hsql);
+
+
+
+dj_dictdata
+
+律师政治面貌--字典表维护
+lawyer_politics_type
+
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_politics_type', 'lawyer_politics_type', '中国共产党', '中国共产党', 1);
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_politics_type', 'lawyer_politics_type', '中国共产主义青年团', '中国共产主义青年团', 2);
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_politics_type', 'lawyer_politics_type', '群众', '群众', 3);
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_politics_type', 'lawyer_politics_type', '中国国民党革命委员会', '中国国民党革命委员会', 4);
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_politics_type', 'lawyer_politics_type', '中国民主同盟', '中国民主同盟', 5);
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_politics_type', 'lawyer_politics_type', '中国民主建国会', '中国民主建国会', 6);
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_politics_type', 'lawyer_politics_type', '中国民主促进会', '中国民主促进会', 7);
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_politics_type', 'lawyer_politics_type', '中国农工民主党', '中国农工民主党', 8);
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_politics_type', 'lawyer_politics_type', '中国致公党', '中国致公党', 9);
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_politics_type', 'lawyer_politics_type', '台湾民主自治同盟', '台湾民主自治同盟', 10);
+
+
+执业组织类型
+zy_org_type
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('zy_org_type', 'zy_org_type', '专职律师', '专职律师', 1);
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('zy_org_type', 'zy_org_type', '兼职律师', '兼职律师', 2);
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('zy_org_type', 'zy_org_type', '公司律师', '公司律师', 3);
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('zy_org_type', 'zy_org_type', '法律援助律师', '法律援助律师', 4);
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('zy_org_type', 'zy_org_type', '军队律师', '军队律师', 5);
+
+
+
+
+
+
+执业类型
+SELECT * FROM dj_dictdata WHERE di_item="zy_org_type";
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ( 'zy_org_type', 'zy_org_type', '公职律师', '公职律师', '6');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ( 'zy_org_type', 'zy_org_type', '香港居民律师', '香港居民律师', '7');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ( 'zy_org_type', 'zy_org_type', '澳门居民律师', '澳门居民律师', '8');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ( 'zy_org_type', 'zy_org_type', '台湾居民律师', '台湾居民律师', '9');
+
+
+
+
+组织类型
+SELECT * FROM dj_dictdata WHERE di_item="lawyer_politics_type";
+
+
+健康类型
+SELECT * FROM dj_dictdata WHERE di_item="lawyer_health_type";
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_health_type', 'lawyer_health_type', '健康', '健康', '1');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_health_type', 'lawyer_health_type', '良好', '良好', '2');
+
+
+
+学历
+SELECT * FROM dj_dictdata WHERE di_item="lawyer_max_xl_type";
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_max_xl_type', 'lawyer_max_xl_type', '博士', '博士', '1');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_max_xl_type', 'lawyer_max_xl_type', '硕士', '硕士', '2');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_max_xl_type', 'lawyer_max_xl_type', '本科', '本科', '3');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_max_xl_type', 'lawyer_max_xl_type', '高职高专', '高职高专', '4');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_max_xl_type', 'lawyer_max_xl_type', '自考本科', '自考本科', '5');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_max_xl_type', 'lawyer_max_xl_type', '成人本科', '成人本科', '6');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_max_xl_type', 'lawyer_max_xl_type', '网教本科', '网教本科', '7');
+
+
+
+学位
+SELECT * FROM dj_dictdata WHERE di_item="lawyer_max_xw_type";
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_max_xw_type', 'lawyer_max_xw_type', '博士学位', '博士学位', '1');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_max_xw_type', 'lawyer_max_xw_type', '硕士学位', '硕士学位', '2');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_max_xw_type', 'lawyer_max_xw_type', '学士学位', '学士学位', '3');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_max_xw_type', 'lawyer_max_xw_type', '无学位', '无学位', '4');
+
+
+英语
+SELECT * FROM dj_dictdata WHERE di_item="lawyer_english_type";
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_english_type', 'lawyer_english_type', '初级', '初级', '1');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_english_type', 'lawyer_english_type', '四级', '四级', '2');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_english_type', 'lawyer_english_type', '六级', '六级', '3');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_english_type', 'lawyer_english_type', '专业四级', '专业四级', '4');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_english_type', 'lawyer_english_type', '专业八级', '专业八级', '5');
+
+律师类型
+SELECT * FROM dj_dictdata WHERE di_item="lawyer_type";
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_type', 'lawyer_type', '专职执业', '专职执业', '1');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_type', 'lawyer_type', '兼职执业', '兼职执业', '2');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_type', 'lawyer_type', '公职律师', '公职律师', '3');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_type', 'lawyer_type', '公司律师', '公司律师', '4');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_type', 'lawyer_type', '法律援助', '法律援助', '5');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_type', 'lawyer_type', '军队律师', '军队律师', '6');
+
+
+
+
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('lawyer_type', 'lawyer_type', '专职执业', '专职执业', '1');
+
+
+
+民族
+SELECT * FROM dj_dictdata WHERE di_item="nation_type";
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '汉族', '汉族', '1');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '蒙古族', '蒙古族', '2');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '回族', '回族', '3');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '藏族', '藏族', '4');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '维吾尔族', '维吾尔族', '5');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`
+, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '苗族', '苗族', '6');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '彝族', '彝族', '7');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '壮族', '壮族', '8');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '布依族', '布依族', '9');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '朝鲜族', '朝鲜族', '10');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '满族', '满族', '11');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '侗族', '侗族', '12');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '瑶族', '瑶族', '13');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '白族', '白族', '14');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '土家族', '土家族', '15');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '哈尼族', '哈尼族', '16');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '哈萨克族', '哈萨克族', '17');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '傣族', '傣族', '18');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '黎族', '黎族', '19');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '僳僳族', '僳僳族', '20');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '佤族', '佤族', '21');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '畲族', '畲族', '22');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '高山族', '高山族', '23');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '拉祜族', '拉祜族', '24');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '水族', '水族', '25');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '东乡族', '东乡族', '26');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '纳西族', '纳西族', '27');
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '景颇族', '景颇族', '28');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '柯尔克孜族', '柯尔克孜族', '29');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '土族', '土族', '30');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '达斡尔族', '达斡尔族', '31');
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '仫佬族', '仫佬族', '32');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '羌族', '羌族', '33');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '布朗族', '布朗族', '34');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '撒拉族', '撒拉族', '35');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '毛南族', '毛南族', '36');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '仡佬族', '仡佬族', '37');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '锡伯族', '锡伯族', '38');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '阿昌族', '阿昌族', '39');
+
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '普米族', '普米族', '40');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '塔吉克族', '塔吉克族', '41');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '怒族', '怒族', '42');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '乌孜别克族', '乌孜别克族', '43');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '俄罗斯族', '俄罗斯族', '44');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '鄂温克族', '鄂温克族', '45');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '德昂族', '德昂族', '46');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '保安族', '保安族', '47');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '裕固族', '裕固族', '48');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '京族', '京族', '49');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '塔塔尔族', '塔塔尔族', '50');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '独龙族', '独龙族', '51');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '鄂伦春族', '鄂伦春族', '52');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '赫哲族', '赫哲族', '53');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '门巴族', '门巴族', '54');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '珞巴族', '珞巴族', '55');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '基诺族', '基诺族', '56');
+INSERT INTO `djcourse`.`dj_dictdata` ( `di_item`, `dd_value`, `dd_note`, `dd_desc`, `dd_order`) VALUES ('nation_type', 'nation_type', '其他', '其他', '57');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
