@@ -1,0 +1,9 @@
+
+Strus配置文件就搜索
+*.xml
+http://www.zfwx.com/member/DjUser/checkPasswordToJsonp.do?jsonpCallback=angular.callbacks._5&password=111111
+angular.callbacks._5(
+	{
+	data: false
+	}
+)
