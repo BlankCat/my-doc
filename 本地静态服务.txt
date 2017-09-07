@@ -1,0 +1,45 @@
+查看公网ip
+直接百度 ip回车，即可查看公网ip
+
+2查看私网ip
+1 ipconfing 插卡ipv4
+
+ipv4私网地址 百度一下
+IPV4 地址分类 A B C D E
+http://blog.csdn.net/ylqmf/article/details/4970213
+c类网段一般容纳254个主机；
+
+
+网络：设置
+WAN广域网
+LAN局域网
+WLAN无线局域网
+
+WAN口是对外的接口，和运营商、上级网络打交道。
+LAN和WLAN是对内的接口，内部的电脑、手机、PAD，都是接入到LAN或者WLAN。
+一般的无线路由器，包含了完整的LAN、WAN、WLAN功能
+
+
+
+
+ip地址讲解
+http://blog.csdn.net/yangluoning/article/details/8667067
+
+如何浏览器下载局域网电脑的东西
+
+输入wifi密码，手机是如何和路由器交换数据的
+
+python.exe  -m http.server
+
+
+python监听端口下载东西
+python -m SimpleHTTPServer 80
+出现错误
+No module named SimpleHTTPServer
+使用命令
+python.exe  -m http.server 8000
+python  -m http.server 8000
+
+
+http://127.0.0.1:8000/
+http://192.168.1.151:8000/
