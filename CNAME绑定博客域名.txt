@@ -1,0 +1,6 @@
+怎样将域名绑定到github pages 博客上
+https://jingyan.baidu.com/article/3c343ff70fb6e60d3779632f.html
+1>博客根目录添加CNAME文件
+2>文件内容是自己的域名
+CNAME
+blankcat.top
