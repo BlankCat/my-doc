@@ -1,0 +1,63 @@
+alliance 联盟
+attr 元素
+pub 发布
+statistical 统计
+activity 活动面授
+invite 邀请
+ticket 票据
+
+advance提出问题
+alipay_paynotify_qrcode 阿里支付二维码
+answer_advance 提出问答
+answer_look_record问答查看记录
+answer_praise_record 赞美记录
+
+apply 申请
+brand course 品牌课
+card make 卡制作
+
+cash_record 崩溃记录
+
+cooperator 合作者
+daily 每天
+
+orgcharge 组织交换 转所
+promotion 促销活动
+
+recommended association 推荐的关联
+
+suggest 意见反馈
+
+sysprop 系统属性
+
+topic 话题，题材
+
+cat_sn 卡商标
+SN码
+
+customization 定制
+
+goods_pro 商品属性
+
+goods_speks 商品规格
+
+order_items
+order_items_sns 带商品编号的商品明细
+
+property 属性
+
+org py 组织拼音
+
+
+
+
+
+
+
+
+
+
+
+
+
+
