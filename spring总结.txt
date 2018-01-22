@@ -1,0 +1,38 @@
+
+超级粘性框架
+
+1控制反转/依赖注入 ioc/di，管理依赖
+2面向切面 aop
+3数据库事务管理
+4jdbc/orm/Hibernate3
+5web框架/struts2/springMVC
+6第三次组件Mail，JMS
+
+
+模块
+core/beans/context/el/aop/aspects/
+事务/jdbc/jms/web/web-servlet/test
+
+关系
+泛化:类与类的继承，接口的实现
+实现:实现接口
+依赖:类与类依赖，不具有拥有关系
+关联:类与类依赖，具有拥有关系
+组合:整体--部分
+
+资源
+外部资源
+url资源
+file资源
+classpath
+lib
+
+Spring表达式语言全称为
+“Spring Expression Language”，
+缩写为“SpEL”，
+
+ACID
+原子性（Atomicity）
+一致性（Consistency）
+隔离性（Isolation）
+持久性（Durability）
