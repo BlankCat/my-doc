@@ -1,52 +1,1422 @@
-alliance 联盟
-attr 元素
-pub 发布
-statistical 统计
-activity 活动面授
-invite 邀请
-ticket 票据
 
-advance提出问题
-alipay_paynotify_qrcode 阿里支付二维码
-answer_advance 提出问答
-answer_look_record问答查看记录
-answer_praise_record 赞美记录
+----------------------------------------
+表描述是模型，还是关系，还是动作
 
-apply 申请
-brand course 品牌课
-card make 卡制作
+是动作--是动作就会有状态
 
-cash_record 崩溃记录
+在什么时候生成记录
 
-cooperator 合作者
-daily 每天
+记录是否能修改
 
-orgcharge 组织交换 转所
-promotion 促销活动
+记录发起者
 
-recommended association 推荐的关联
+记录编辑着
 
-suggest 意见反馈
+动作产生记录，谁，在什么时间，什么地点，做了什么
+----------------------------------------
+表名相关的
+	alliance 联盟
+	attr 元素
+	pub 发布
+	statistical 统计
+	activity 活动面授
+	invite 邀请
+	ticket 票据
 
-sysprop 系统属性
+	advance提出问题
+	alipay_paynotify_qrcode 阿里支付二维码
+	answer_advance 提出问答
+	answer_look_record问答查看记录
+	answer_praise_record 赞美记录
 
-topic 话题，题材
+	apply 申请
+	brand course 品牌课
+	card make 卡制作
 
-cat_sn 卡商标
-SN码
+	cash_record 崩溃记录
 
-customization 定制
+	cooperator 合作者
+	daily 每天
 
-goods_pro 商品属性
+	orgcharge 组织交换 转所
+	promotion 促销活动
 
-goods_speks 商品规格
+	recommended association 推荐的关联
 
-order_items
-order_items_sns 带商品编号的商品明细
+	suggest 意见反馈
 
-property 属性
+	sysprop 系统属性
 
-org py 组织拼音
+	topic 话题，题材
+
+	cat_sn 卡商标
+	SN码
+
+	customization 定制
+
+	goods_pro 商品属性
+
+	goods_speks 商品规格
+
+	order_items
+	order_items_sns 带商品编号的商品明细
+
+	property 属性
+
+	org py 组织拼音
+
+----------------------------------------
+
+
+1组织
+2面授
+3问答
+4申请
+5实卡
+6课程
+
+
+------------------
+cas_org 组织，机构
+organization 组织
+------------------
+		org_id
+
+		名称
+		名字可以拆分
+		fullname 	组织全称
+		shortname	短名字，简称
+		shortname_py	拼音简写--网校拼音首字母
+
+		类型
+		组织属性，定性一个组织 类别
+		lmstatus	联盟状态--状态：1:联盟，0:非联盟
+		组织分类定性
+		type	类型 01234/省律协/市律协/县律协/所/分所
+		行业维度--定性组织
+		domain	行业
+		
+
+		组织构成
+		intro	简介--组织简介
+		img		图片--律所图片logo
+		md_img	门店图片--门店前台照
+		org_tag	组织标签
+
+		组织业务范围
+		work_range		职业范围--干什么的
+
+		组织所在地区
+		province	省
+		city		市
+		district	地区
+		addr		地址
+		zip			邮编
+			Zip code
+		位置
+		lng		经度
+		lat		纬度
+
+
+		组织人员
+		contact_persion	联系人
+		legal_person	法律代表人--法定代表人
+		contact_tel		联系电话--电话
+		contact_email	联系邮箱--邮箱
+		contact_fax		联系传真--传真
+
+		数据相关
+		license_number	许可号码--许可证号
+		person_num		人数--组织人数
+		view_num	查看数--查看次数
+		tkl_rate	律所律协听课率
+		like_num	点赞数
+		child_org_num	子机构数
+
+
+		经营许可相关的
+		谁颁发证书
+		经营许可时间
+		credit_code		信用社代码--诚信度
+		authorized_time		认证时间--首次批准时间
+		given_org	颁证机关--赠予证书组织
+		given_time	颁证时间
+
+		valid_start 	有效开始--许可开始时间
+		valid_end		有效结束--许可结束时间
+		permit_file		许可证文件--许可证附件
+
+		经营许可
+		yyzh		营业证号
+		zzjgdm		组织机构代码
+		注册
+		registered_capita	注册人头--注册资金
+
+
+		如何找到组织
+		search_keywords		搜索关键词--索引关键字
+		search_text		搜索内容
+
+
+		创建组织，需要审核
+		checked_status	审核状态
+		checked_desc	审核描述
+		注销状态
+		del_status	审核状态
+		view_type	显示状态 1显示 0 不显示
+
+	
+		组织奖惩情况
+		reward_des		受奖励情况
+		punishment_des	处罚/处分情况
+
+		last_update_time 最近更新时间--信息更新时间
+		addTime		添加时间
+
+		企业官网
+		website		网站
+
+		排序
+		org_pid	父id	
+		org_order	组织排序--排序
+		org_allbelongs	所属组织串
+
+
+
+----------------------------------------
+------------------
+cas_td_log 日志
+同步日志信息
+------------------
+		id 		日志编号
+		type 		类别 0成功/1失败
+
+		和谁相关的日志
+		subject		主题 0律师/1律所
+		content		内容 操作内容
+
+		createtime 	创建时间
+		处理状态
+		status 		0已处理/1未处理
+
+		谁去处理错误日志
+		在什么时间处理的
+		username 	处理日志的操作者
+		account_id 	操作者的关联编号
+		updatetime 	处理时间
+
+----------------------------------------
+
+面授相关的业务
+1 管理员--发布面授活动
+_activity
+2生成特色活动课程
+_activity_course
+
+3用户发起活动邀请
+_activity_invite
+
+4用户活动报名
+_activity_signup
+
+5购买--支付--订单--订单明细 
+_activity_order ---  _activity_order_item
+
+6 用户成功报名，生成二维码
+_activity_ticket
+
+
+7用户参与活动讨论
+_activity_discuss
+
+8用户参与意见反馈，点课定制
+_activity_dianke
+
+
+
+
+----------------------------------------
+------------------
+_activity 面授活动
+------------------
+		activity_id 活动编号
+		名称
+		activity_name 	什么活动--活动名
+		类被
+		type 	什么类型活动--0论坛/1班级/2微课
+
+		mobile	联系人电话--活动联系电话
+
+		活动收费标准
+		price 收费价格
+
+		活动宣传海报
+		publicity_img 公开图片--宣传图片
+
+		content 活动内容
+		note 	注意事项
+
+		活动多长时间
+		class_hour 活动课时
+
+		标签
+		activity_tag 活动标签
+
+		是否要排序
+		tj_order 活动排序
+
+		活动师资信息
+		teacher_id 	
+		teacher_name
+
+
+		活动地点
+		province 	省
+		city 		市
+		district 	区
+		addr		地址
+		addr_name 	地图显示地点名称
+		addr_lat 	经度
+		addr_lon	维度
+
+		活动状态
+		status 0未开始/1进行中/2已结束/3已取消
+		显示状态
+		活动发布状态
+		act_isdisplay 0未审核，不展示；1审核通过展示
+
+		用户行为/平台行为
+		行为定性
+		is_upload 	 是否为用户上传0不是   1是
+
+		活动下架和审核
+		down_reason 活动下架原因
+		fail_reason  审核失败原因
+
+		活动多少人
+		person 	预招人数
+		real_person 	实到人数
+
+		时间相关
+		签到时间
+		checkin_begin_time	签到开始时间
+		checkin_end_time	签到结束时间
+		活动开始时间
+		begin_time 	活动开始时间
+		end_time 	活动结束时间
+
+		org_endtime  报名截止日期
+
+		活动发布人
+		creator 	创建人 账号
+		create_time  发布时间
+		create_org_id 发布者所属组织Id'
+		org_type 	组织类型
+		username 上传面授人得用户名
+
+
+		优惠价格
+		优惠价格--邀请价格
+		invite_price 使用邀请码优惠的价格
+		invite_count 邀请次数
+		invite back price 邀请 退回 价格
+		general_situation 一般情况--概况
+
+
+		什么行业的活动
+		domain 行业
+
+		course_info  课程信息
+		signup_info  报名标准--收费
+		活动价格相关
+		like_price 	点赞优惠价格
+		老客户价格
+		old_price 	老学员优惠
+		back_dianbi 返还的点币数
+
+
+----------------------------------------
+------------------
+_activity_course 活动课程
+------------------ 
+		activity_course_id  面授对应课程表id
+		activity_id 活动id
+		course_id 课程id
+----------------------------------------
+------------------
+_activity_dianke 点课
+我要点课
+意见反馈
+------------------ 
+		id 	编号
+		title 标题
+		content 内容描述
+		teacher 期望教师名称
+		begin_time 期望开班时间
+		price 价格
+		note  备注
+		username 点课人
+		real_name 真实姓名
+		mobile  手机号
+----------------------------------------
+------------------
+_activity_discuss 活动讨论
+讨论
+评论
+聊天
+------------------ 
+		discuss_id 	编号
+		activity_id 活动id
+		discuss_pid 讨论父id
+		account_id 账号
+		type 0: 文字 /1: 语音
+		msg_txt 存放文本
+		msg_voc 存放语音
+		create_time
+
+----------------------------------------
+------------------
+_activity_invite 活动邀请
+邀请动作
+邀请奖励动作
+------------------ 
+		code 邀请码
+		is_business 是否是业务部
+		哪个活动的邀请
+		activity_id 活动id
+		activity_name 
+
+		邀请人信息
+		invite_user 邀请人用户名
+		invite_realname
+		mobile
+
+		被邀请人信息
+		invited_user 被邀请人用户名
+		invited_realname
+
+		操作人，邀请动作需要奖励
+		谁去奖励
+		operation
+		operation_time
+		status 状态:0未奖励1已奖励
+		award 奖品:充值卡
+		note 备注
+
+----------------------------------------
+------------------
+_activity_signup 活动报名
+签到了没报名
+签到了报名了
+------------------ 
+		signup_id 报名编号
+		activity_id 哪个活动
+
+		username 用户名
+		realname  谁报名
+		unit   单位
+		mobile 手机
+		email 邮箱
+		zyzh 执业证号
+		duty 税收，税，责任
+		invite_code 邀请码
+
+		状态
+		status 0:未支付/1:已支付/2: 已取消/3: 已签到'
+
+		signup_time 报名时间
+		checkin_time 签到时间
+
+----------------------------------------
+------------------
+_activity_ticket 活动票据
+报名产生报名票据记录
+------------------ 
+		ticket_id 票编号
+		ticket_no 票编号
+		signup_id 报名编号
+		qrcode_url 二维码
+----------------------------------------
+------------------
+_activity_order 活动订单
+报名--支付--活动订单记录
+一笔订单对应这一笔支付
+------------------ 
+		order_id 订单编号
+		totalprice 原价格
+		totalrealprice 优惠价
+		type
+		status 0: 未支付，1: 已支付, 2: 已取消
+		create_time 下单时间
+
+		谁下单
+		account_id 谁下的单
+		user_name  
+		什么时间
+		payment_time 支付时间
+		payment_way 支付方式
+
+----------------------------------------
+------------------
+_activity_order_item 活动订单明细
+报名--支付--活动订单记录
+订单商品--（活动报名）
+------------------ 
+		order_item_id 明细编号
+		order_id 订单id
+
+		username 谁下的单
+		price 活动价格
+		realprice 下单价格
+
+		商品id
+		signup_id 报名编号
+		商品名称
+		activity_name 活动名
+		invited_code 邀请码
+
+----------------------------------------
+问答业务描述
+1 用户提出问题生产
+  _advance
+
+
+2 用户回答问题-产生问题答案
+_answer_advance 
+dj_answer
+
+3用户购买答案产生用户查看记录
+购买--支付--订单信息--订单明细详情--订单日志
+_advance_order_info ---  _advance_order_detail  --- _advance_order_log
+
+4购买完--产生购买消息
+_answer_teacher_message
+
+5查看记录，只有购买，才能查看
+_answer_look_record
+
+5用户点赞记录
+_answer_praise_record
+
+
+问题历史记录和问答没有关系，
+只是机器人提出的历史问题库
+_advance_history_record
+
+
+
+
+----------------------------------------
+------------------
+_advance 提出问题
+提前，提出
+什么时候生成问答记录
+记录是否能修改
+记录发起者
+记录编辑着
+
+------------------ 
+		question_id
+		question_no
+		pursue_id  追问id
+		question  问题标题
+		question_info 问题信息
+
+		answer_type 回答类型
+
+
+		发文用户
+		user_name 发问用户名
+		add_user_id 发文用户
+		add_time添加时间
+
+		编辑用户
+		edit_user_id 编辑用户
+		edit_time 编辑时间
+
+		问题状态
+		is_classic 是否是经典 Y/N
+		is_delete 是否作废 Y/N
+
+		status 定义问题状态
+
+----------------------------------------
+------------------
+_advance_history_record 问题历史记录
+什么时候产生
+能否被编辑
+------------------ 
+		history_id 	历史编号
+		history_question 问题内容
+		谁提出
+		real_name 
+		mobile
+		user_name
+
+		is_delete char(1) Y/N 是否删除
+
+		时间
+		add_time
+		edit_time
+----------------------------------------
+------------------
+_answer 答案记录
+什么时候生成该记录？
+针对问题去做答，回答的主题被称为老师
+
+是否能修改编辑？
+能
+------------------ 
+		answer_id 答案id 编号，标识
+		answer_title 答案标题
+		answer_pic 	答案图片
+		answer_info 答案信息
+		answer_no 编号
+
+		类型
+		answer_type 答案类型
+		状态
+		status 	答案状态
+
+		teacher_id  作答者id
+		teacher_answer_id 老师做答id
+
+
+		courseware_id  课件id
+		article_id
+
+
+		real_price 真实价格
+		cost_price 成本价格
+
+		审核状态
+		is_selected 是否选择
+		is_delete 	是否删除
+
+		添加用户
+		add_user_id
+		add_time
+		编辑用户
+		edit_user_id
+		edit_time
+
+----------------------------------------
+------------------
+_answer_advance 问题答案关系表记录
+什么时候生成该记录？
+某个用户对某个问题做答产生的记录
+
+是否能修改编辑？
+能
+------------------
+		answer_question_id	记录编号，标识
+		question_id 	问题标识
+		answer_id 		答案标识
+		add_time 		添加时间
+		edit_time 		编辑时
+
+----------------------------------------
+------------------
+_answer_index_temp 答案 索引 模板
+什么时候生成该记录？
+老师做答产生的记录
+
+是否能修改编辑？
+------------------
+		answer_id 	答案编号
+		answer_type 	做答类型
+		answer_title 	答案标题
+		answer_info 	答案内容
+
+		作答老师信息
+		teacher_id 		老师id，标识
+		tch_name 	老师姓名
+		tch_photo 	照片
+		tch_spedesc 职称，头衔
+
+
+		real_price 价格
+		answer_comment_count 评论数
+		answer_praise_count 点赞数
+		answer_look_count 查看数，浏览数
+
+----------------------------------------
+------------------
+_answer_look_record 答案预览记录
+什么时候生成该记录？
+用户查看答案，产生记录
+是否能修改编辑？
+------------------ 
+		look_record_id 	记录标识 
+		answer_id 	答案标识
+		user_name 	用户名
+		order_id  	购买答案订单
+		add_time 	添加时间
+
+----------------------------------------
+------------------
+_answer_praise_record 答案点赞
+什么时候生成该记录？
+答案点赞产生的记录
+是否能修改编辑？
+------------------ 
+		praise_record_id 记录标识
+		answer_id 	答案标识
+		user_name 	点赞用户
+		teacher_id 	点赞老师标识
+		is_delete 	是否可删除
+		add_time 	添加时间
+		edit_time 	编辑时间
+
+----------------------------------------
+------------------
+_answer_user_comment 用户答案评价
+什么时候生成该记录？
+用户--购买答案后--评价答案
+是否能修改编辑？
+------------------ 
+		answer_comment_id 	记录标识--答案评价
+		answer_id 	答案标识--评价谁
+		order_id 	订单id
+
+		user_name 	会员名称--谁评价
+		buy_date 	购买日期
+		comment_time 	评价日期
+		comment_level 	评级ID
+		comment_notes 	评价内容
+		advantage 		是否有用 0/1/2
+		advantage_tag  优势标签
+
+		审核动作
+		is_audit 	是否审核
+		audit_status 	审核状态
+		audit_user_id 	审核账号--标识，谁来审核
+		audit_time 		审核时间
+		is_delete 是否删除
+
+		添加人信息
+		add_user_id  添加人-标识-谁添加的
+		add_time 	添加时间
+
+		编辑人信息
+		edit_user_id 	修改人-标识-谁审核修改的
+		edit_time 		修改时间
+
+
+----------------------------------------
+------------------
+_answer_teacher 老师做答记录
+什么时候生成该记录？
+老师人工回答问题产生的记录
+是否能修改编辑？
+------------------ 
+		tea_answer_id 	人工答案id，记录标识
+		tea_answer_no 	人工答案编号
+		teacher_id 	 讲师ID--标识
+
+		答案属性
+		answer_type 	答案方式
+		answer_pic 		答案图片
+		answer 		    答案主体
+		answer_info 	答案简介
+		video_url 		视频URL--网址
+		voice_url		音频URL--网址
+		comic_url 		动漫URL--网址
+
+		答案操作状态
+		is_delete 		是否删除
+
+		添加人信息
+		add_user_id 	添加人ID--标识
+		add_time 		添加时间
+		编辑人信息
+		edit_user_id 	编辑人ID--标识
+		edit_time 		编辑时间
+
+----------------------------------------
+------------------
+_answer_teacher_message 师做答产生的消息记录老
+什么时候生成该记录？
+师做答产生的消息记录
+是否能修改编辑？
+------------------ 
+		id 记录标识
+		order_id 	订单号 标识
+		teacher_id 	老师标识，发给谁的消息
+		message 	消息内容 消息主体
+		user_name 	用户名
+		is_delete 	是否删除
+
+		添加人信息
+		add_user_id 	添加人ID--标识
+		add_time
+
+		编辑人信息
+		edit_user_id 	编辑人ID--标识
+		edit_time
+
+
+----------------------------------------
+------------------
+_advance_alipay_paynotify_qrcode 问题的支付宝支付二维码记录
+什么时候生成该记录？
+用户所要答案，支付前
+是否能修改编辑？
+------------------ 
+		id 支付编号，标识（身份标识）
+		notify_time 通知时间
+		notify_id  同知
+		sign_type	注册类型--标志类型
+		sign 标志，标记
+		notify_action_type  通知操作类型
+		trade_no 	 贸易编号
+		app_id  应用id 标识
+		out_trade_no 对外贸易编号
+		out_biz_no  biz是Business的缩写 对外商业编号
+		open_id 对外开放标识
+		buyer_logon_id 购买者登录标识
+
+		seller_id 卖家编号标识
+		seller_email 卖家邮箱
+
+		trade_status 交易状态
+
+		total_amount 总金额
+		receipt_amount 收据金额
+		invoice_amount 发票金额
+		buyer_pay_amount 购买者支付金额
+		point_amount 点币金额
+
+		refund fee 退款费用
+
+		subject 主题
+		body 内容
+
+		gmt_create 创建时间
+		gmt_payment  付款时间
+		gmt_refund 退款时间
+		gmt_close 关闭时间
+
+		fund bill list 资金清单
+
+----------------------------------------
+------------------
+_advance_alipay_payorder 问题支付订单
+问答支付订单
+------------------ 
+		id 订单编号表示
+		service   服务
+		partner   伙伴，搭档
+		_input_charset   输入字符集
+		sign_type 		标识类型
+		sign  		标识
+		notify_url 	通知url
+		app_id 		应用id
+		appenv 		app环境/android/ios
+		out_trade_no 	对外贸易编号
+		subject 主题
+		payment_type 付款类型
+		seller_id 卖家标识
+		total_fee 总费用
+		body 内容
+		it_b_pay 
+		show_url 显示网址
+		extern_token 额外令牌--外部令牌
+
+----------------------------------------
+------------------
+_advance_order_info 问题订单信息记录
+统计订单多少笔交易
+------------------ 
+		order_id 订单号
+
+		platform_id 平台id标识/1网校
+		channel_id 	渠道来源id/4iso/5android/6weixin
+
+		is_paid 	是否支付
+		payment_type 付支类型 /w/z
+		payment_no 支付流水号/前台展示订单流水号码
+
+		谁支付的
+		paid_time 	支付时间
+		user_name 	用户名
+		order_fee 	订单金额--费用
+		paid_fee 	付款金额
+		order_state 	单订状态
+		order_desc 		态状描述
+
+		时间
+		commit_time 	提交时间 ，开始
+		finish_time 	完成时间，结束
+
+		is_check_bills  是否检查账单--核对账单
+		order_points_g  订购点
+
+		order_type  单订类型1.购买答案2.打赏
+
+		level_star 评星等级
+		is_delete 是否删除/取消
+
+		添加订单
+		add_user_id
+		add_time
+		编辑订单
+		edit_user_id
+		edit_time
+----------------------------------------
+------------------
+_advance_order_detail 问题支付订单明细
+什么时候产生
+支付--产生订单--订单明细
+淘宝的订单详情
+------------------ 
+		order_detail_id 编号
+		order_id 	订单编号
+
+		order_desc 订单描述
+		order_fee 订单费用
+		order_points_g 点币
+		order_state 订单状态
+		order_type 订单类别
+		paid_fee 支付费用
+		paid_time 支付时间
+
+		answer_id 	回答者表识
+		teacher_id 	老师id标识
+
+		add_user_id 	创建订单账号
+		add_time 	 创建时间
+
+		edit_user_id 	编辑订单账号
+		edit_time 		编辑时间
+
+		is_delete 		是否删除
+
+		answer_info  	回答内容
+		answer_no 		回答编号
+		answer_pic 		回答图片
+		answer_title 	回答标题
+		answer_type 	回答类型
+
+
+		article_id 		文章id，标识
+
+		channel_id 		渠道id 标识
+
+		时间
+		commit_time 	提交时间
+		finish_time 	完成时间
+		cost_price 		成本价
+
+		is_check_bills  是否检查账单--核对账单
+		is_paid  是否支付
+		is_selected 是否选择
+
+		level_star 等级 星
+
+		payment_no  付款编号
+		payment_type  付款类型
+		platform_id  平台id，标识
+		real_price  真实价格
+
+		status  状态
+
+		teacher_answer_id
+		user_name
+
+		djAdvanceOrderInfo 提问信息
+		djAnswer
+		djTeacher
+		djUser
+		casUser
+----------------------------------------
+------------------
+_advance_order_log 问题订单交易日志记录
+什么时候产生
+	订单新建
+	已支付
+	订单完成
+能否被编辑
+------------------ 
+		order_log_id 操作日志id
+		order_id 	订单主体标识
+		order_state 订单状态
+		order_log_type 日志类型 public 公开/private 保密
+		log_content  日志内容
+		log_time 记录日志的时间字符串
+		is_delete 是否可以删除
+		add_time 添加日志的时间
+----------------------------------------
+------------------
+_advertising 广告记录
+什么时候产生
+	门户需要设计各种广告位，来推广展示广告
+	后台添加广告记录
+能否被编辑
+------------------ 
+		id 	记录标识 --一条广告
+		user_id 	用户标识--谁添加的
+		分类
+		ad_type 广告类型
+		domain 行业 控制广告分类
+
+
+		广告模型属性
+		ad_title 	标题
+		ad_summary  摘要
+		ad_content 	内容
+		ad_position 广告位0:不是1：是
+		ad_img  图片
+		ad_url 	链接地址
+		ad_color 	颜色值
+		special_theme 专题集合
+
+		ad_begintime 	广告起始时间
+		ad_endtime 		广告结束时间
+
+
+
+		动态控制模型变量
+		控制模型展示
+		ad_order  显示顺序
+		显示状态
+		ad_status 	 状态0:不显示1:显示
+
+		模型数据相关
+		ad_count 点击量
+
+		ad_addtime 	 增加时间
+
+----------------------------------------
+------------------
+_apply 申请记录
+什么时候产生
+	用户申请操作记录
+表描述是模型，还是关系，还是动作
+动作--是动作就有状态
+
+谁申请？申请人
+能否被编辑
+------------------ 
+		id 	记录标识--一条申请记录
+
+		申请称为会员，会员等级
+		a_rank 	申请的会员级别2金1银0铜
+		a_note  备注-申请备注
+		a_addtime 申请时间 --什么时间申请
+
+		状态
+		a_status  状态：是否审核，0：未审核，1审核
+
+
+		申请人信息
+		a_address 	地址
+		a_number 	人数
+		a_identity 	身份：0律师1律所2律协3讲师
+		a_contact 	联系人
+		a_organization 	机构名称（律所、律协）
+		a_tel 	联系电话
+		a_email 联系邮箱
+
+		spe_id 专业课标识--专业课
+
+----------------------------------------
+------------------
+_apply 申请金额记录
+表描述是模型，还是关系，还是动作
+动作--是动作就有状态
+谁申请
+谁受理
+状态
+什么时候产生
+	用户申请操作记录
+谁申请？申请人
+能否被编辑
+------------------ 
+		apply_id 记录标识-申请记录
+		谁申请
+		apply_username --申请人
+		apply_date	申请时间
+		apply_money 申请金额
+
+		谁受理
+		accept_username 	受理人
+		accept_date		受理时间
+
+		状态
+		state 	状态： 0:申请中  1:已经受理'
+
+----------------------------------------
+------------------
+_brandcourse 品牌课记录
+表描述是模型，还是关系，还是动作
+模型--模型属性
+
+什么时候产生
+	后台录入品牌课，产生记录
+能否被编辑
+------------------ 
+		bc_id 记录标识--品牌课
+
+		分类
+		domain 专业分类
+
+		属性
+		bc_title 	标题
+		bc_content 	内容
+		bc_img_path 	图片路径
+		bc_position 	图片位置 位置 1:左上(图片) 2：右上3：左下4：右下
+		bc_link 	链接地址
+		bc_teacher 专业课老师
+
+		状态
+		bc_status 	状态 0:草稿 1：正文
+
+		状态控制，排序
+		bc_orders 排序字段
+----------------------------------------
+业务描述：
+1定制卡的分类
+_card_type
+2卡模板关联分类
+_card_template
+
+3卡生成（xx卡，多少张，面额多少）
+_card_make
+
+4生成的卡--产生多少张。供用户购买
+实卡列表
+_card 
+
+5用户买卡
+_buycard
+6产生购卡记录
+dj_buycardrecord
+
+
+----------------------------------------
+
+------------------
+_card_type 优惠卡分类，设置优惠卡种类，分类
+表描述是模型，还是关系，还是动作
+模型，优惠卡分类
+面授优惠卡
+点读vip
+什么时候产生
+	后台定制，分类设定
+能否被编辑
+------------------ 
+	card_type_id 	记录标识--一种优惠卡分类
+	card_type_name 	分类名词--类型名称
+	card_type_note 	备注
+	type 	卡类型:1充值卡 2会员卡
+	ext1 	扩展字段根据type类型代表不同意义
+	domain 	行业
+
+----------------------------------------
+------------------
+_card_template 实卡模板
+表描述是模型，还是关系，还是动作
+模型，根据分类，定制模板，定制不同的实卡
+
+什么时候产生
+	后台定制，分类设定
+能否被编辑
+------------------ 
+		card_template_id 	记录标识--实卡模板
+		card_template_name 	卡名称
+		card_template_money 卡面值
+		card_template_note 	冲卡说明
+		card_type_id 		外键标识--卡类型
+
+------------------
+_card_make 优惠卡，实卡生成表记录表
+表描述是模型，还是关系，还是动作
+一批一批的卡，构成卡的生成信息
+
+一张购物卡，定多少面额
+消费卡，超市购物卡
+
+购物卡去超市消费--查看购物卡状态
+
+什么时候产生
+	后台定制，用户申请优惠卡
+能否被编辑
+------------------ 
+		card_make_id 	主键(批次号) 标识--这批卡卡的样本
+		优惠卡属性
+		card_name 		卡名称
+		card_money 		面值--值多少钱
+		card_number_start 	序列号起始
+		card_number_end 	序列号结束
+
+		card_make_user 		生成人--创建卡的用户
+		card_make_date 		生成时间
+		card_make_quantity  做多少个优惠卡，优惠卷，数量
+
+		card_type_id 		充值卡类型，卡针对活动的类型
+
+
+----------------------------------------
+------------------
+_card 优惠卡，vip卡，实卡列表
+表描述是模型，还是关系，还是动作
+模型--优惠卡
+
+什么时候产生
+	后台定制，用户申请优惠卡
+能否被编辑
+------------------ 
+		card_id 		记录标识--优惠卡
+		card_prefix 	卡前缀
+		card_number 	卡号:长度8位纯数字
+		card_password 	卡密12位纯数字
+		card_status 	使用情况:-1废弃  0未制 1已入库未使用 2已申领未使用 3已售出未使用 4已使用
+		card_note  备注说明
+
+
+		card_incoming_date 入库时间
+		mem_id 		使用人的id--谁的卡
+
+		card_recharge_date  充值时间
+		card_make_id 	批次号，1/2/3/4/5/卡的批次数
+
+----------------------------------------
+------------------
+_buycard 冲优惠卡,冲卡，买卡
+表描述是模型，还是关系，还是动作
+模型--各种优惠卡
+
+什么时候产生
+	后台录入优惠卡，产生记录
+	相当于创建优惠活动
+能否被编辑
+------------------ 
+buycard_id 	记录标识--优惠卡
+	模型属性
+	buycard_name 	优惠卡名
+	buycard_price  	优惠卡价格
+	buycard_discount 	购卡折扣
+	buycard_img 	卡图片
+	buycard_remark  备注--购卡备注
+	gift_money 		礼物钱
+
+----------------------------------------
+------------------
+_buycardrecord 购买优惠卡产生记录
+表描述是模型，还是关系，还是动作
+动作产生记录，谁，在什么时间，什么地点，做了什么
+购买优惠卡--购卡记录
+
+
+什么时候产生
+谁购买
+在什么时间
+花多少钱
+买了什么
+	
+能否被编辑
+------------------ 
+		record_id 	记录标识--购买
+		谁购买
+		record_username 	购买用户
+	
+		在什么时间
+		record_date 		购买时间
+
+		买了什么
+		record_money 		购买金额
+		record_num 			购买数量
+		record_remark 		购买备注
+		actual_money 		实际的钱
+		deal_money 			交易金钱
+
+----------------------------------------
+
+------------------
+_cash_record 崩溃记录
+表描述是模型，还是关系，还是动作
+动作产生记录，谁，在什么时间，什么地点，做了什么
+程序崩溃记录
+
+角色维度，来区别不同的记录
+
+能否被编辑
+------------------ 
+		id 		记录表示--一条崩溃记录
+		opt_role 	操作角色描述(1.学员 2.财务 3.讲师)
+		opt_user 	操作人
+		opt_type 	操作类型说明(1.学员购买课程  2.财务分成 3.讲师提现)
+		opted_user 	收钱人
+		course_name 课程名称
+		opt_money 	操作金额
+		opt_desc 	操作描述
+		opt_domain 	学院类型
+		opt_date 	操作时间
+		opt_terminal 	操作终端
+
+
+----------------------------------------
+课程相关的业务
+
+----------------------------------------
+------------------
+_cgcourse 课程-分类-关系
+表描述是模型，还是关系，还是动作
+	关系
+	谁和谁的关系
+	课程和课程分类的关系
+能否被编辑
+------------------
+	id 		记录标识--一条关系记录
+	cg_id 	课程分类标识--分类id
+	course_id 	课程标识-- 一个课程
+
+----------------------------------------
+------------------
+_changemoney 买课交易，交易记录
+表描述是模型，还是关系，还是动作
+	动作
+	买课交易--产生交易记录
+	动作产生记录，谁，在什么时间，什么地点，做了什么
+	
+能否被编辑
+------------------
+		change_id 		记录标识--一条交易记录
+		change_type 	交易类型
+
+		change_time 	交易时间--什么时间
+		change_name 	交易名词 -- 做了什么
+		change_money 	交易金额
+
+		change_operatored 被其他人操作
+		change_operator  “操作人”
+
+		remain_money  	剩余多少钱
+
+		buy_type 	交易类型，0、课时购买；1、积分购买
+		buy_terminal 	终端
+		money_unit 		金额单位：课时、点币，元
+		user_amount_id 	关联点币账户id串--购买账号
+		domain 	行业
+
+----------------------------------------
+------------------
+_course 课程
+表描述是模型，还是关系，还是动作
+	模型
+	模型的属性
+能否被编辑
+------------------
+		course_id 记录标识--一门课程
+		category_id 	分类标识--什么分类下的课程
+		cs_type 	课程分类 0点币，1现金
+
+		pay_type  支付方式
+		cs_name 	名称
+		tch_names 	老师名称
+		cs_img 	课程封面
+		cs_summary 课程简介
+
+		goods_tag 	关联模板标签
+		cs_info  	课程信息
+		cs_hour 	多少小时
+		cs_ks 		多少课时
+
+		cs_price 	点币价格
+		cs_originalprice 原始价格
+		cs_discountprice 	优惠价格
+
+		p_course_ids 	
+		cs_packname  课程包名称
+		course_authority 	课程认证
+		cs_spe_group 专业组
+
+		cs_advertising 课程广告语句
+		classic_word 课程金句
+		cs_img_square 方图
+		cs_img_rectangle 竖图
+
+
+
+
+
+		cs_freeurl 免费网址
+
+		cs_live_status 直播状态
+		live_room_id 直播房间号
+		cs_livetime 直播时间
+
+
+		控制属性
+		cs_isopen 是否开放
+		cs_isdisplay 是否显示
+		cs_ispack  是否是打包课
+		cs_isaudition 是否是面授课 
+		cs_recommend 推荐
+		cs_specialty 是否是专业课
+
+		cs_order 课程排序
+		cs_tj_order 是否推荐
+
+		lisrea_status 点读状态
+		is_first 	是否是首读
+		is_upload  	是否是用户上传
+		is_firm_course 是否是光盘课
+		xk_period 续课周期 默认60天
+
+		first_account 首读账号
+		username 首度账号用户名
+
+		audit_username 审核人员
+		contact_account_id 联系人
+
+
+
+		时间
+		cs_addtime 添加时间
+		cs_opendate 	开放时间
+		cs_closedate 	下架时间
+		transcribe_time  录制时间
+		cs_updatetime 修改时间
+		cs_audittime 提交审核的时间
+
+
+		fail_reason  审核失败的原因
+		down_reason 下架原因
+
+		course_tag 	文章标签
+
+
+
+		数据
+		cs_clicktimes 点击次数
+		cs_like 点赞数
+		cs_studynum 学过人数
+		cs_studyweeknum 周学过人数
+		cs_commentnum 评论人数
+		browse_num 学习人数
+
+
+		domain 行业
+		cs_belong_org 所属组织
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
