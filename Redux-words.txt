@@ -1,0 +1,63 @@
+testimonials  褒奖
+before proceeding furtuer 未来继续前行
+develop experience 开发体验
+influences 影响
+installation
+complementary packages 补充包
+the gist 要领
+patrons 赞助
+License 许可证
+
+
+https://redux.js.org/
+https://flow.org/en/docs/
+
+Documentation  文档
+introduction 介绍
+bisics 基本
+advanced 高级
+recipes 食谱
+FAQ 常问问题
+trobleshooting 故障排除
+glossary 词汇表
+API reference API参考
+
+
+
+eventually 最终的
+dispatched  调度，分发
+indicates 指出
+fundamental 基本的
+built-in 内置
+accumulated value 累加值
+distinguish  区分
+transform 转换
+delay 延迟
+ignore 忽略
+confuse 混淆
+payload 负载
+produces 创造
+
+mutation 突变
+specific 具体
+effect 影响
+routing transition 路由转换
+instead of 而不是
+higher-order function 高阶函数
+composition 构成，组成
+distinguish 区分
+enhancers 增强剂
+composes 
+occasionally 偶尔
+
+
+State--any
+Action -- object
+Reducer -- function
+Dispatching Function -- function
+Action Creator -- function
+Async Action -- any
+Middleware -- higher-order function
+Store -- object 
+Store creator --  function 
+Store enhancer --   higher-order function
