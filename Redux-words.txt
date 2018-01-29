@@ -17,11 +17,15 @@ introduction 介绍
 bisics 基本
 advanced 高级
 recipes 食谱
-FAQ 常问问题
+FAQ 常问问题 Frequently Asked Questions
 trobleshooting 故障排除
 glossary 词汇表
 API reference API参考
 
+常见问题
+Immutable Data 不可变的数据
+performance  性能，表演
+Design Decisions  设计决策
 
 
 eventually 最终的
@@ -61,3 +65,58 @@ Middleware -- higher-order function
 Store -- object 
 Store creator --  function 
 Store enhancer --   higher-order function
+
+
+
+surface 表面
+contracts 合同 合约
+This section  这一部分
+concerned 关心
+
+
+Top-Level Exports
+	createStore(reducer, [preloadedState], [enhancer])
+	创建 store
+	combineReducers(reducers)
+	结合 Reducers
+	applyMiddleware(...middlewares)
+	应用 中间件
+	bindActionCreators(actionCreators, dispatch)
+	绑定 动作 创造者
+	compose(...functions)
+	组成
+
+
+Store API
+
+Store
+	getState()
+	dispatch(action)
+	subscribe(listener)
+	订阅（监听器）
+	replaceReducer(nextReducer)
+	更换 Reducer（）
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
