@@ -1,0 +1,136 @@
+
+local cache
+
+redis cache
+
+
+
+多级缓存
+一致性哈希
+
+
+将一个 Item 分布到多个 Bucket 中的场景
+将商品放入桶，容器中
+
+
+将数据加载到内存中（Data --> Memory）
+将文件写入到磁盘中（File --> Disk）
+将任务分配到处理器（Task --> Processor）
+将页面加载到缓存中（Page --> Cache）
+
+
+Item 均匀地分布（Even Distribution）到不同的 Bucket 中，也就是负载均衡（Load Balancing）
+
+持续性的负载（Permanent Loads）
+临时性的负载（Temporary Loads）
+
+一致性哈希的实现
+http://www.cnblogs.com/gaochundong/p/consistent_hashing.html
+
+一致性哈希算法是分布式系统中常用的算法。
+比如，一个分布式的存储系统，要将数据存储到具体的节点上，
+如果采用普通的hash方法，将数据映射到具体的节点上，如key%N，
+key是数据的key，N是机器节点数，
+如果有一个机器加入或退出这个集群，则所有的数据映射都无效了，
+如果是持久化存储则要做数据迁移，如果是分布式缓存，则其他缓存就失效了。
+
+
+虚拟节点
+物理节点
+
+
+Java LocalCache 本地缓存的实现
+分布式缓存有Redis、Memcached
+
+单机环境下， 内部的缓存（LocalCache）。
+	两种LocalCache的实现
+		ConcurrentHashMap实现基本本地缓
+		LinkedHashMap实现LRU策略的本地缓存。
+
+
+
+
+
+LocalCache本地缓
+一、本地缓存应用场景
+二、java本地缓存标准
+三、java开源缓存框架
+四、LocalCache实现
+
+
+一、本地缓存应用场景
+	哪些数据可以存储到本地缓存？
+	1．访问频繁的数据；
+	2．静态基础数据（长时间内不变的数据）；
+	3．相对静态数据（短时间内不变的数据）。
+
+二、java本地缓存标准
+java缓存新标准（javax.cache）
+	1．原子操作，跟java.util.ConcurrentMap类似
+	2．从缓存中读取
+	3．写入缓存
+	4．缓存事件监听器
+	5．数据统计
+	6．包含所有隔离（ioslation）级别的事务
+	7．缓存注解（annotations）
+	8．保存定义key和值类型的泛型缓存
+	9．引用保存（只适用于堆缓存）和值保存定义
+
+三、java开源缓存框架
+	1．EHCache
+	2．OSCache
+	3．JCache
+	4．cache4j
+	5．ShiftOne
+	6．WhirlyCache
+
+四、LocalCache实现
+	1．  有容量上限maxCapacity；
+	2．  缓存达到容量上限时基于LRU策略来移除缓存元素；
+	3．  缓存对象的生命周期（缓存失效时间）由调用方决定；
+	4．  缓存对象失效后，将会有定时清理线程来清理掉，不会导致内存泄漏。
+	5．  性能比Ehcache稍强。
+
+2、总体设计
+
+LocalCache总体设计：
+1．  缓存元素 CacheElement；
+2．  缓存容器 LRULinkedHashMap；
+3．  缓存接口 Cache；
+4．  缓存组件实现 LocalCache。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
