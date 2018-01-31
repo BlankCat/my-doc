@@ -1,0 +1,474 @@
+
+
+个人计算机架构设计
+CPU
+	1.CPU：中央处理器，里有微指令集，执行计算
+	2.CPU内可两个主要的单元，算术逻辑单元(ALU)、控制单元
+	3.CPU频率：即CPU每秒钟可以进行的工作次数
+		(1)外频：CPU与外部组件进行数据传输/运算时的速度
+	    (2)倍频：CPU内部用来加速工作性能的一个倍数
+	    (3)所以CPU的频率=外频 X 倍频
+	4.CPU工作效率的综合考虑因素：微指令集、频率 
+
+显卡
+GPU
+	(1)图形处理器(Graphics Processing Unit)，图像运算工作的微处理器
+
+
+内存
+	1.双通道设计：
+		(1)内存的数据宽度，一条内存64位，两条就可以达到128位，双通道的设计理念
+		(2)启用双通道的功能必须要安插两条(或四条)内存条
+
+	2.DRAM：
+		(1)个人计算机的内存主要组件为动态随机访问内存
+		(2)RAM只有在通电时才能记录与使用，具有断电易失性
+
+	3.SRAM：
+		CPU--cache
+		Cache
+		主存
+		外存
+	4.CMOS
+	  	(1)主板上有一块CMOS芯片：
+	  		记录主板上面的重要参数，包括系统时间、
+	  		CPU电压与频率、各项设备的I/O地址与IRQ等	
+	  	(2)CMOS芯片由主板上的小电池给它额外提供电源
+
+	5.BIOS
+		(1)BIOS是一段程序。
+		(2)这段程序写在主板上的一个内存芯片中(ROM)，ROM在没有通电时也能记录数据
+		(3)系统开机时执行BIOS程序，来加载CMOS中的参数，
+			并尝试调用存储设备中的开机程序来进一步进入操作系统
+		 (4)不同计算机进入BIOS程序的按键不一样，进入BIOS可以查看和修改CMOS中的数据
+
+主板
+	1.主板上面最重要的就是芯片组,而芯片组通常又分为两个桥接器来控制各元件的沟通
+		(1)北桥(图形与内存控制器)：负责连接速度较快的CPU、内存、显卡、PCI-E控制器、前后端总线等组件；
+		(2)南桥(输入/输出控制器)：负责连接速度较慢的周边接口， 包括硬盘、USB、网卡、音频模块、IO接口等等
+	2.两大主流x86开发商：Intel、AMD
+
+
+硬盘
+	1.硬盘的组成：若干盘片、机械手臂、磁头、主轴马达
+	2.硬盘数据的读写过程：
+	3.硬盘接口：
+		(1)IDE：(Integrated-Drive-Electronics)是现在普遍使用的外部接口，主要接硬盘和光驱
+		(2)SATA：全称Serial ATA，也就是使用串口的ATA接口
+		(3)SCSI：全称是Small Computer System Interface（小型机系统接口）
+    4.磁盘的参考参数：
+	    (1)容量
+		(2)缓冲存储器
+		(3)转速
+		(4)接口类型
+		(5)传输速率
+		(6)平均寻道时间
+
+	硬盘的数据存储
+		1.磁头
+		2.磁道
+		3.扇区(Sector)
+		4.柱面(Cylinder)
+
+  	一个硬盘的容量=柱面数(或磁道数)×扇区数×每个扇区的大小×磁头数(盘面数)  
+                                           (一个柱面的大小)
+
+-------------------------------------------------------------------
+Linux的内核版本
+# uname -r
+  2.6.32-358.el6.i686
+ 主版本.次版本.释出版本-修改版本
+3.主次版本编号规则
+  (1)主次版本为奇数：表示此为开发中的版本。这种内核版本主要用在测试与开发新功能
+  (2)主次版本为偶数：表示此为稳定版本。可为用户提供一个相对稳定的Linux作业环境平台
+
+2.常见的Linux distribution
+  (1)Red Hat
+  (2)Fedora
+  (3)CentOS
+  (4)Debian
+  (5)Ubuntu
+  (6)Mandriva
+  (7)Novell SuSE
+  (8)Slackware
+  (9)Gentoo
+
+关于Linux
+	1.Linux的特色
+	2.Linux的优点
+	3.Linux的缺点
+
+关于授权(两种授权模式)
+1.Open Source
+   知名的开源授权网页：GNU、BSD、Apache License
+
+2.Close Sourse
+   免费商业软件代表的授权模式有：Freeware、Shareware
+
+-------------------------------------------------------------------
+
+网络相关配置
+ifconfig命令
+ip命令
+route命令　　
+-------------
+
+1. 查看已被激活的网卡的详细信息
+	# ifconfig 
+		HWaddr :网卡的硬件地址，即MAC地址
+		inet addr：IPv4的IP 地址
+		Bcast：广播地址
+		mask：子网掩码
+		inet6 addr：IPv6地址
+		MTU:最大传输单元
+		Metric：用于计算路由的成本
+		RX：表示网络启动到现在的封包接受情况 (Receive)
+		packets:表示接包数
+		errors:表示接包发生错误的数量
+		dropped：表示丢弃的包数量
+		overruns:表示接收时因过速而丢失的数据包数
+		frame：表示发生frame错误而丢失的数据包数
+		TX：从网络启动到现在传送的情况 (Transmit)
+		collisions：冲突信息包的数目
+		txqueuelen：发送队列的大小
+		RX byte、TX byte:总传送/接受的量
+2. 临时IP配置 
+	# ifconfig eth0 172.16.0.118 netmask 255.255.0.0
+	# ifconfig eth0 172.16.0.118/16
+	# ifconfig eth0:1 172.16.0.119/16  指定子接口
+
+3. 配置临时MAC地址(配置文件中的mac地址不可直接改，要不就不写) 
+	# ifconfig eth0 hw ether B8:97:5A:00:4E:3A 
+
+4. 简单的启动和关闭网络接口
+	# ifdown eth0 ; ifup eth0
+
+5. 关闭临时的网络接口
+	# ifconfig eth0:1 down
+
+6. 启用和关闭arp协议
+	# ifconfig eth0  arp
+	# ifconfig eth0  -arp
+
+7. 设置传输单元mtu的值
+	# ifconfig  eth0  mtu  1000
+
+-------------
+
+1. 关于额外IP的相关设定：ip add 临时增加/删除IP地址
+	# ip add add 192.168.1.126/24  dev eth0:0  
+	# ip add del  192.168.1.126/24  dev eth0:0
+	# ip add  show
+	# ip add  show eth0
+
+
+2. 关于接口设备的相关设置：ip link
+	# ip link set eth0 up        //开启网卡
+	# ip link set eth0 down      //关闭网卡
+	# ip link set eth0 name lyj  //网卡改名
+	# ip link set eth0 mtu 1000  //改mtu值
+	# ip link show   //显示所有接口信息
+	# ip -s link show eth0  //显示接口流量信息
+	# ip -s -s link show eth0  //多一个-s表示更详细的信息
+
+
+3. 关于路由的相关设置：ip route
+	# ip route show  //查看路由信息
+	# ip route add 10.10.10.0/24 via 172.16.0.254  dev eth0  //添加一条路由
+	# ip route del 10.10.10.0/24                             //删除一条路由
+	# ip route add default via 172.16.0.254  dev eth0     //添加默认路由
+	# ip route del default  via 172.16.0.254   dev eth0   //删除默认路由
+
+4. 其他
+	# ip monitor all   //所在局域网的一台电脑根据它的状态可以被分类成REACHABLE或者STALE
+	# ip neighbour  //查看接入你所在的局域网的设备的MAC地址
+
+-------------
+
+1. 查看路由状态
+# route  -n
+	Destination：目的地
+	Genmask：路由的网络掩码
+	Gateway：该网络通过哪个网关连接出去的（下一跳）
+	      0.0.0.0：表示路由直接由本机传送，即局域网的MAC直接发送的
+	      IP：表示该路由需要路由器(网关)的转发才能发送
+	Flags：标志
+	      U Up表示此路由当前为启动状态
+	      H Host，表示此网关为一主机
+	      G Gateway，表示此网关为一路由器
+	      R Reinstate Route，使用动态路由重新初始化的路由
+	      D Dynamically,此路由是动态性地写入
+	      M Modified，此路由是由路由守护程序或导向器动态修改
+	      ! 表示此路由当前为关闭状态
+	Iface：这个路由传递数据包的接口　
+
+2.增删/设置路由
+	# route add -net  172.16.0.0/16  netmask 255.255.0.0  gw 172.16.0.254  dev eth0    //增加一条路由 -net后面接的路由为一个网络
+	# route del  -net  172.16.0.0/16  netmask 255.255.0.0  gw 172.16.0.254  dev eth0   //删除一条路由
+	# route  add  -host  172.16.10.10 gw 192.168.1.1   //-host连接到单部主机的路由
+	# route  add  default  gw  192.168.1.1             //增加默认路由 gw指定下一跳  
+	# route  del   default  gw 192.168.1.1  
+
+
+-------------------------------------------------------------------
+权限管理
+
+Linux下的文件/目录有三类权限：一般权限、特殊权限、隐藏权限
+	关于权限与归属的认识(三张图)
+	访问权限/一般权限：r w x
+	1.对目录而言rwx的意义是？
+	2.对文件而言rwx的意义是？
+	 
+
+	特殊权限：SUID、SGID、SBTI
+	1.SUID/SGID
+	2.SBTI(Sticky Bit)粘滞位权限
+	隐藏权限：attrt
+
+-------------------------------------------------------------------
+关机命令
+
+正确的关机步骤：
+
+查看系统的使用状态       
+       # who 查看目前有谁在线
+       # netstat -a 查看网络的联机状态
+       # ps -aux 查看后台执行的程序
+
+通知在线用户关机的时刻
+       # shutdown  
+
+将数据同步写入磁盘
+       # sync
+
+关机命令       
+      # shutdown
+      # halt
+      # poweroff
+      # init 0
+
+重启命令
+      # reboot
+      # init 1
+
+
+shutdown命令
+# shutdown  -h  now          立刻关机
+# shutdown  -h  +10          10min后关机
+# shutdown  -h 12:00  &      在12:00关机
+# shutdown -t 10 -h now "System will shutdown 10 sencond later"  10秒后关闭系统并给用户发送提示信息
+
+# shutdown  -r  now         立刻重启
+# shutdown  +2              2min后重启
+# shutdown  -r  +30  'the system will reboot'  30min后重启并通知所有在线用户
+
+# shutdown  -c  取消之前做出的shutdown设置
+
+# shutdown  -k  now
+# shutdown  -k  now “warnning:the server will shutdown” 向所有登陆用户发出警告信息
+
+# shutdown -fr  now  重新启动且启动时略过fsck磁盘检测
+# shutdown -Fr now  重新启动且启动时强制进行fsck磁盘检测
+
+-------------------------------------------------------------------
+网络相关的配置
+
+netstat：显示网络状态信息
+	-a   显示所有连接状态的网络的所有选项
+	-l    仅显示LISTEN状态的连接
+	-n   直接显示IP地址，而不通过域名服务器
+	-p   把进程名和进程PID也显示出来(PID/Program name)
+
+
+	-t    (tcp)仅显示tcp相关的连接
+	-u   (udp)仅显示udp相关的连接
+
+	-c  n 每隔n秒自动执行一次
+
+
+
+# netstat -an |more
+# netstat -anp |more
+# netstat -apnt |more
+# netstat -apnu |more
+# netstat -apn -c 5
+
+-------------------------------------------------------------------
+netstat输出结果分析
+从整体上看，netstat的输出结果可以分为两个部分：
+1. 一个是Active Internet connections，称为有源TCP连接。
+
+	Proto 表示连接使用的协议
+	Recv-Q/Send-Q指%0A的是接收队列和发送队列。
+			这些数字一般都应该是0。
+			如果不是则表示软件包正在队列中堆积
+
+	Local Address 本地端的IP:port
+	Foreign Address 远程主机的IP:port
+	State 网络连接的状态
+
+2. 另一个是Active UNIX domain sockets，
+	称为有源Unix域套接口(和网络套接字一样，
+	但是只能用于本机通信，性能可以提高一倍)。
+
+	Proto     显示连接使用的协议
+	RefCnt  表示连接到本套接口上的进程号
+	Types    显示套接口的类型
+	State      显示套接口当前的状态
+	Path       表示连接到套接口的其它进程使用的路径名
+
+
+state网络连接状态，共有12中可能的状态
+
+1)LISTEN:首先服务端需要打开一个socket进行监听，状态为LISTEN.
+		/* The socket is listening for incoming connections. 侦听来自远方TCP端口的连接请求 */
+
+2)SYN_SENT:客户端通过应用程序调用connect进行active open.
+		于是客户端tcp发送一个SYN以请求建立一个连接.之后状态置为SYN_SENT.
+		/*The socket is actively attempting to establish a connection. 在发送连接请求后等待匹配的连接请求 */
+
+3)SYN_RECV:服务端应发出ACK确认客户端的 SYN,同时自己向客户端发送一个SYN. 之后状态置为SYN_RECV
+		/* A connection request has been received from the network. 在收到和发送一个连接请求后等待对连接请求的确认 */
+
+4)ESTABLISHED: 代表一个打开的连接，双方可以进行或已经在数据交互了。
+		/* The socket has an established connection. 代表一个打开的连接，数据可以传送给用户 */
+
+5)FIN_WAIT1:主动关闭(active close)端应用程序调用close，于是其TCP发出FIN请求主动关闭连接，之后进入FIN_WAIT1状态.
+		/* The socket is closed, and the connection is shutting down. 等待远程TCP的连接中断请求，或先前的连接中断请求的确认 */
+
+6)CLOSE_WAIT:被动关闭(passive close)端TCP接到FIN后，就发出ACK以回应FIN请求(它的接收也作为文件结束符传递给上层应用程序),并进入CLOSE_WAIT.
+		/* The remote end has shut down, waiting for the socket to close. 等待从本地用户发来的连接中断请求 */
+
+7)FIN_WAIT2:主动关闭端接到ACK后，就进入了 FIN-WAIT-2 .
+		/* Connection is closed, and the socket is waiting for a shutdown from the remote end. 从远程TCP等待连接中断请求 */
+
+8)LAST_ACK:被动关闭端一段时间后，接收到文件结束符的应用程序将调用CLOSE关闭连接。这导致它的TCP也发送一个 FIN,等待对方的ACK.就进入了LAST-ACK .
+		/* The remote end has shut down, and the socket is closed. Waiting for acknowledgement. 等待原来发向远程TCP的连接中断请求的确认 */
+
+9)TIME_WAIT:在主动关闭端接收到FIN后，TCP 就发送ACK包，并进入TIME-WAIT状态。
+		/* The socket is waiting after close to handle packets still in the network.等待足够的时间以确保远程TCP接收到连接中断请求的确认 */
+
+10)CLOSING: 比较少见.
+		/* Both sockets are shut down but we still don’t have all our data sent. 等待远程TCP对连接中断的确认 */
+
+11)CLOSED: 被动关闭端在接受到ACK包后，就进入了closed的状态。连接结束.
+		/* The socket is not being used. 没有任何连接状态 */
+
+12)UNKNOWN: 未知的Socket状态。
+		/* The state of the socket is unknown. */
+
+
+SYN: (同步序列编号,Synchronize Sequence Numbers)该标志仅在三次握手建立TCP连接时有效。表示一个新的TCP连接请求。
+ACK: (确认编号,Acknowledgement Number)是对TCP请求的确认标志,同时提示对端系统已经成功接收所有数据。
+FIN: (结束标志,FINish)用来结束一个TCP回话.但对应端口仍处于开放状态,准备接收后续数据。
+
+ 
+-------------------------------------------------------------------
+
+用户管理--管理文件
+用户和用户组相关的4个重要文件
+(1) /etc/passwd 存放用户信息的文件
+(2) /etc/shadow 存放用户密码信息的文件
+(3) /etc/group 存放用户组信息的文件
+(4) /etc/gshadow 存放用户组密码信息的文件
+
+生成随机密码
+https://suijimimashengcheng.51240.com/
+在线生成密码
+设置密码
+
+
+
+
+
+-------------------------------------------------------------------
+
+iostat 命令 --监控系统设备io负载情况
+iostat命令的安装
+#yum install sysstat
+
+iostat常见选项
+-t   输出数据时打印搜集数据的时间
+-m  输出的数据以MB为单位
+-d  显示磁盘的统计信息
+
+# iostat -d
+# iostat -d  vda
+	tps：每秒该设备传输次数；1次传输指1次I/O请求
+	Blk_read/s：每秒从设备读取的数据量
+	Blk_wrtn/s：每秒向设备写入的数据量
+	kB_read：从设备读取的数据总量
+	kB_wrtn：向设备写入的数据总量
+
+-x  显示和I/O相关的扩展信息
+# iostat -d -x
+	rrqm/s：每秒这个设备相关的读取请求有多少被Merge了
+	wrqm/s：每秒这个设备相关的写入请求有多少被Merge了
+	r/s：每秒读取的数据量
+	w/s：每秒写入的数据量
+	rsec/s：每秒读取的扇区数
+	wsec/s：每秒写入的扇区数
+	avgrq-sz：平均请求扇区的大小
+	avgqu-sz：平均请求队列的长度
+	await：I/O的响应时间（以毫秒为单位），这个时间包括了队列时间和服务时间
+	svctm：表示平均每次设备I/O操作的服务时间（以毫秒为单位）
+	%util：设备处理I/O的时间占命令统计总时间的百分比
+
+
+
+
+-------------------------------------------------------------------
+
+ps aux输出信息：
+仅查看自己的bash相关的进程
+# ps -l
+# ps aux
+
+实例1：显示所有进程信息
+# ps -A
+实例2：显示指定用户信息
+# ps -u root
+# ps -ef |grep ssh
+列出正在内存中的所有进程
+# ps aux
+
+
+
+
+F	process flags进程标识，说明权限
+USER	进程属于哪个用户
+		4：表示权限为root
+		1：表示此进程仅能进行复制而服务执行
+
+PID	进程PID
+%CPU	进程使用掉的CPU资源百分比
+%MEM	进程占用掉的物理内存百分比
+VSZ	进程使用掉的虚拟内存量(KB)
+RSS	进程占用掉的固定内存量(KB)
+TTY	进程是在哪个终端机上运行的
+STAT	进程当前的状态
+START	进程被触发启动的时间
+TIME	进程实际使用cpu的时间
+PRI	priority 进程执行优先顺序
+NI	Nice    进程执行优先级
+SZ	此进程用掉多少内存
+WCHAN	表示此进程是否运行中
+ADDR	表示进程在内存的哪一个部分
+COMMAND/CMD	所执行的命令command和参数arguments
+
+
+top | htop 命令
+
+pstree 显示进程树
+# pstree
+# pstree -Aup
+
+-P  +父进程（PPID）	可找到此父进程下所有子进程
+-l	列出进程名称
+-u  +用户名	查找以这个用户身份运行的进程
+-t	根据进程所在的终端进行查找
+
+
+
+
+

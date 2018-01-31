@@ -1,0 +1,228 @@
+
+1、线上应用故障排查之一：高CPU占用
+
+2、线上应用故障排查之二：高内存占用
+
+3、线上应用故障排查之三：高I/O占用，包括磁盘I/O、网络I/O、数据库I/O等。
+
+4、线上应用故障排查之四：程序僵死
+
+
+
+
+进程故障排查
+	top命令，发现PID为28555的Java进程占用CPU高达200%，出现故障。
+
+	ps aux | grep PID命令，可以进一步确定是tomcat进程出现了问题
+	
+	首先显示线程列表:
+	ps -mp pid -o THREAD,tid,time
+
+	其次将需要的线程ID转换为16进制格式：
+	printf "%x\n" tid
+
+	最后打印线程的堆栈信息：
+	jstack pid |grep tid -A 30
+
+	pstack：Linux命令。可以查看某个进程的当前线程栈运行情况。
+
+-------------------------------------------------------------
+	top
+
+	ps aux | grep PID
+
+	# ps -mp 887 -o THREAD,tid,time
+	USER     %CPU PRI SCNT WCHAN  USER SYSTEM   TID     TIME
+	root      0.8   -    - -         -      -     - 02:44:29
+	root      0.0  19    - futex_    -      -   887 00:00:00
+	root      0.0  19    - futex_    -      -   893 00:00:03
+	root      0.0  19    - futex_    -      -   894 00:00:01
+	root      0.0  19    - futex_    -      -   895 00:00:01
+	root      0.0  19    - futex_    -      -   896 00:00:01
+
+	printf "%x\n" 896
+	65d1
+
+ 	jstack 887 |grep 65d1 -A 30
+
+-------------------------------------------------------------
+
+	常见命令
+		$ jps 
+		1、查看所有参数 jinfo -flags pid
+			$ jinfo -flags pid
+			$ jinfo -flags 22869
+		3、jmap -heap pid 查看目前堆情况
+			$ jmap -heap pid
+			$ jmap -heap 22869
+
+		4、jmap -histo:live pid | head -7 查看对象分布
+
+		 jmap -histo:live 997 | head -7
+		 num     #instances         #bytes  class name
+		----------------------------------------------
+		   1:         50518        7385056  <constMethodKlass>
+		   2:         50518        6881072  <methodKlass>
+		   3:          4513        4904360  <constantPoolKlass>
+		   4:         76670        3923632  <symbolKlass>
+
+		（*****）
+		http://www.blogjava.net/hankchen
+		ps -ef | grep 4038
+
+
+		jmap命令有下面几种常用的用法：
+		•jmap [pid]
+		•jmap -histo:live [pid] >a.log
+		•jmap -dump:live,format=b,file=xxx.xxx [pid]
+
+
+		-----------------------------------------
+
+-----------------------------------------
+$uname -a
+$ free -m
+$ jstat -gcutil 23959 1000
+-----------------------------------------
+
+查看日志
+倒数1000行输出日志
+tail -1000  stdout.log 
+-----------------------------------------
+
+查看路由
+dig -t A www.baidu.com
+dig -t A www.zfwx.com
+
+nslookup zfwx.com
+
+-----------------------------------------
+
+Linux中怎么通过PID号找到对应的进程名及所在目录
+查看zookeeper的所在位置
+jps
+21068 QuorumPeerMain
+
+
+管道过滤
+ps -aux | grep 21068 
+ps -aux | grep -v grep | grep 21068 
+
+
+进入进程所在目录
+cd /proc/21068/
+ls -ail
+-----------------------------------------
+
+
+查看私网
+ifconfig
+ifconfig | grep 'ip'
+ifconfig | grep '10.162.19.235'
+
+
+-----------------------------------------
+
+1查看tomcat监听的端口号
+2 ps -ef| grep tomcat
+  netstat -ntlp | grep 端口号/进程号
+3 jps
+4 杀死进程
+5 重启tomcat
+-----------------------------------------
+查看进程号
+lsof -i | grep 端口号
+lsof -i:端口号
+netstat -ntlp| grep 端口号
+
+例子：
+nststat -nflp|grep 20884
+lsof -i:20884
+lsof -i | grep 20884
+
+$ ps -ef | grep Name  
+
+根据进程号查看监听的端口号
+$ netstat -nap | grep pid  
+
+-----------------------------------------
+
+步骤1
+进入tomcat的conf执行命令
+cat server.xml
+产看工程部署目录
+
+步骤2
+查看tomcat的环境变量
+cat /etc/profile
+查看tomcat环境变量
+步骤3
+进入/etc/init.d目录下查看有没有tomcat的启动脚本
+执行命令(在tomcat的脚本上面检索环境变量)
+grep "CATALINA_HOME" /etc/init.d/tomcat
+
+-----------------------------------------
+
+
+查询redis
+ps -ef |grep redis
+cd /usr/local/redis/bin
+ls
+启动客户端软件
+./redis-cli
+选择库
+select 3 选择3号库
+ok
+get |lstangrongzhi  查询出对应的值
+keys *
+keys 
+查看有多少key值
+dbsize
+模糊查询某个key值
+keys *TGT-23708*
+
+-----------------------------------------
+
+# ifconfig 
+	HWaddr :网卡的硬件地址，即MAC地址
+	inet addr：IPv4的IP 地址
+	Bcast：广播地址
+	mask：子网掩码
+	inet6 addr：IPv6地址
+	MTU:最大传输单元
+	Metric：用于计算路由的成本
+	RX：表示网络启动到现在的封包接受情况 (Receive)
+	packets:表示接包数
+	errors:表示接包发生错误的数量
+	dropped：表示丢弃的包数量
+	overruns:表示接收时因过速而丢失的数据包数
+	frame：表示发生frame错误而丢失的数据包数
+	TX：从网络启动到现在传送的情况 (Transmit)
+	collisions：冲突信息包的数目
+	txqueuelen：发送队列的大小
+	RX byte、TX byte:总传送/接受的量
+
+-----------------------------------------
+route  -n
+Destination：目的地
+Genmask：路由的网络掩码
+Gateway：该网络通过哪个网关连接出去的（下一跳）
+      0.0.0.0：表示路由直接由本机传送，即局域网的MAC直接发送的
+      IP：表示该路由需要路由器(网关)的转发才能发送
+Flags：标志
+      U Up表示此路由当前为启动状态
+      H Host，表示此网关为一主机
+      G Gateway，表示此网关为一路由器
+      R Reinstate Route，使用动态路由重新初始化的路由
+      D Dynamically,此路由是动态性地写入
+      M Modified，此路由是由路由守护程序或导向器动态修改
+      ! 表示此路由当前为关闭状态
+Iface：这个路由传递数据包的接口　
+
+
+
+-----------------------------------------
+ifconfig命令
+ip命令
+route命令　　
+-----------------------------------------
