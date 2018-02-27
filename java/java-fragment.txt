@@ -1,0 +1,149 @@
+
+
+编码
+jsp--编码 utf-8
+浏览器默认编码 gb2312
+tomcat处理request response 编码是 iso-8859-1
+
+
+jsp和class获取相对路径
+jsp页面中以工程名为TEST为例
+
+	(1)得到包含工程名的当前页面全路径：
+	request.getRequestURI()
+	结果：/TEST/test.jsp
+
+	(2)得到工程名：
+	request.getContextPath()
+	结果：/TEST
+
+	(3)得到当前页面所在目录下全名称：
+	request.getServletPath()
+	结果：如果页面在jsp目录下 /TEST/jsp/test.jsp
+
+	(4)得到页面所在服务器的全路径：
+	application.getRealPath("页面.jsp")
+	结果：D:\resin\webapps\TEST\test.jsp
+
+	(5)得到页面所在服务器的绝对路径：
+	absPath=new java.io.File(application.getRealPath(request.getRequestURI())).getParent();
+	结果：D:\resin\webapps\TEST
+
+2.在类中取得路径：
+	(1)类的绝对路径：
+	Class.class.getClass().getResource("/").getPath()
+	结果：/D:/TEST/WebRoot/WEB-INF/classes/pack/
+
+	(2)得到工程的路径：
+	System.getProperty("user.dir")
+	结果：D:\TEST
+
+
+
+3.在Servlet中取得路径：
+	（1)得到工程目录：
+	request.getSession().getServletContext().getRealPath("") 参数可具体到包名。
+	结果：E:\Tomcat\webapps\TEST
+
+	(2)得到IE地址栏地址：
+	request.getRequestURL()
+	结果：http://localhost:8080/TEST/test
+
+	(3)得到相对地址：
+	request.getRequestURI()
+	结果：/TEST/test
+
+数据安全--数据加密
+http://www.cnblogs.com/zyw-205520/p/5585014.html
+DES加密算法
+	分组密码
+	64位分组数据加密
+	密钥长度56位
+	加密解密使用向他算法
+AES加密算法
+	高级加密算法，对称分组密码体制
+	密钥长度128，192，256
+	分组长度为128
+RSA加密算法
+	公钥加密算法
+	加密和数字签名
+	ISO公钥加密的标准
+Base64加密算法
+	网络传输8bit字节代码的编码方式
+	http环境下传递信息
+MD5加密算法
+	散列函数，512分组处理信息
+	操作系统登录认证
+SHA1加密算法
+	消息摘要算法
+
+
+加密和数字签名的区别
+加密
+	以密码方式放松消息，拥有密码的人才可以查看消息
+
+数字签名
+	公钥加密领域技术实现
+	签名
+	验证
+
+
+公钥
+私钥
+密钥（公钥和私钥）
+是用来加密信息的。
+加密信息的过程意味着“混淆打乱”
+
+公钥加密了一条信息发送消息,
+私钥来解密信息进行读取
+
+
+数字签名 
+	私钥+适当的软件，
+	数字签名+文档，带签名的文档，
+	这个签名能够确保数据发生改，就会被发现
+
+
+生成数字签名的过程
+
+文档--hash处理，hash校验，==》message digest 摘要
+message digest 摘要+私钥加密==》signture 数字签名
+signature 签名--》追加到append 文档doc中生成带签名的文档
+
+【
+	1对文档进行hash处理散列生成摘要
+	2文本摘要+私钥生成数字签名
+	3数字签名追加到文档中生成带签名的文档信息
+】
+
+数字摘要技术防止信息被篡改
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
