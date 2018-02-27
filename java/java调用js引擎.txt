@@ -1,0 +1,109 @@
+
+
+
+Java SE6加入了对JSR223的实现， JSR223旨在定义一个统一的规范，
+使得java应用程序可以通过一套固定的接口定义与各个脚本引擎交互，
+从而达到java平台上调用各个脚本语言的目的。
+
+
+
+
+接口定义在javax.script下面。从而使java语言可以执行javascript，ruby，python等动态语言
+
+javax.script 包下面
+定义了 Invocable 、ScriptEngine 、ScriptEngineFactory 、Bindings 、ScriptContext 这5个主要接口
+
+
+
+
+
+
+package com.test;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+import javax.script.Bindings;
+import javax.script.Invocable;
+import javax.script.ScriptContext;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
+/**
+ * java执行脚本语言
+ * @author jd
+ *
+ */
+public class javascript {
+
+    public static void main(String[] args){
+
+        //获取一个JavaScript执行引擎
+        ScriptEngine se = new ScriptEngineManager().getEngineByName("javascript");
+        
+        //声明上下文 变量
+        Bindings bind  = se.createBindings();
+        bind.put("variable","结果：");
+        //变量的作用域，当前引擎范围内（常量ScriptContext.ENGINE_SCOPE表示的作用域对应的是当前的脚本引擎，而ScriptContext.GLOBAL_SCOPE表示的作用域对应的是从同一引擎工厂中创建出来的所有脚本引擎对象。前者的优先级较高。）
+        se.setBindings(bind,ScriptContext.ENGINE_SCOPE);
+        
+        try {
+            //执行js代码
+            se.eval(new FileReader("E:/model.js"));
+            
+            //是否可调用方法
+            if(se instanceof Invocable){
+                Invocable in = (Invocable) se;
+                //执行js的方法
+                String result = (String) in.invokeFunction("formula",2,10);
+                System.out.println(result);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (ScriptException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+            
+    }
+
+}
+
+
+情景1：
+
+function formula(a,b){
+　　return variable+ (a*b);
+}
+
+结果：
+
+结果：20
+
+
+情景2：
+
+function formula(a,b){
+　　return variable+ (a+b);
+}
+
+结果：12
+
+
+Java 6 不仅仅提供代码级的脚本内置，
+还提供了jrunscript命令工具，
+它可以在批处理中发挥巨大的效能，
+而且不需要通过JVM解释脚本语言，
+可直接通过该工具运行脚本
+
+
+
+
+
+
+
+
+
+
