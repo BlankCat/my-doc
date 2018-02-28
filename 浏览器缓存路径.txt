@@ -1,0 +1,15 @@
+
+
+
+chrome（谷歌浏览器），默认缓存目录为：
+C:\Users\has\AppData\Local\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash
+
+对于edge，默认缓存目录为：
+C:\Users\你的用户名\AppData\Local\Packages\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\AC\#!005\MicrosoftEdge\Cache\20GNWKZP
+C:\Users\has\AppData\Local\Packages\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\AC\#!005\MicrosoftEdge
+
+（如果发现找不到AppData，请在查看中给隐藏的项目打钩）
+你会在这个目录下面发现一些后缀为.tmp的文件，没错，这就是你要找的文件。
+
+.tmp文件复制粘贴一份，然后改掉后缀，改成视频格式的后缀，譬如.mp4
+(浏览器默认缓存视频文件)
