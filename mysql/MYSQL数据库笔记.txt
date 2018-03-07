@@ -1,0 +1,275 @@
+MYSQL数据库笔记
+
+
+
+----------
+同Mysql从某表中随机取5条数据
+SELECT * FROM dj_course 
+AS r1 
+JOIN (SELECT ROUND(RAND() * 
+(SELECT MAX(course_id) FROM dj_course)) AS course_id) 
+AS r2 WHERE r1.course_id >= r2.course_id ORDER BY r1.course_id ASC LIMIT 5
+
+SELECT * FROM NC_JOKE AS r1 JOIN (SELECT ROUND(RAND() * (SELECT MAX(id) FROM NC_JOKE)) AS id) AS r2 WHERE r1.id >= r2.id ORDER BY r1.id ASC LIMIT 5
+只有mysql 4.1.*以上才支持这样的子查询
+----------
+
+
+mysql -uroot -p111111 -h127.0.0.1
+
+	求助数据库连接:ERROR 1045 (28000): Access denied for user (using password: YES)??
+
+	其实只要加上主机ip就ok了。
+
+	后面需要加-h ServerIPAddr
+
+	如：
+
+	mysql -u xx -p -h 192.168.1.1然后输入密码，就OK了
+
+	随便附上mysql常用的命令(以下内容转载自: 原文地址 http://engyy.com/?action=show&id=127&page=1):
+
+mysql命令行常用命令
+
+第一招、mysql服务的启动和停止
+
+	net stop mysql
+
+	net start mysql
+
+第二招、登陆mysql
+
+	语法如下： mysql -u用户名 -p用户密码
+
+	键入命令mysql -uroot -p， 回车后提示你输入密码，输入12345，然后回车即可进入到mysql中了，mysql的提示符是：
+
+	mysql>
+
+	注意，如果是连接到另外的机器上，则需要加入一个参数-h机器IP
+
+第三招、增加新用户
+
+	格式：grant 权限 on 数据库.* to 用户名@登录主机 identified by "密码"
+
+	如，增加一个用户user1密码为password1，让其可以在本机上登录， 并对所有数据库有查询、插入、修改、删除的权限。首先用以root用户连入mysql，然后键入以下命令：
+
+	grant select,insert,update,delete on *.* to user1@localhost Identified by "password1";
+
+	如果希望该用户能够在任何机器上登陆mysql，则将localhost改为"%"。
+
+	如果你不想user1有密码，可以再打一个命令将密码去掉。
+
+	grant select,insert,update,delete on mydb.* to user1@localhost identified by "";
+
+第四招： 操作数据库
+
+	登录到mysql中，然后在mysql的提示符下运行下列命令，每个命令以分号结束。
+
+1、 显示数据库列表。
+
+	show databases;
+
+	缺省有两个数据库：mysql和test。 mysql库存放着mysql的系统和用户权限信息，我们改密码和新增用户，实际上就是对这个库进行操作。
+
+2、 显示库中的数据表：
+
+	use mysql;
+
+	show tables;
+
+3、 显示数据表的结构：
+
+	describe 表名;
+
+4、 建库与删库：
+
+	create database 库名;
+
+	drop database 库名;
+
+5、 建表：
+
+	use 库名;
+
+	create table 表名(字段列表);
+
+	drop table 表名;
+
+6、 清空表中记录：
+
+	delete from 表名;
+
+7、 显示表中的记录：
+
+	select * from 表名;
+
+第五招、导出和导入数据
+
+1. 导出数据：
+
+	mysqldump --opt test > mysql.test
+
+	即将数据库test数据库导出到mysql.test文件，后者是一个文本文件
+
+	如：mysqldump -u root -p123456 --databases dbname > mysql.dbname
+
+	就是把数据库dbname导出到文件mysql.dbname中。
+
+2. 导入数据:
+
+	mysqlimport -u root -p123456 < mysql.dbname。
+
+	不用解释了吧。
+
+3. 将文本数据导入数据库:
+
+	文本数据的字段数据之间用tab键隔开。
+
+	use test;
+
+	load data local infile "文件名" into table 表名;
+
+第六招、乱码问题
+
+MySQL 的字符集支持(Character Set Support)有两个方面：字符集(Character set)和排序方式(Collation)。对于字符集的支持细化到四个层次: 服务器(server)，数据库(database)，数据表(table)和连接（connection）。
+
+查看系统的字符集和排序方式的设定可以通过下面的两条命令：
+
+查看字符集：
+
+   1. mysql> SHOW VARIABLES LIKE 'character_set_%';
+
+显示字符集设置如下：
+
+   1. +--------------------------+----------------------------+
+
+   2.   | Variable_name | Value |
+
+   3.   +--------------------------+----------------------------+
+
+   4.   | character_set_client | latin1 |
+
+   5.   | character_set_connection | latin1 |
+
+   6.   | character_set_database | latin1 |
+
+   7.   | character_set_results | latin1 |
+
+   8.   | character_set_server | latin1 |
+
+   9.   | character_set_system | utf8 |
+
+10.   | character_sets_dir | /usr/share/mysql/charsets/ |
+
+11.   +--------------------------+----------------------------+
+
+查看排序方式(Collation)
+
+   1. mysql> SHOW VARIABLES LIKE 'collation_%';
+
+显示默认值：
+
+   1. +----------------------+-------------------+
+
+   2.   | Variable_name | Value |
+
+   3.   +----------------------+-------------------+
+
+   4.   | collation_connection | latin1_swedish_ci |
+
+   5.   | collation_database | latin1_swedish_ci |
+
+   6.   | collation_server | latin1_swedish_ci |
+
+   7.   +----------------------+-------------------+
+
+上面列出的值就是系统的默认值。如果你奇怪系统怎么默认是latin1的瑞典语排序方式,原因是MySQL由瑞典的T.c.X.DataKonsultAB公司(目前公司名称为MySQL AB)开发，不用再多说了吧。
+
+当我们按照原来的方式通过PHP存取MySQL数据库时，就算设置了表的默认字符集为utf8并且通过UTF-8编码发送查询，你会发现存入数据库的仍然是乱码。问题就出在这个connection连接层上。解决方法是在发送查询前执行一下下面这句：
+
+SET NAMES ‘utf8′;
+
+它相当于下面的三句指令：
+
+   1. SET character_set_client = utf8;
+
+   2. SET character_set_results = utf8;
+
+   3. SET character_set_connection = utf8;
+
+再试试看，正常了吧？
+
+就是连接之后加个查询
+
+   1. $this->query(”SET NAMES ‘utf8＇”);
+
+character_set_client，character_set_results，character_set_connection三个运行变量是造成乱码的关键。mysql把客户端提交的查询由character_set_client转换为 character_set_connection
+
+，由于默认网页提交的查询是gb2312(表单页面meta里可以看到)，而mysql默认将其当作utf8（可以查到此时的 character_set_client＝utf8），所以必然乱码。同理，mysql返回的结果是已经转换成 character_set_results编码的（与表的编码无关），同样默认是utf8，而网页页面把它当gb2312处理，所以必然有标题等由数据库读出的字段是乱码而其他部门文字不乱码的现象。
+
+
+
+
+
+
+
+
+如一班级成绩表
+
+现建立课程表 tableA
+
+sid           sname
+1             语文
+2             数学
+3             英语
+
+ 
+
+在建学生成绩库 tableB
+
+id         sid           fen            name
+1          1             100           张三
+2          1              89            李四
+3          1              95            王五
+4          2             89             张三
+5          3             78             王五
+6          2             99             王五
+
+现使用
+
+可以显示出所有科目前10名单
+
+ 
+
+复制代码
+select a.sid,sname,id,fen,name from tableA a inner join
+(select * from tableB b
+where id in(
+    select top 10 id from tableB where sid=b.sid
+    order by fen desc)) as b
+on a.sid=b.sid
+order by a.sid,fen desc
+复制代码
+或
+
+ 
+
+复制代码
+SELECT sid, sname, fen,name
+FROM (SELECT px =
+                  (SELECT COUNT(1) + 1
+                 FROM tableB
+                 WHERE sid = b.sid AND fen > b.fen), a.sid, a.sname, b.fen,b.name
+        FROM tableA a JOIN
+              tableB b ON a.sid = b.sid) t
+WHERE (px <= 10)
+ORDER BY sid, fen DESC
+复制代码
+
+
+
+
+
+
+
+

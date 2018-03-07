@@ -1,0 +1,495 @@
+
+利用google让互联网资源免费到底，搜索各种资源
+http://www.cnblogs.com/nuke/archive/2008/06/18/1224684.html
+
+利用Google突破封锁:下载想要的东西 
+
+第一篇 突破封锁之电子书、多媒体下载
+
+　　在搜索框上输入：
+　　 "index of/ " inurl:lib
+　　再按搜索你将进入许多图书馆，并且一定能下载自己喜欢的书籍。
+
+　　在搜索框上输入：
+　　 "index of /" cnki
+　　再按搜索你就可以找到许多图书馆的CNKI、VIP、超星等入口！
+
+　　在搜索框上输入：
+　　"index of /" ppt
+　　再按搜索你就可以突破网站入口下载powerpint作品！
+
+　　在搜索框上输入：
+　　"index of /" mp3
+　　再按搜索你就可以突破网站入口下载mp3、rm等影视作品！
+
+　　在搜索框上输入：
+　　"index of /" swf
+　　再按搜索你就可以突破网站入口下载flash作品！
+
+　　在搜索框上输入：
+　　"index of /" 要下载的软件名
+　　再按搜索你就可以突破网站入口下载软件！
+
+　　注意引号应是英文的！
+
+　　再透露一下，如果你输入：
+　　"index of /" AVI
+　　这样就可以下载AVI格式的视频文件了喔
+
+　　第二篇 突破封锁之看世界
+
+　　用Google看世界!!!只要你在Google里输入特殊的关键字,就可以搜到数千个摄象头的IP地址!通过他你就可以看到其所摄的实时影象!!
+
+　　在google里输入：
+　　inurl:"viewerframe?mode="
+
+　　随便打开一个,然后按提示装一个插件,就可以看到了!!!
+
+　　第三篇 突破封锁之Google是黑客的乐园
+
+　　三则黑客的Google搜索技巧简介
+
+　　大家都知道，Google毫无疑问是当今世界上最强大的搜索引擎。然而，在黑客手中，它也是一个秘密武器，它能搜索到一些你意想不到的信息。赛迪编者把他们进行了简单的总结不是希望您利用他去攻击别人的网站，而是利用这些技巧去在浩如烟海的网络信息中，来个大海捞针，寻找到对您有用的信息。
+
+　　如果您是一名普通网民，您可以使用黑客的技巧扩大自己的视野，提高自己的检索效率；如果您是一名网管，请您赶快看看您的网站是否做好了对下面黑客探测手段的防范措施，如果没有就赶快来个亡羊补牢，毕竟隐患胜于明火，防范胜于救灾；如果您是一名黑客，相信您早以在别的黑客站点上见过类似的方法，这篇文章对您没什么用处，这里的技巧对您是小儿科，菜鸟级！您可以节省宝贵的时间做更有意义的事情，这篇文章您不用看了，到别处去吧！
+
+
+　2 、查找 PDF 文件
+
+　　现在 GOOGLE 的搜索结果中包括了 PDF 文件。尽管 PDF 文件不如 HTML 文件那么多，但他们经常具备一些其他文件不具备的高质量信息
+
+　　为了显示一个搜索结果是 PDF 文件而不是网页， PDF 文件的标题开头显示蓝色文本。
+
+　　这就是让你知道 ACRTOBAT READER 程序会启动来阅读文件
+
+　　如果你的计算机没装有该程序，计算机会指导你去能免费下载该程序的网页。
+
+　　使用 PDF 文件时，相关的网页快照会由“ TEXT VERSION ”代替，它是 PDF 文档的复制文件，该文件除去了所有格式化命令。
+
+　　如果你在没有 PDF 链接的情况下想看一系列搜索结果，只要在搜索栏中打上 -inurldf 加上你的搜索条件。
+
+　　3 、股票报价
+
+　　用 Google 查找股票和共有基金信息，只要输入一个或多个 NYSE ， NASDAQ ， AMEX 或
+　　共有基金的股票行情自动收录机的代码，也可以输入在股市开户的公司名字。
+
+　　如果 Google 识别出你查询的是股票或者共有基金，它回复的链接会直接连到高质量的金融信息提供者提供的股票和共有基金信息。
+
+　　在你搜索结果的开头显示的是你查询的股市行情自动收录器的代码。如果你要查找一家公司的名字（比如， INTEL ），请查看“股票报价”在 Google 搜索结果的金融栏里会有那个公司的主页的链接（比如， www.INTEL.COM ）。
+
+　　Google 是以质量为基础来选择和决定金融信息提供者的，包括的因素有下载速度，用户界面及其功能。
+
+　　4 、找找谁和你链接
+
+　　有些单词如果带有冒号就会有特殊的意思。比如 link ：操作员。查询 link:siteURL ，就会显示所有指向那个 URL 的网页。举例来说，链接 www.Google.com 会向你显示所有指向 GOOGLE 主页的网页。但这种方法不能与关键字查询联合使用。
+
+　　5 、查找站点
+
+　　单词 site 后面如果接上冒号就能够将你的搜索限定到某个网站。具体做法是：在 c 搜索栏中使用 site:sampledomain.com 这个语法结构。比如，在斯坦福找申请信息，输入：
+　　admission site:www.stanford.edu
+
+　　6 、查找字典释意
+
+　　查找字典释意的方法是在搜索栏中输入你要查询的内容。在我们根据要求找到所有的字典释意都会标有下划线，位于搜索结果的上面，点击链接你会找到字典提供者根据要求给出的相关定义。
+  
+  7 、用 GOOLGE 查找地图
+
+　　想用 Google 查找街区地图，在 Google 搜索栏中输入美国街区地址，包括邮递区号或城市/州（比如 165 大学大街 PALO ALTO CA ）。通常情况下，街区地址和城市的名字就足够了。
+
+　　当 Google 识别你的要求是查找地图，它会反馈给你有高质量地图提供者提供的链接，使你直接找到相关地图。我们是以质量为基础选择这些地图提供者。值得注意的是 Google 和使用的地图信息提供者没有任何关联。
+
+
+搜索URL
+
+　　比如我们提交这种形式：passwd.txt site:virtualave.net
+
+　　看到了什么？是不是觉得太不可思议了！有很多基于CGI/PHP/ASP 类型的留言板存在这种问题。有时我们得到密码甚至还是明码的！管理员或许太不负责了，或许安全防范的意识太差了，如果你是网络管理员，赶快检查一下不要让恶意攻击者捡了便宜。不要太相信DES加密，即使我们的密码经过DES 加密的密码，黑客们还是可以通过许多破解软件来搞定。
+
+　　这次我们能得到包含密码的文件。“site:virtualave.net”意思是只搜索 virutalave.net 的URL。virutalave.net是一个网络服务器提供商。
+
+　　同样，我们可以搜索一些顶级域名，比如：.net .org .jp .in .gr
+
+　　config.txt site:.jp
+
+　　admin.txt site:.tw
+
+　　搜索首页的目录
+
+　　首页是非常有用的，它会提供给你许多有用的信息。
+
+　　我们提交如下的形式：
+
+　　"Index of /admin"
+
+　　"Index of /secret"
+
+　　"Index of /cgi-bin" site:.edu
+
+　　你可以自己定义搜索的首页字符。这样就可以获得许多信息。
+
+　　搜索特定的文件类型
+
+　　比如你想指定一种文件的类型，可以提交如下形式：
+
+　　filetype:.doc site:.mil classified
+
+　　这个就是搜索军方的资料，你可以自定义搜索。
+
+　　第四篇　突破封锁之Google 的特殊功能
+
+　　1 、查询电话号码
+
+　　Google 的搜索栏中最新加入了电话号码和美国街区地址的查询信息。
+　　个人如想查找这些列表，只要填写姓名，城市和省份。
+　　如果该信息为众人所知，你就会在搜索结果页面的最上方看到搜索的电话和街区地址
+　　你还可以通过以下任何一种方法找到该列表：
+　　名字（或首位大写字母），姓，电话地区号
+　　名字（或首位大写字母），姓，邮递区号
+　　名字（或首位大写字母），姓，城市（可写州）
+　　名字（或首位大写字母），姓，州
+　　电话号码，包括区号
+　　名字，城市，州
+　　名字，邮递区号
+
+
+在百度寻找突破：比如说我想找mp3 
+
+
+  首先打http://www.baidu.com，在关键词输入框中输入index of mp3，选择回车搜索，得到了一些网页，不要以为这是一些普通的页面，其实它们是一些mp3网站的资源列表，点击打开它来看看，怎么样？是不是所有资源一收眼底了？ 
+以下是百度搜索排名 
+1. index of mpeg4 
+3. index of mp3 
+4. index of cnki 
+5. index of rmvb 
+6. index of rm 
+7. index of movie 
+8. index of swf 
+9. index of jpg 
+10. index of admin 
+12. index of pdf 
+13. index of doc 
+14. index of wmv 
+15. index of mdb 
+16. index of mpg 
+17. index of mtv 
+18. index of software 
+19. index of mov 
+20. index of asf 
+23. index of lib 
+24. index of vod 
+25. index of rar 
+27. index of exe 
+28. index of iso 
+29. index of video 
+30. index of book 
+31. index of soft 
+32. index of chm 
+33. index of password 
+34. index of game 
+35. index of music 
+36. index of dvd 
+37. index of mid 
+38. index of ebook 
+40. index of download 
+
+再按搜索你就可以突破网站入口下载软件 
+
+到这里，大家也许都明白了，其实就是"index of /"这个关键词在起的作用，使用它可以直接进入网站首页下的所有文件和文件夹中，不必在通过HTTP的网页形式了，从而避免了那些网站的限制，作到了突破限制下载 
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ 
+　　 
+google检索式大全 
+
+大学入口突破基础:不同入口的PW研究 
+http://www.google.com/search?q=inurl:password%3D+inurl:lib%7Cinurl:library+-net+-com+-org+-nl+-co.uk&hl=en&lr=&newwindow=1&start=10&sa=N
+
+http://www.google.com/search?q=intitle%3Apublisher+inurl%3Aasp%3Fid%3D%7Cinurl%3Aaspx%3Fid%3D%7Cinurl%3Acfm%3Fid%3D+&btnG=Search&hl=en&lr=&newwindow=1
+
+
+http://www.google.com/search?hl=en&lr=&newwindow=1&q=science%7Cmedicine%7Cbiology+inurl%3Aforum+inurl%3Aasp%3Fid%3D%7Cinurl%3Aaspx%3Fid%3D%7Cinurl%3Acfm%3Fid%3D&btnG=Search
+
+
+
+http://www.google.com/search?hl=en&lr=&newwindow=1&q=inurl%3Asci+inurl%3Aasp%3Fid%3D%7Cinurl%3Aaspx%3Fid%3D%7Cinurl%3Acfm%3Fid%3D+&btnG=Search
+
+http://www.google.com/search?hl=en&lr=&newwindow=1&q=inurl%3Apress+inurl%3Aasp%3Fid%3D%7Cinurl%3Aaspx%3Fid%3D%7Cinurl%3Acfm%3Fid%3D+&btnG=Search
+
+http://www.google.com/search?q=inurl:fulltext+inurl:asp%3Fid%3D%7Cinurl:aspx%3Fid%3D%7Cinurl:cfm%3Fid%3D+&hl=en&lr=&newwindow=1&start=10&sa=N
+
+http://www.google.com/search?hl=en&lr=&newwindow=1&q=inurl%3Aexproxy%7Cinurl%3Aproxy%7Cinurl%3Alib%7Cinurl%3Alibrary%7Cinurl%3A2048+inurl%3Alogin+-us+-com+-org+-gov+-net+-co.uk+&btnG=Search
+
+http://www.google.com/search?q=inurl%3Aepnet+inurl%3Apassword%3Dpassword&btnG=%E6%90%9C%E7%B4%A2&hl=zh-CN&ie=UTF-8
+
+http://www.google.com/search?q=site:epnet.com+inurl:password%3Dpassword&num=100&hl=zh-CN&lr=&newwindow=1&c2coff=1&start=100&sa=N
+
+
+
+
+
+ebscohost 
+
+检索式 
+
+http://www.google.com/search?q=a ... mp;start=0&sa=N 
+
+
+http://www.google.com/search?hl= ... com&btnG=Search 
+
+
+http://www.google.com/search?hl= ... e+Selection+Page%22 
+
+
+firstsearch 
+
+http://www.google.com/search?hl= ... org&btnG=Search 
+
+
+http://www.google.com/search?q=A ... mp;start=0&sa=N 
+
+proquest 
+
+http://www.google.com/search?hl= ... rd+proquest+welcome 
+
+http://www.google.com/search?q=a ... p;start=30&sa=N 
+
+http://www.google.com/search?q=a ... =utf-8&oe=utf-8 
+有些问题，修改后 
+http://www.google.com/search?hl= ... 9C%E7%B4%A2&lr= 
+
+inurl:epnet inurl:password=password
+inurl:password= inurl:lib│inurl:library -net -com -org -nl -co.uk
+allinurl:itweb id site:infotrac.galegroup.com
+allinurl:passwd -IPAUTO inurl:welcome site:umi.com
+allinurl:password site:hwwilsonweb.com
+Article.asp?ContributionID
+inurl:access.web-sci.com
+science│medicine│biology inurl:forum inurl:asp?id=│inurl:aspx?id=│inurl:cfm?id=
+intitle:publisher inurl:asp?id=│inurl:aspx?id=│inurl:cfm?id=
+inurl:press inurl:asp?id=│inurl:aspx?id=│inurl:cfm?id=
+inurl:fulltext inurl:asp?id=│inurl:aspx?id=│inurl:cfm?id=
+inurl:sci inurl:asp?id=│inurl:aspx?id=│inurl:cfm?id=
+netid filetype:pdf site:msstate.edu；netid filetype:xls site:msstate.edu
+Personal ID number site:emory.edu
+  ID number filetype:xls site:emory.edu
+  "ID number" grade site:emory.edu
+  ID number filetype:pdf site:emory.edu
+inurl: 
+
+inurl: 是駭客重要的搜尋方法，可搜到網址包括的關鍵字， 
+
+例如填上 allinurl:login password 作搜尋，便會很易找到有 login 和 password 的網頁。 
+
+------------------------------------------------------------------------------------------- 
+filetype: 
+
+filetype: 是駭客專用語法，例如想找 mdb 的數據庫檔案，可用 password filetype:mdb 作搜尋， 
+
+便會找到密碼文件，進階用法可配合 inurl: 使用，例如 girl filetype:jpg site:com 便可搜到所有標題 .com 網站，而檔案為 girl.jp 或網頁內容有 girl 字串的。 
+
+------------------------------------------------------------------------------------------- 
+Index of /admin 
+
+搜到的結果大多數是容野峇嵺@ index browsing 的網站，隨便按下一個連結便看到網站的資料夾和檔案分佈。 
+------------------------------------------------------------------------------------------- 
+"Index of /" +password.txt 
+
+有些站長會將密碼儲存成 password.txt 檔案，如配合 index browsing 的弁遄A將 google 的關鍵字串成 "Index of /" +password.txt 作搜尋，便找到很多 password.txt 
+
+"Index of /admin" 
+"Index of /password" 
+"Index of /mail" 
+"Index of /" +passwd 
+"Index of /" +password.txt 
+"Index of /" +.htaccess 
+index of ftp +.mdb allinurl:/cgi-bin/ +mailto 
+
+administrators.pwd.index 
+authors.pwd.index 
+service.pwd.index 
+filetype:config web 
+gobal.asax index 
+
+allintitle: "index of/admin" 
+allintitle: "index of/root" 
+allintitle: sensitive filetype:doc 
+allintitle: restricted filetype :mail 
+allintitle: restricted filetype:doc site:gov 
+
+inurl:passwd filetype:txt 
+inurl:admin filetype:db 
+inurl:iisadmin 
+inurl:"auth_user_file.txt" 
+inurl:"wwwroot/*." 
+
+
+top secret site:mil 
+confidential site:mil 
+
+allinurl: winnt/system32/ (get cmd.exe) 
+allinurl:/bash_history 
+
+intitle:"Index of" .sh_history 
+intitle:"Index of" .bash_history 
+intitle:"index of" passwd 
+intitle:"index of" people.lst 
+intitle:"index of" pwd.db 
+intitle:"index of" etc/shadow 
+intitle:"index of" spwd 
+intitle:"index of" master.passwd 
+intitle:"index of" htpasswd 
+intitle:"index of" members OR accounts 
+intitle:"index of" user_carts OR user_cart
+
+password:library
+google:"*** password=***"
+
+ext:pwd inurlservice │ authors │ administrators │ users) "# -FrontPage-" 
+http://www.google.com/search?q=ext%3Apwd+inurl%3A%28service+%7C+authors+%7C+administrators+%7C+users%29+%22%23+-FrontPage-%22
+这是Frontpage制作者管理权限的信息,本来想透露一下,但怕被倒出去,这里只能点到为止: 
+搜索frontpage密码文件:ext:pwd inurlservice | authors | administrators | users) "# -FrontPage-"
+
+"allinurlvid.com password"
+
+administrators.pwd.index 
+authors.pwd.index 
+service.pwd.index 
+filetype:config web 
+gobal.asax index 
+
+allintitle: "index of/admin" 
+allintitle: "index of/root" 
+allintitle: sensitive filetype:doc 
+allintitle: restricted filetype :mail 
+allintitle: restricted filetype:doc site:gov 
+
+inurl:passwd filetype:txt 
+inurl:admin filetype:db 
+inurl:iisadmin 
+inurl:"auth_user_file.txt" 
+inurl:"wwwroot/*."
+ezproxy inurl:bbs
+
+
+
+ssn│"Social Security Number "   site:***.edu
+barcode site:***.edu
+id site:***.edu
+000000000..999999999 site:***.edu
+numrange:000000000-999999999 site:***.edu
+ssn name site:***.edu
+id name site:***.edu
+grade│score site:***.edu filetype:xls   (pdf/doc,etc)
+quiz│exam│test   site:***.edu filetype:xls   (pdf/doc,etc)
+inurl:roster   site:***.edu 
+inurl:summer site:***.edu filettype:
+不少学校的NETID是EMAIL：
+"@***>edu" site:***.edu 
+
+id name birth│dob│birthday│born site:
+
+另外，善于利用GOOGLE的图像功能
+card│id│barcode site:***.edu
+card│id│barcode (nameof school)
+
+希望大家能给出自己常用的GOOGLE检索式来交
+
+
+
+密码检索词 
+medicine journal ID pw 
+chemWEB.COM PASSWORD 
+Virtuelle Bibliothek PASSWORD 
+“Online Full Text Resources password” 
+“health sciences library password ” 
+“OvidLWW password” 
+“medizin bibliothek password” 
+“medizin Volltext password” 
+“medizin literatur password” 
+“health ejournals password ” 
+“medizin elektronik password” 
+Medizin Bibliothek Datenbank Benutzername Kennwort 
+medicina BIBLIOTECA password 
+médecine PéRIODIQUES éLECTRONIQUES password 
+health ejournals password 
+American Journal of Medicine OnLine FULL TEXT Journals username password 
+medicine journal fulltext username
+
+
+inurl:2048 inurl:login
+
+
+
+allinurl:password user site:epnet.com
+intitle:"EBSCO Publishing Service Selection Page"
+
+allinurl:cert= site:umi.com
++library +username +password proquest welcome
+
+
+
+XX（数据库名） 帐号 密码 inurl:edu.cn
+
+
+
+inurl:8080 inurl:login
+
+
+
+最早以前，我曾经用 " password+journal" 方法搜过一些， 
+　　 
+　　效果也很明显。后来有人提出一个号称通吃天下文献数据库的密码万 
+　　 
+　　能的公式， 
+　　 password=welcome+(X) 
+　　 
+　　x 可以为任何一个文献数据库的名称，可以写成 
+　　 
+　　 password=welcome+ProQuest 
+　　 password=welcome+Ingenta 
+　　 password=welcome+EBSCO。。。。。。。。。 
+　　 
+　　等等，放到google里后，检索为 “password welcome ProQuest” 
+　　 
+　　这样会有好多的密码出现，你慢慢尝试吧！ 
+　　 
+　　据说这个方法是一个叫 Hmongbook 的人概括出来的，真感谢他！ 
+　　 
+　　我个人使用后感觉不错！ 
+　　 
+　　 另外，并不是所有的数据库登陆都是username password,比如我前 
+　　 
+　　几天查找的英国economist周刊，他的检索关键词就应该 
+　　 
+　　为： "password e-mail ",这需要各位的细心了！ 
+　　 
+　　 
+(接GOOGLE) 
+　　 上述一种常用方法，现在也提供一下个人以及网友提供的检索常 
+　　 
+　　用搜索词的一些例子，模式上基本大同小异 
+　　 
+　　medicine journal ID pw 
+　　chemWEB.COM PASSWORD 
+　　Virtuelle Bibliothek PASSWORD 
+　　“Online Full Text Resources password” 
+　　“health sciences library password ” 
+　　“OvidLWW password” 
+　　“medizin bibliothek password” 
+　　“medizin Volltext password” 
+　　“medizin literatur password” 
+　　“health ejournals password ” 
+　　“medizin elektronik password” 
+　　medicina BIBLIOTECA password 
+　　médecine PéRIODIQUES éLECTRONIQUES password 
+　　health ejournals password 
+　　American Journal of Medicine OnLine FULL TEXT Journals username password 
+　　medicine journal fulltext username 
+　　 
+　　同时，如果你足够细心，你会在这样的检索中有很多以外的收获。 
+　　 
+　　国外有很多密码页，上面公布很多期刊数据库的密码和登陆方式 
+　　 
+　　如果GOOGLE在检索的页面上出现 " PSAAWORD" 字样很多，那就说明 
+　　 
+　　这是一个密码页。你可以保存起来，说不定今后你会用到他们。 
+　　 
