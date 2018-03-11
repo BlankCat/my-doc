@@ -1,0 +1,122 @@
+
+
+开发工具
+sublime
+jd-gui.exe
+beyond compare 3
+charles.exe抓包
+fuddler 抓包
+git/svn
+SwitchHosts!.exe 切换host
+WinSCP
+xshell
+winrar
+
+
+数据库
+sqllite 
+navicat mysql数据库
+MongoDB
+MySQLServer5.5
+Oracle Database 10g Express Edition 入门
+PLSQL Developer
+Robomongo
+
+
+
+浏览器
+Mozilla Firefox
+chrome
+
+
+
+语言平台
+java
+python
+node.js
+android sdk
+c环境-gcc C语言开发环境
+rubby
+clisp
+gopher
+scala
+
+
+
+
+开发工具
+idea
+android studio
+eclipse
+webstrom
+pycharm
+lispIDE
+mybatis-generator-core-1.3.2
+代码生成器
+
+
+
+编译环境
+gradle-2.9-all
+apache-maven-3.3.3
+nexus-2.11.4-01-bundle
+
+
+
+设计
+PowerDesigner java开发设计表领域模型设计
+ha_AAALogo 设计logo
+Adobe Photoshop CS5
+
+
+
+谷歌插件
+postman
+jsonview
+DevTools Theme: Zero Dark Matrix
+Octotree 查看github代码
+谷歌访问助手
+
+
+windows软件
+IDM 下载利器
+PanDownload 百度云盘下载
+
+
+
+分布式
+alibaba-rocketmq
+apache-activemq-5.5.1-bin
+apache-tomcat-8.0.50
+zookeeper-3.4.6
+dubbo-monitor-simple-2.5.3-assembly
+kafka
+redis
+RedisClient
+
+
+
+常用办公软件软件
+WeChat
+QQ
+WiFi 共享精灵
+WPS
+ngrok使用这个 外网访问
+删除系统垃圾jb.bat
+Everything 
+PDFXCview.exe - 查看PDF
+
+
+
+window命令工具
+cmder
+Powershell
+
+
+
+
+
+
+
+
+
