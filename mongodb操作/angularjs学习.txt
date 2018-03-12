@@ -1,0 +1,13 @@
+
+
+我也在找  angularjs的 ui-jp.js  
+http://blog.csdn.net/mickey_miki/article/details/8240477
+
+http://blog.csdn.net/mickey_miki/article/details/8240477
+一：官方网站：[http://www.datatables.net/]
+二：基本使用：[http://www.guoxk.com/node/jquery-datatables]
+管理后台-前端-AngularJS
+http://blog.csdn.net/iamnieo/article/details/50474399
+
+分页
+ui-view 和路由关联 就能渲染html 模板片段

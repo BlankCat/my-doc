@@ -1,0 +1,241 @@
+﻿
+认证
+db.auth( 'root', 'root')
+
+创建用户
+use products
+db.createUser( { user: "accountAdmin01",
+                 pwd: "changeMe",
+                 customData: { employeeId: 12345 },
+                 roles: [ { role: "clusterAdmin", db: "admin" },
+                          { role: "readAnyDatabase", db: "admin" },
+                          "readWrite"] },
+               { w: "majority" , wtimeout: 5000 } )
+
+
+db.system.users.find()
+
+
+http://www.cnblogs.com/hiddenfox/p/3780491.html
+
+
+创建用户
+http://brucetam.blog.51cto.com/1863614/1540119
+use one
+ 
+db.createUser(
+  {
+    user: "zjf",
+    pwd: "zjf",
+    roles:
+    [
+      {
+        role: "userAdmin",
+        db: "one"
+      }
+    ]
+  })
+
+
+db.createUser(
+  {
+    user: "zjf",
+    pwd: "zjf",
+    roles:
+    [
+      {
+        role: "readWrite",
+        db: "one"
+      }
+    ]
+  })
+
+切换到 admin 权限
+查询用户
+db.system.users.find()
+
+查看数据库
+show dbs 
+
+
+mongo 10.3.19.31:62167/test -u 用户名 -p 密码
+
+自动分配端口号
+mongo 127.0.0.1/one -u zjf -p zjf
+mongo localhost/one -u zjf -p zjf
+
+-----
+一 关于认证
+使用用户名认证指令为：
+mongo --port 27017 -u zjf -p zjf --authenticationDatabase one
+
+创建系统级别的的admin用户，分配root角色，可以管理所有数据库,做任意的操作：
+注意：创建用户产生的数据正常情况下应该保存在admin库统一管理，但也可以指定保存在其他数据库，先运行 use dbname,表示对dbname这个库操作，然后运行创建用户的命令之后，数据就保存在"dbname"数据库了
+
+
+创建admin用户
+use admin
+db.createUser(
+    {
+      user: "superuser",
+      pwd: "12345678",
+      roles: [ "root" ]
+    })
+
+
+创建指定 数据库的管理员用户：
+use admin
+db.createUser(
+    {
+      user: "tracking",
+      pwd: "track",
+      roles: [
+         { role: "readWrite", db: "user_data_tracking" }
+	,     { role: "dbAdmin", db: "user_data_tracking" }   
+      ]
+    }
+)
+
+管理用户的用户角色：
+use admin
+db.createUser(
+  {
+    user: "siteUserAdmin",
+    pwd: "password",
+    roles:
+    [
+      {
+        role: "userAdminAnyDatabase",
+        db: "admin"
+      }
+    ]
+  })
+
+userAdminAnyDatabase和userAdmin区别
+userAdminAnyDatabase 创建用户角色
+userAdmin：创建用户
+
+use products
+ 
+db.createUser(
+  {
+    user: "recordsUserAdmin",
+    pwd: "password",
+    roles:
+    [
+      {
+        role: "userAdmin",
+        db: "records"
+      }
+    ]
+  })
+
+
+
+登录后可以查看用户权限，用此命令：
+db.runCommand(
+  {
+    usersInfo:"manager",
+    showPrivileges:true
+  })
+
+
+ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+ 创建只读用户
+
+创建只读权限的用户
+use reporting
+db.createUser(
+    {
+      user: "reportsUser",
+      pwd: "12345678",
+      roles: [
+         { role: "read", db: "reporting" },
+         { role: "read", db: "products" },
+         { role: "read", db: "sales" }
+      ]
+    })
+创建完后可以分配角色：
+use admindb.grantRolesToUser(
+  "accountAdmin01",
+  [
+    {
+      role: "readWrite", db: "products"
+    },
+    {
+      role: "readAnyDatabase", db:"admin"
+    }
+  ])
+
+查看用户权限：
+> use admin
+> db.getUser("tracking")
+{
+    "_id" : "admin.tracking",
+    "user" : "tracking",
+    "db" : "admin",
+    "roles" : [
+        {
+            "role" : "readWrite",
+            "db" : "user_data_tracking"
+        },
+        {
+            "role" : "dbAdmin",
+            "db" : "user_data_tracking"
+        }
+    ]
+}
+
+创建角色：
+use admin
+db.createRole(
+  {
+    role: "myClusterwideAdmin",
+    privileges:
+    [
+      { resource: { cluster: true }, actions: [ "addShard" ] },
+      { resource: { db: "config", collection: "" }, actions: [ "find", "update", "insert" ] },
+      { resource: { db: "users", collection: "usersCollection" }, actions: [ "update" ] },
+      { resource: { db: "", collection: "" }, actions: [ "find" ] }
+    ],
+    roles:
+    [
+      { role: "read", db: "admin" }
+    ],
+    writeConcern: { w: "majority" , wtimeout: 5000 }
+  })
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+修改密码：
+db.changeUserPassword("reporting", "SOh3TbYhxuLiW8ypJPxmt1oOfL")
+插入自定义的数据
+db.runCommand(
+    { updateUser: "manager",
+      pwd: "KNlZmiaNUp0B",
+      customData: { title: "Senior Manager" }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

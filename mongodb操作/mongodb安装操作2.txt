@@ -1,0 +1,87 @@
+win10
+安装完成--配置环境变量
+win+x--命令提示符（管理员）
+
+
+启动mongod服务器 
+mongod.exe --dbpath c:\data\db
+
+mongod.exe --dbpath c:\data\db -auth
+
+mongod.exe --dbpath c:\data\db -auth -service
+
+mongod --dbpath C:\softApp\MongoDB\data
+
+. 在注册表中，找到MongoDB的节点，在它的ImgPath中，我们修改一下，加入 -auth，如下所示：
+"D:\Program Files\mongodb\bin\mongod" -dbpath  e:\work\data\mongodb\db  -logpath  e:\work\data\mongodb\log -auth -service
+
+
+http://www.cnblogs.com/zengen/archive/2011/04/23/2025722.html
+
+1 启动mogodb服务器（不需要认证）
+  mongod.exe --dbpath c:\data\db
+2 给指定数据库添加认证用户（创建系统认证用户，添加读写权限）	
+ use admin
+db.createUser(
+   {
+     user: "appAdmin",
+     pwd: "password",
+     roles:
+       [
+         { role: "readWrite", db: "config" },
+         "clusterAdmin"
+       ]
+   }
+)
+
+3 重启mongodb （需要认证）
+mongod.exe --dbpath c:\data\db -auth
+添加用户名和密码
+
+
+
+
+robomongo 
+failed to execute listdatabases
+连接需要添加用户名和密码
+
+测试是否启动mogod服务
+http://127.0.0.1:27017/
+
+
+在客户端输入
+mongo
+
+默认连接的是“test”数据库。
+
+db.person.insert({"name":"zjf","age":19})
+db.person.find()
+db.person.remove({"name":"zjf"})
+db.person.count()
+
+
+基本操作
+http://javascript.ruanyifeng.com/nodejs/mongodb.html
+
+
+
+
+mongodb目标计算机决绝，无法了链接的解决办法
+http://www.bubuko.com/infodetail-901482.html
+http://www.cnblogs.com/zhuangke668/p/4560438.html
+
+谷歌关键词mongo.config配置
+
+
+mongodb笔记整理
+http://scorpionjay.github.io/2015/09/30/mongodb-0/
+
+https://docs.mongodb.com/manual/crud/
+
+添加用户名权限
+https://docs.mongodb.com/manual/reference/method/db.createUser/#create-administrative-user-with-roles
+
+
+命令行换行
+DOS使用^，linux使用反斜杠。
+

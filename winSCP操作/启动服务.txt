@@ -1,0 +1,137 @@
+112机器上部署着所有的服务service
+
+ ps wxsy_service
+
+
+ ps -ef |grep  wxsy_service
+
+
+ cd /data0/service/wxsy_service/bin
+
+
+ ./stop.sh
+ ./restart.sh
+
+
+
+ ps -ef |grep  wxsy_service
+
+关闭服务
+ kill -9 8528
+
+
+ ./start.sh
+启动服务成功
+Starting the wxsy-provider ...OK!
+PID: 4414
+STDOUT: logs/stdout.log
+
+重启完成之后
+ps -ef |grep  wxsy_service
+
+/data0/service/wxsy_service/lib/zookeeper-3.3.3.jar: com.alibaba.dubbo.container.Main
+root      4448  4320  0 09:02 pts/1    00:00:00 grep wxsy_service
+
+===============================================================
+ cd /data0/wwwroot/
+  989  cd ..
+  990  ls
+  991  cd service/
+  992  ls
+  993  ps -ef |grep member_
+  994  ps -ef |grep member_service
+  995  cd  /data0/service/member_service/
+  996  tail -f st
+  997  cd logs/
+  998  ls
+  999  tail -f stdout.log
+ 1000  ps wxsy_service
+ 1001  ps -ef |grep  wxsy_service
+ 1002  cd /data0/service/wxsy_service/bin
+ 1003  ls
+ 1004  ./stop.sh
+ 1005  ps -ef |grep  wxsy_service
+ 1006  kill -9 8528
+ 1007  ./start.sh
+ 1008  ps -ef |grep  wxsy_service
+ 1009  history
+
+===============================================================
+
+查看进程端口
+去制定tomcat下面的conf目录下的server.xml配置文件，查看相应的service所监听的connector所监听的http协议的port
+netstat -ntlp | grep "port"
+kill pid
+
+查看跑了多少进程
+jps
+
+查看进程列表
+netstat -ntlp
+
+
+
+=============================================
+查看服务端口
+去服务的conf目录看dubbo的注册端口，查看监听的端口
+netstat -ntlp | grep "port"
+kill pid 
+
+杀死进程id
+重启服务
+
+
+
+ ps wxsy_service
+ ps -ef |grep  wxsy_service
+ cd /data0/service/wxsy_service/bin
+ ./stop.sh
+ ./restart.sh
+ ps -ef |grep  wxsy_service
+
+关闭服务
+ kill -9 8528
+
+
+===========================
+快捷键
+清屏 >
+
+左右分屏
+win左。win右
+
+查看注册中心的服务
+查看注册中心注册的服务
+
+
+===========================
+查看注册中心注册的服务
+进入zookeeper的安装目录，进入bin 目录 cd /usr/local/zookeeper/bin
+./zkCli.sh
+ls /dubbo/com.blank.service.servicename
+
+
+
+===========================
+查看注册中心注册的服务
+进入zookeeper的安装目录，进入bin 目录 cd /usr/local/zookeeper/bin
+./zkCli.sh
+ls /dubbo/com.blank.service.servicename
+===========================
+
+查看运行的java进程
+jps
+
+===========================
+ps aux #显示所有的前台进程,
+| grep java # 将上一个命令的输出当做这一个命令输入，过滤java
+
+ps aux | grep java
+
+===========================
+ps -ef
+
+
+
+
+

@@ -1,0 +1,119 @@
+
+
+同步更新表数据
+update dj_specialty t LEFT JOIN
+( SELECT COUNT(*) as a ,dj_specialty_love.specs_id   
+from dj_specialty_love 
+GROUP BY dj_specialty_love.specs_id
+) t1 on t.id=t1.specs_id
+set t.spe_love_num = t1.a ;
+
+同步点赞数
+update dj_specialty t LEFT JOIN
+( SELECT COUNT(*) as a ,dj_specialty_love.specs_id   
+from dj_specialty_love 
+GROUP BY dj_specialty_love.specs_id
+) t1 on t.id=t1.specs_id
+set t.spe_love_num = if(t1.a is null ,0,t1.a) ;
+
+更新表信息同步数据如果为空更新缺省值
+UPDATE Table1 
+SET 
+    field1 = field1 + 1, 
+    field2 = NOW(),
+    field3 = IF(field3 < '2011-00-00 00:00:00' OR field3 IS NULL, NOW(), field3)
+WHERE id = $id;
+
+
+
+update dj_specialty set spe_cat_id= spe_cat_id+1 WHERE id <15
+
+批量更新把id字段赋值给spe_cat_id字段
+update dj_specialty set spe_cat_id= id WHERE id <15
+
+
+批量更新
+UPDATE dj_specialty_comments set comment_content='想听点睛网刘老师的课' 
+WHERE comment_id<168 and comment_id>=120
+
+
+批量模拟数据
+
+
+同步评论数
+update dj_specialty t LEFT JOIN
+( SELECT COUNT(*) as a ,dj_specialty_comments.specs_id   
+from dj_specialty_comments 
+GROUP BY dj_specialty_comments.specs_id
+) t1 on t.id=t1.specs_id
+set t.spe_comments_num = if(t1.a is null ,0,t1.a) ;
+
+评论审核数据同步
+update dj_specialty t LEFT JOIN
+( SELECT COUNT(*) as a ,dj_specialty_comments.specs_id   
+from dj_specialty_comments WHERE dj_specialty_comments.check_state=1
+GROUP BY dj_specialty_comments.specs_id 
+) t1 on t.id=t1.specs_id
+set t.spe_comments_num = if(t1.a is null ,0,t1.a) ;
+
+
+
+
+同步购买人数
+update dj_specialty t LEFT JOIN
+(  SELECT count(*) as a,dj_stuspecialty.specialty_id  
+FROM `dj_stuspecialty` LEFT JOIN dj_member on dj_stuspecialty.mem_id= dj_member.mem_id 
+ WHERE 1=1 and dj_member.mem_username is not null
+GROUP BY dj_stuspecialty.specialty_id
+) t1 on t.id=t1.specialty_id
+set t.spe_signupCount = if(t1.a is null ,0,t1.a) ;
+
+
+
+查找替换
+System.out.println
+//System.out.println
+
+
+查询结果 更新 mysql
+http://www.cnblogs.com/zhongzheng123/p/5250192.html
+
+ update user t LEFT JOIN
+( SELECT COUNT(DISTINCT user_id,shop_id) as a ,user_id   
+from membership_card 
+GROUP BY user_id
+) t1 on t.id=t1.user_id
+set t.membership_cards = t1.a ;
+
+
+
+第一种使用连接关键字,如 left join .....等 
+
+复制代码
+  update user t LEFT JOIN
+( SELECT COUNT(DISTINCT user_id,shop_id) as a ,user_id   
+from membership_card 
+GROUP BY user_id
+) t1 on t.id=t1.user_id
+set t.membership_cards = t1.a ;
+
+COMMIT;
+复制代码
+　　第二种是直接利用 "," 直接连接"两张表"(查询结果也是张临时表)
+
+ 
+
+复制代码
+  update user t ,
+( SELECT COUNT(DISTINCT user_id,shop_id) as a ,user_id   
+from membership_card 
+GROUP BY user_id
+) t1 
+set t.membership_cards = t1.a
+where  t.id=t1.user_id;
+
+COMMIT;
+
+
+
+

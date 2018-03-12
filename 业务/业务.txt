@@ -1,0 +1,90 @@
+
+
+
+
+购买专业
+	购买专业课--锁住订单
+	获取用户信息--DjMember--dj_member
+	查看用户有开专业的记录--保存开专业课记录--dj_stuspecialty
+
+	查询专业的课程id列表
+	专业--专业课程中间--课程
+	dj_specialty dj_specialty_store dj_course
+
+
+
+	批量购买用户业务
+	lockVip redis锁住"kk-"+memId, courseId+"", memId+""
+
+	查询出会员信息
+	//1.获取是否已经创建了此课程
+	dj_stucourse dj_stucw
+	dj_course  dj_courseware
+	判断是否购买此课程 查询出5.获取第一门开课Id
+	查询课程，课件，保存课程，课件
+
+	//4.是否保存开课明细
+	dj_changemoney	
+	//5.获取第一门开课Id
+	//6.更新课程学习人数
+	课程的一个字段
+	//7.去除购物车收藏的课程
+	dj_shoppingcart
+	delete_dj_shoppingcart_sql
+	//8.去除购物车未成交订单的课程和修改订单金额
+	12.1去除购物车未成交订单的课程和修改订单金额 delete_dj_order_sql
+	12.2.去除购物车未成交订单的课程和修改订单金额 update_dj_order_sql
+
+	unlockVip
+
+
+购买课程
+	会员信息
+	课程
+	学习课程
+	1保存学习课程
+	2保存学习课件
+	3加入客群 Group
+	4购买交易明细 changemoney
+	5购买成功发App通知消息
+
+购买点读课
+1先判断是否已经开课，如果已经开课，返回开课id，课件id，stucw_id
+2开始买课流程
+	1现金购买，开课，购买交易明细
+	2点币购买，扣除账号点币，开课，开课明细
+	3点币不足，3种方式处理，1.先购买VIP充值后，再付点币购买
+	
+
+
+打点
+听课统计
+如何让java jar包定时运行
+1、将java程序打成jar包
+2、上传jar包   把jar包上传到指定路径A下   使用rz命令上传
+3、编辑.sh文件 进入到B路径下编辑.sh文件  使用vim指令进行编辑  
+编辑格式：pathfile="/home/apps/dm_sw"   指定.jar包的路径 这里就是A
+java -jar ${pathfile}/proSalesWaring_fat.jar  编辑完后 ：+shif键退出  wq保存
+4、使用crontab -e 命令定时任务  
+编辑格式
+05 */1 * * * . /etc/profile;/home/apps/dm_sw/sw_pro_waring.sh &>/home/apps/dm_sw/pro_warning.log
+主要包括.sh文件路径和产生的日志文件路径
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

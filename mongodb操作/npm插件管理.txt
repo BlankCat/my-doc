@@ -1,0 +1,81 @@
+npm官网
+https://www.npmjs.com/
+cnpm官网
+https://cnpmjs.org/
+
+查看本地安装的插件
+npm list
+npm list -g
+
+查看安装插件的版本
+npm [name] -v 
+npm nrm -v
+npm express -v
+
+
+安装环境设置
+-S, --save 安装包信息将加入到dependencies（生产阶段的依赖）
+npm install gulp --save 或 npm install gulp -S
+-D, --save-dev 安装包信息将加入到devDependencies（开发阶段的依赖），所以开发阶段一般使用它
+npm install gulp --save-dev 或 npm install gulp -D
+
+npm常用命令详解
+http://www.cnblogs.com/PeunZhang/p/5553574.html
+npm是什么
+npm install 安装模块
+npm uninstall 卸载模块
+npm update 更新模块
+
+
+
+
+
+
+
+
+npm outdated 检查模块是否已经过时
+npm ls 查看安装的模块
+npm init 在项目中引导创建一个package.json文件
+npm help 查看某条命令的详细帮助
+npm root 查看包的安装路径
+npm config 管理npm的配置路径
+npm cache 管理模块的缓存
+npm start 启动模块
+npm stop 停止模块
+npm restart 重新启动模块
+npm test 测试模块
+npm version 查看模块版本
+npm view 查看模块的注册信息
+npm adduser
+npm publish 发布模块
+npm access 在发布的包上设置访问级别
+npm package.json的语法
+
+
+
+http-server 启动脚本
+npm install http-server -g
+
+crs 跨站，服务端解决跨域问题
+
+cnpm
+
+core-js
+express
+express-generator
+
+grunt-cli
+gulp
+hexo-cli
+http-server
+node-gyp
+nodemon
+
+nrm 查看本地插件安装的镜像，设置镜像
+
+sails
+typescript
+webpack
+webpack-dev-server
+windows-build-tools
+

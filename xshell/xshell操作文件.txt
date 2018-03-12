@@ -1,0 +1,1022 @@
+
+
+
+╔═══════════════════════════════════════════════════════════════════════════════════════
+╚═══════════════════════════════════════════════════════════════════════════════════════
+
+
+╔═══════════════════════════════════════════════════════════════════════════════════════
+	ps aux | grep httpd
+	线上一般不用这个 用nginx
+
+	httpd和nginx用处一样吗
+	都是http服务器
+
+
+╚═══════════════════════════════════════════════════════════════════════════════════════
+
+
+
+
+
+╔═══════════════════════════════════════════════════════════════════════════════════════
+	redis
+	try redis - redis官方教程练习
+	官网地址：http://try.redis.io/
+	我的redis是安装在linux虚拟机，通过Xshell操作，显示可能跟cmd不大一样
+
+	操作命令
+	#连接redis客户端
+	hisen@ubuntu:~$ redis-cli
+	#存放数据
+	127.0.0.1:6379> set 'connections' '10'
+	OK
+	127.0.0.1:6379> get connections
+	"10"
+	#自增1方法：incr
+	127.0.0.1:6379> incr connections
+	(integer) 11
+	127.0.0.1:6379> incr connections
+	(integer) 12
+	#删除
+	127.0.0.1:6379> del conncetions
+	(integer) 0
+	#不存在才存放数据 setnx：SET-if-not-exists
+	127.0.0.1:6379> SETNX hisen hello
+	(integer) 1
+	127.0.0.1:6379> get hisen
+	"hello"
+	127.0.0.1:6379> SETNX hisen hello
+	(integer) 0
+	#添加数据
+	127.0.0.1:6379> set resource:lock "redis demo"
+	OK
+	#设置超时时间，单位秒
+	127.0.0.1:6379> expire resource:lock 120
+	(integer) 1
+	#查看剩余时间
+	127.0.0.1:6379> ttl resource:lock
+	(integer) 85
+	127.0.0.1:6379> ttl resource:lock
+	(integer) 81
+	127.0.0.1:6379> ttl resource:lock
+	(integer) 57
+	#List集合
+	#放在list最后（right 右边）
+	127.0.0.1:6379> rpush friends "Alice"
+	(integer) 1
+	127.0.0.1:6379> rpush friends "Bob"
+	(integer) 2
+	#放在最前（left 左边）
+	127.0.0.1:6379> lpush friends "Sam"
+	(integer) 3
+	#获取所有数据
+	127.0.0.1:6379> lrange friends 0 -1
+	1) "Sam"
+	2) "Alice"
+	3) "Bob"
+	#获取下标0-1的数据
+	127.0.0.1:6379> lrange friends 0 1
+	1) "Sam"
+	2) "Alice"
+	#获取下标1-2的数据
+	127.0.0.1:6379> lrange friends 1 2
+	1) "Alice"
+	2) "Bob"
+	#获取长度
+	127.0.0.1:6379> llen friends
+	(integer) 3
+	#删除第一个数据（左边）
+	127.0.0.1:6379> lpop friends
+	"Sam"
+	#删除最后一个数据（右边）
+	127.0.0.1:6379> rpop friends
+	"Bob"
+	127.0.0.1:6379> llen friends
+	(integer) 1
+	#输出所有
+	127.0.0.1:6379> lrange friends 0 -1
+	1) "Alice"
+	#Set集合
+	#添加
+	127.0.0.1:6379> sadd superpowers "flight"
+	(integer) 1
+	127.0.0.1:6379> sadd superpowers "x-ray vision"
+	(integer) 1
+	127.0.0.1:6379> sadd superpowers "reflexes"
+	(integer) 1
+	#删除
+	127.0.0.1:6379> srem superpowers "reflexes"
+	(integer) 1
+	#判断数据是否存在set中
+	127.0.0.1:6379> sismember superpowers "flight"
+	(integer) 1
+	#输出所有
+	127.0.0.1:6379> smembers superpowers
+	1) "flight"
+	2) "x-ray vision"
+	127.0.0.1:6379> sadd birdpowers "pecking"
+	(integer) 1
+	127.0.0.1:6379> sadd birdpowers "flight"
+	(integer) 1
+	#合并两个SET，会过滤重复
+	127.0.0.1:6379> sunion superpowers birdpowers
+	1) "pecking"
+	2) "flight"
+	3) "x-ray vision"
+	#有序集合，按照数字排序
+	127.0.0.1:6379> zadd hackers 1940 "Alan Kay"
+	(integer) 1
+	127.0.0.1:6379> zadd hackers 1906 "Grace Hopper"
+	(integer) 1
+	127.0.0.1:6379> zadd hackers 1953 "Richard Stallman"
+	(integer) 1
+	127.0.0.1:6379> zadd hackers 1965 "Yukihiro Mastsumoto"
+	(integer) 1
+	127.0.0.1:6379> zadd hackers 1916 "Claude Shannon"
+	(integer) 1
+	127.0.0.1:6379> zadd hackers 1969 "Linus Torvalds"
+	(integer) 1
+	127.0.0.1:6379> ZADD hackers 1957 "Sophie Wilson"
+	(integer) 1
+	127.0.0.1:6379> ZADD hackers 1912 "Alan Turing"
+	(integer) 1
+	#输出
+	127.0.0.1:6379> zrange hackers 2 4
+	1) "Claude Shannon"
+	2) "Alan Kay"
+	3) "Richard Stallman"
+	127.0.0.1:6379> zrange hackers 0 -1
+	1) "Grace Hopper"
+	2) "Alan Turing"
+	3) "Claude Shannon"
+	4) "Alan Kay"
+	5) "Richard Stallman"
+	6) "Sophie Wilson"
+	7) "Yukihiro Mastsumoto"
+	8) "Linus Torvalds"
+	127.0.0.1:6379> 
+	#哈希集合
+	127.0.0.1:6379> hset user:1000 name "hisen"
+	(integer) 1
+	127.0.0.1:6379> hset user:1000 email "hisen@hisen.com"
+	(integer) 1
+	127.0.0.1:6379> hset user:1000 pwassword "pswd"
+	(integer) 1
+	127.0.0.1:6379> hgetall user:1000
+	1) "name"
+	2) "hisen"
+	3) "email"
+	4) "hisen@hisen.com"
+	5) "pwassword"
+	6) "pswd"
+	#自增
+	27.0.0.1:6379> hset user:1000 visits 10
+	(integer) 1
+	127.0.0.1:6379> hset user:1000 visits 1
+	(integer) 0
+	127.0.0.1:6379> hincrby user:1000 visits 1
+	(integer) 2
+	127.0.0.1:6379> hincrby user:1000 visits 1
+	(integer) 3
+	127.0.0.1:6379> hincrby user:1000 visits 10
+	(integer) 13
+	127.0.0.1:6379> hdel user:1000 visits
+	(integer) 1
+	127.0.0.1:6379> hincrby user:1000 visits 1
+	(integer) 1
+╚═══════════════════════════════════════════════════════════════════════════════════════
+
+
+
+╔═══════════════════════════════════════════════════════════════════════════════════════
+
+	apt-get 常用命令
+	apt-get应该debian内核系列的系统都能用：
+	比如：debian、ubuntu、deepin等
+	╔═══════════════════════════════════════════════════════════════════════════════════════
+			apt-cache search package    #搜索包（相当于yum list | grep pkg）
+			apt-cache show package      #显示包的相关信息，如说明、大小、版本等
+			apt-cache showpg package    #显示包的相关信息，如Reverse Depends（反向依赖）、依赖等
+			apt-get install package       #安装包
+			apt-get reinstall package     #重新安装包
+			apt-get -f install package    #强制安装
+			apt-get remove package        #删除包（只是删掉数据和可执行文件，不删除配置文件）
+			apt-get remove --purge package       #删除包，包括删除配置文件等
+			apt-get autoremove --purge package   #删除包及其依赖的软件包+配置文件等
+			apt-get update          #更新源
+			apt-get upgrade         #更新已安装的包
+			apt-get dist-upgrade    #升级系统
+			apt-get dselect-upgrade        #使用 dselect 升级
+			apt-cache depends package      #了解使用依赖
+			apt-cache rdepends package     #查看该包被哪些包依赖
+			apt-get build-dep package   #安装相关的编译环境
+			apt-get source package      #下载该包的源代码
+			apt-get clean && apt-get autoclean  #清理下载文件的存档 && 只清理过时的包
+			apt-get check             #检查是否有损坏的依赖
+			dpkg -S filename          #查找filename属于哪个软件包
+			apt-file search filename  #查找filename属于哪个软件包
+			apt-file list packagename #列出软件包的内容
+			apt-file update           #更新apt-file的数据库
+			dpkg -l      #列出当前系统中所有的包.可以和参数less一起使用在分屏查看（类似于rpm -qa）
+			dpkg -l |grep -i "pkg"   #查看系统中与"pkg"相关联的包（类似于rpm -qa | grep pkg）
+			dpkg -s pkg  #查询一个已安装的包的详细信息（类似于rpm -qi）
+			dpkg -L pkg  #查询一个已安装的软件包释放了哪些文件（类似于rpm -ql）
+			dpkg -S file     #查询系统中某个文件属于哪个软件包（类似于rpm -qf）
+			dpkg -c pkg.deb  #查询一个未安装的deb包将会释放哪些文件（类似于rpm -qpl）
+			dpkg -I pkg.deb  #查看一个未安装的deb包的详细信息（类似于rpm -qpi）
+			dpkg -i pkg.deb  #手动安装软件包（不能解决软依赖性问题，可以用apt-get -f install解决）
+			dpkg -r pkg      #卸载软件包（不是完全的卸载，它的配置文件还存在）
+			dpkg -P pkg      #全部卸载（不能解决依赖性的问题）
+			dpkg-reconfigure pkg     #重新配置
+			dpkg -x pkg.deb dir      #将一个deb包解开至dir目录
+			dpkg --pending --remove  #移除多余的软件
+			# 强制安装一个包(忽略依赖及其它问题)
+			dpkg --force-all -i pkg.deb    #可以参考dpkg --force-help
+			# 强制卸载一个包
+			dpkg --force-all -P pkg.deb
+			aptitude update   #更新可用的包列表
+			aptitude upgrade  #升级可用的包
+			aptitude dist-upgrade     #将系统升级到新的发行版
+			aptitude install pkgname  #安装包
+			aptitude remove pkgname   #删除包
+			aptitude purge pkgname    #删除包及其配置文件
+			aptitude search string    #搜索包（相当于yum list | grep pkg，重要）
+			aptitude show pkgname     #显示包的详细信息 （相当于yum info pkg，重要）
+			aptitude clean            #删除下载的包文件
+			aptitude autoclean        #仅删除过期的包文件
+			apt-get install xrdp      #安装图形化
+	╚═══════════════════════════════════════════════════════════════════════════════════════
+
+╚═══════════════════════════════════════════════════════════════════════════════════════
+
+╔═══════════════════════════════════════════════════════════════════════════════════════
+	
+	CentOS查看树形目录命令tree的安装
+	执行：yum install tree
+
+
+	#下载（官网为：http://mama.indstate.edu/users/ice/tree/）
+	wget http://mama.indstate.edu/users/ice/tree/src/tree-1.7.0.tgz
+	#解压
+	tar -zxvf tree-1.7.0.tgz
+	#进入目录
+	cd tree-1.7.0
+	#安装
+	sudo make install
+	#完毕
+
+
+	最简单的使用方法，在目录下输入：tree
+
+╚═══════════════════════════════════════════════════════════════════════════════════════
+
+
+╔═══════════════════════════════════════════════════════════════════════════════════════
+
+	日历
+	##显示当月的日历
+	cal
+
+	##指定显示1997年11月当月的日历
+	cal 11 1997
+
+	##显示2018年全年12个月的日历
+	cal -m 12 -y 2018
+
+	##输出当前日期
+	date
+
+	##格式化输出年月日
+	 date "+%Y-%m-%d"
+
+	 ##格式化输出当前时间
+	date "+%H:%M:%S"
+
+	 格式化输出年月日时间
+	 date "+%Y-%m-%d %H:%M:%S" 
+
+╚═══════════════════════════════════════════════════════════════════════════════════════
+
+╔═══════════════════════════════════════════════════════════════════════════════════════
+
+	进程
+	ps命令能提供一份当前进程的快照。
+	如果想状态可以自动刷新，可以使用top命令。
+
+	ps命令
+	显示所有运行中的进程：
+	ps aux | less
+	这个命令按 q 退出
+	后面加了“| less”就会分页显示，
+	如果去掉会一次性显示出所有结果
+
+	查看系统中的每个进程
+	ps -A
+	ps -e
+	-A：显示所有进程
+	a：显示终端中包括其它用户的所有进程
+	x：显示无控制终端的进程
+
+	显示进程的树状图
+	pstree
+
+╚═══════════════════════════════════════════════════════════════════════════════════════
+
+
+╔═══════════════════════════════════════════════════════════════════════════════════════
+
+	日志
+	linux查看日志文件内容命令tail、cat、tac、head、echo
+
+	tail -f test.log
+	你会看到屏幕不断有内容被打印出来. 
+	这时候中断第一个进程Ctrl-C,
+
+
+	cat -n hisen.log | grep ‘907’
+	在文件当中查找指定的内容，这里是查询：907
+
+
+	linux 如何显示一个文件的某几行(中间几行)
+
+	从第3000行开始，显示1000行。即显示3000~3999行
+	cat filename | tail -n +3000 | head -n 1000
+
+	显示1000行到3000行
+	cat filename| head -n 3000 | tail -n +1000
+
+
+	*注意两种方法的顺序
+	分解：
+	tail -n 1000：显示最后1000行
+	tail -n +1000：从1000行开始显示，显示1000行以后的
+	head -n 1000：显示前面1000行
+
+
+
+	用sed命令
+	sed -n ‘5,10p’ filename 这样你就可以只查看文件的第5行到第10行。
+	例：cat mylog.log | tail -n 1000 #输出mylog.log 文件最后一千行
+
+
+	================
+	cat主要有三大功能：
+	1.一次显示整个文件。$ cat filename
+	2.从键盘创建一个文件。$ cat > filename
+	只能创建新文件,不能编辑已有文件.
+	3.将几个文件合并为一个文件： $cat file1 file2 > file
+
+	参数：
+	-n 或 –number 由 1 开始对所有输出的行数编号
+	-b 或 –number-nonblank 和 -n 相似，只不过对于空白行不编号
+	-s 或 –squeeze-blank 当遇到有连续两行以上的空白行，就代换为一行的空白行
+	-v 或 –show-nonprinting
+
+	例：
+	把 textfile1 的档案内容加上行号后输入 textfile2 这个档案里
+	cat -n textfile1 > textfile2
+
+	把 textfile1 和 textfile2 的档案内容加上行号（空白行不加）之后将内容附加到 textfile3 里。
+	cat -b textfile1 textfile2 >> textfile3
+
+	把test.txt文件扔进垃圾箱，赋空值test.txt
+	cat /dev/null > /etc/test.txt
+
+	注意：>意思是创建，>>是追加。千万不要弄混了。
+
+	================
+	tac (反向列示)
+	tac 是将 cat 反写过来，所以他的功能就跟 cat 相反， cat 是由第一行到最后一行连续显示在萤幕上，
+	而 tac 则是由最后一行到第一行反向在萤幕上显示出来！
+
+	================
+	在Linux中echo命令用来在标准输出上显示一段字符，比如：
+	echo “the echo command test!”
+	这个就会输出“the echo command test!”这一行文字！
+
+
+	echo “the echo command test!”>a.sh
+	这个就会在a.sh文件中输出“the echo command test!”这一行文字！
+
+	该命令的一般格式为： 
+	echo [ -n ] 字符串其中选项n表示输出文字后不换行；
+	字符串能加引号，也能不加引号
+	用echo命令输出加引号的字符串时，将字符串原样输出；
+	用echo命令输出不加引号的字符串时，将字符串中的各个单词作为字符串输出，
+	各字符串之间用一个空格分割。
+
+	一些实例
+	---
+	#在整个文件搜索含有907的内容
+	hisen@ubuntu:~/dl$ cat -n hisen.log | grep '907'
+
+	#从第3行开始,显示10行 即：3~12 并且显示行号
+	hisen@ubuntu:~/dl$ cat -n hisen.log | tail -n +3 | head -n 10
+
+	#显示10行前三行
+	hisen@ubuntu:~/dl$ cat -n hisen.log | head -n +10 | tail -n 3
+
+	#显示3-10行
+	hisen@ubuntu:~/dl$ cat -n hisen.log | head -n 10 | tail -n +3
+
+	#显示倒数第二行
+	hisen@ubuntu:~/dl$ cat -n hisen.log | tail -n 2
+
+	#从24行开始，显示到最后
+	hisen@ubuntu:~/dl$ cat -n hisen.log | tail -n +24
+	---
+
+╚═══════════════════════════════════════════════════════════════════════════════════════
+
+
+
+线上文件路径
+\\192.168.1.206\softMgr\jc
+
+base工程服务器地址
+121.40.51.43	
+用户名:root
+密码
+
+
+oGcnhnrjmnififtc2GX3v6bfXVxnqPrkSu7jcfxp
+
+启动服务器
+/etc/init.d/tomcat2 restart
+tail -f /usr/local/tomcat2/logs/catalina-daemon.out
+
+
+
+cd /data0/wwwroot/
+ls
+cd base
+
+端口号 9282
+
+
+
+
+http://base.zfwx.com
+去host文件里面根据域名找对应的ip
+http://base.zfwx.com/register.do;jsessionid=2273D8E3BE7EEE9124BB8082EE045D2C
+
+
+=====================================================================
+
+207服务器查看zookeeper查看服务是否启动
+192.168.1.207
+用户名
+root
+密码
+asdf!@#$
+
+
+
+vi 编辑保存
+
+
+=====================================================================
+查询redis服务
+121.40.34.17
+用户名
+root
+密码
+最新
+
+dWVx2Attf0krlwzoldbqqtYTg60QyssobjqrrdGc
+
+查询redis
+ps -ef |grep redis
+cd /usr/local/redis/bin
+ls
+启动客户端软件
+./redis-cli
+选择库
+select 3 选择3号库
+ok
+get |lstangrongzhi  查询出对应的值
+keys *
+keys 
+查看有多少key值
+dbsize
+模糊查询某个key值
+keys *TGT-23708*
+
+
+
+
+
+http://redisdoc.com/
+
+
+===================================================================
+设置时效，过期后就自动删除
+set a f
+expire a 144000/3600 4个小时
+查看时效
+ttl a
+
+
+=====================================================================
+
+//30机器 data0目录是工程目录
+政法网校api
+114.55.36.30
+用户名
+root
+密码
+hvHS0ih6tVltyysoovZr8ccQlaesd2
+
+
+启动服务器
+/etc/init.d/tomcat2 restart
+tail -f /usr/local/tomcat1/logs/catalina-daemon.out
+
+
+api 监听的端口号：6088
+
+正式网
+http://devapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=12345678&version=4.13&j_username=13555566666&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+http://api.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=12345678&version=4.13&j_username=13555566666&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+测试网
+https://zjapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=12345678&version=4.13&j_username=13555566666&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+
+https://zjapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=12345678&version=4.13&j_username=299797&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+https://zjapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=12345678&version=4.13&j_username=13555566666&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+
+https://zjapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=12345678&version=4.13&j_username=yangjuanjuan12345&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+6088端口
+
+
+=====================================================================
+
+115.29.221.112
+mobile工程测试服务器
+用户名
+root
+密码
+
+
+
+
+115.29.221.112   z0gmq5gpKbpXzuxmjlnwfYYpie9y9DygdpfbMkqR
+
+5098端口
+5099端口
+
+
+
+步骤1
+进入tomcat的conf执行命令
+cat server.xml
+产看工程部署目录
+
+步骤2
+查看tomcat的环境变量
+cat /etc/profile
+查看tomcat环境变量
+步骤3
+进入/etc/init.d目录下查看有没有tomcat的启动脚本
+执行命令(在tomcat的脚本上面检索环境变量)
+grep "CATALINA_HOME" /etc/init.d/tomcat
+
+
+启动服务器
+/etc/init.d/tomcat2 restart
+tail -f /usr/local/tomcat1/logs/catalina-daemon.out
+
+
+112机器部署这所有的服务/data0/service/*_service
+
+=====================================================================
+207机器zookeeper配置
+192.168.1.207
+用户名
+root
+密码
+
+
+
+测试端口是否成功
+telnet 192.168.1.207 2181 
+
+
+
+课程详情接口
+http://mm.zfwx.com/tdk/get_detail.json?courseId=3288
+
+去购买接口
+http://mm.zfwx.com/tdk/gopay_mysignup.json?courseId=3288
+
+
+
+select distinct cg_id as id,cg_name as name,cs.cg_count as count from dj_cscategory cs  where cs.cg_count != 0 and cg_pcategory = -10 and cg_belong LIKE '%1%' order by cg_order;
+
+
+
+mobile 端口5098
+
+
+
+====================================================
+
+测试服务器数据库
+http://myadmin.51dj.cn:7070/tbl_select.php?db=dj_tkb&table=dj_tkphb&server=1&target=&token=4926f39db35c9df6d886888b67fa12f8#PMAURL-0:tbl_select.php?db=dj_tkb&table=dj_tkphb&server=1&target=&token=d49e06f9d25a3c066da61a7e650a1983
+
+用户名:
+EvmU5g9
+密码
+mwnFzB5aco8mEmU5g9
+
+
+===========================
+查看注册中心注册的服务
+进入zookeeper的安装目录，进入bin 目录 cd /usr/local/zookeeper/bin
+./zkCli.sh
+ls /dubbo/com.blank.service.servicename
+===========================
+
+
+
+查看服务端口
+http://itindex.net/detail/53125-dubbo-%E6%9C%8D%E5%8A%A1-telnet
+http://alibaba.github.io/dubbo-doc-static/Telnet+Command+Reference-zh-showComments=true&showCommentArea=true.htm
+
+
+
+======================================================================
+管理后台界面
+账号yangdebao
+密码yangdebao
+http://admin.zfwx.com/admin/index.jsp
+
+-----------定位action------------
+打开管理后台界面
+随便找一个url-->右键-->在新的标签页面打开（t）
+http://admin.zfwx.com/admin/DjStucourse/batchSelectCourseForMembers.do
+分析这个路由规则--admin（管理后台）--（DjStucourse:DjStucourseAction 定位到action）---（batchSelectCourseForMembers方法）
+
+-----------定位模板------------
+定位界面在路由方法里面return STUSELECT_JSP;这个页面规则
+protected static final String STUSELECT_JSP = "/admin/DjStucourse/stuselectcs.jsp";
+ctrl+shift+r查找到对应的jsp页面
+
+-----------模板讲解------------
+http://admin.zfwx.com/admin/DjCourse/edit.do?courseId=3501&
+edit.jsp页面嵌入一个模板
+<%@ include file="form_include.jsp" %>
+jsp中struts2框架的标签
+<s:form></s:form> 
+
+
+/**推送消息添加**/
+课程列表--课程&选课--操作（推送）
+
+
+121.40.51.45
+用户名:root
+密码
+pRgggEaGUar3QlNmni4da095972maaYvnjc
+
+zfwx_api 8088
+
+步骤1
+进入tomcat的conf执行命令
+cat server.xml
+产看工程部署目录
+
+步骤2
+查看tomcat的环境变量
+cat /etc/profile
+查看tomcat环境变量
+步骤3
+进入/etc/init.d目录下查看有没有tomcat的启动脚本
+执行命令(在tomcat的脚本上面检索环境变量)
+grep "CATALINA_HOME" /etc/init.d/tomcat
+
+
+启动服务器
+/etc/init.d/tomcat2 restart
+tail -f /usr/local/tomcat1/logs/catalina-daemon.out
+
+
+tail -f /usr/local/tomcat11111/logs/catalina-daemon.out
+
+面授审核人员账号密码
+https://devapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=12345678&version=4.13&j_username=747343&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+
+
+机构账号登录
+https://devapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=123456&version=4.13&j_username=hzsadmin&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+
+https://devapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=12345678&version=4.13&j_username=yangjuanjuan12345&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+
+https://devapi.zfwx.com/v3/auth/login.json?deviceinfo=Phone_OS4.2&j_password=121212&version=4.13&j_username=lstangrongzhi&choose_domain=0&channelId=4234797702431134782&appid=2b06f1c03db9402eaa945b2716c45a7a
+
+
+https://devapi.zfwx.com/v3/user/get_wxkey.json?access_token=613aa62822d341fc8a4cc21df2d358e0&product=%E5%A5%A5%E5%B7%B4%E9%A9%AC%E6%97%B6%E4%BB%A3%E5%8D%B3%E5%B0%86%E5%AE%A3%E5%91%8A%E7%BB%93%E6%9D%9F%20%E4%BB%8A%E6%97%A5%E4%B8%8A%E5%8D%88%E5%8F%91%E8%A1%A8%E5%91%8A%E5%88%AB%E6%BC%94%E8%AE%B2&price=0.01&good_type=LDT&good_id=4295&terminal=1&pay_type=W
+
+https://devapi.zfwx.com/v3/test/test.json?access_token=54c825f7dbac4386abdbf62f53182190
+zfwxManage 8084
+
+https://devapi.zfwx.com/v3/listen/ldtHomePage.json
+
+
+
+----------------------------------
+步骤1
+进入tomcat的conf执行命令
+cat server.xml
+产看工程部署目录
+
+步骤2
+查看tomcat的环境变量
+cat /etc/profile
+查看tomcat环境变量
+步骤3
+进入/etc/init.d目录下查看有没有tomcat的启动脚本
+执行命令(在tomcat的脚本上面检索环境变量)
+grep "CATALINA_HOME" /etc/init.d/tomcat
+
+
+/etc/init.d/tomcat2 restart
+tail -f /usr/local/tomcat1/logs/catalina-daemon.out
+
+账号密码:yangdebao
+
+http://admin.zfwx.com/admin/index.jsp
+
+---------------------------------------------------
+
+
+
+
+
+线上代码查找
+win+r
+\\192.168.1.206\softMgr\jc
+
+
+
+
+测试服务器数据库密码
+djcourse密码 ssh密钥
+z0gmq5gpKbpXzuxmjlnwfYYpie9y9DygdpfbMkqR
+casserver密码 ssh密钥
+7Nxddaup2HEcBeq3jrrnzabumuvDSxndyUdypuc5
+
+
+
+最新密码
+121.40.34.17 pRgggEaGUar3QlNmni4da095972maaYvnjc
+121.40.51.45 pRgggEaGUar3QlNmni4da095972maaYvnjc
+115.29.221.112 pRgggEaGUar3QlNmni4da095972maaYvnjc
+121.40.51.43  pRgggEaGUar3QlNmni4da095972maaYvnjc
+ 
+
+
+
+=======================================================================
+1查看tomcat监听的端口号
+2 ps -ef| grep tomcat
+  netstat -ntlp | grep 端口号/进程号
+3 jps
+4 杀死进程
+5 重启tomcat
+
+=========================================================================
+查看进程号
+lsof -i | grep 端口号
+lsof -i:端口号
+netstat -ntlp| grep 端口号
+
+例子：
+nststat -nflp|grep 20884
+lsof -i:20884
+lsof -i | grep 20884
+
+$ ps -ef | grep Name  
+
+根据进程号查看监听的端口号
+$ netstat -nap | grep pid  
+
+
+
+
+
+后台管理账号
+chaochao 880922
+
+
+
+==============================================================
+端口号被占用
+端口被占用 直接到tomcat下面的bin里面shutdown就行了
+
+
+
+运行tomcat出现Error initializing endpoint 和 Failed to start connector[http/1.1-8080]错误  
+文章链接：
+1.        #netstat -anl |grep :8080  //显示该端口正常
+2.        # lsof -i :8080 //显示该端口被java进程占用，
+3.        #kill  -9 进程号 //杀死当前运行的进程
+4.        /usr/local/tomcat/bin/startup.sh  //启动tomcat进程
+小节：该进程僵死或程序错误。杀掉僵死的进程，启动tomcat
+
+
+
+
+==============================================================
+有其他的程序占用8080端口，或有之前的运行的tomcat程序未停止。
+
+解决方案：
+
+1. 通过下述命令查询8080端口所被占用的程序。
+
+netstat -nao
+lsof -i:8080
+以上两条其中一条均可。若为java则继续进行下述操作。
+
+2. 通过下述命令查询之前运行的tomcat。
+
+ps -awwef | grep tomcat
+3. 若2中出现多条tomcat信息。利用kill命令将其中止。
+
+kill -15 [PID]
+9  正常关闭会将内存中的数据写到磁盘等，
+15 直接内存中的数据都不管
+
+
+
+==============================================================
+netstat -a -o -n
+taskkill /F /PID 892
+=============================================================
+
+Linux信号列表
+http://blog.csdn.net/baobao8505/article/details/1115820
+kill -l 这是linux支持的所有信号
+$ kill -l
+1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL
+ 5) SIGTRAP      6) SIGABRT      7) SIGBUS       8) SIGFPE
+ 9) SIGKILL     10) SIGUSR1     11) SIGSEGV     12) SIGUSR2
+13) SIGPIPE     14) SIGALRM     15) SIGTERM     17) SIGCHLD
+18) SIGCONT     19) SIGSTOP     20) SIGTSTP     21) SIGTTIN
+22) SIGTTOU     23) SIGURG      24) SIGXCPU     25) SIGXFSZ
+26) SIGVTALRM   27) SIGPROF     28) SIGWINCH    29) SIGIO
+30) SIGPWR      31) SIGSYS      34) SIGRTMIN    35) SIGRTMIN+1
+36) SIGRTMIN+2  37) SIGRTMIN+3  38) SIGRTMIN+4  39) SIGRTMIN+5
+40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+8  43) SIGRTMIN+9
+44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12 47) SIGRTMIN+13
+48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14 51) SIGRTMAX-13
+52) SIGRTMAX-12 53) SIGRTMAX-11 54) SIGRTMAX-10 55) SIGRTMAX-9
+56) SIGRTMAX-8  57) SIGRTMAX-7  58) SIGRTMAX-6  59) SIGRTMAX-5
+60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2  63) SIGRTMAX-1
+64) SIGRTMAX
+
+====================================================================
+查看进程号
+ps -ef | grep tomcat1
+
+杀死应用进程，一个应用进程，一个守护进程，杀掉应用进程
+kill -9 18957
+
+
+重启tomcat
+/usr/local/tomcat1/bin//startup.sh
+
+/usr/local/tomcat1/bin/startup.sh
+
+
+重启tomcat命令
+cd /usr/local/tomcat1/bin/
+关闭
+./shutdown.sh
+
+启动
+./startup.sh
+
+
+
+线上密码修改
+pRgggEaGUar3QlNmni4da095972maaYvnjc
+
+
+
+
+
+查看私网
+ifconfig | grep 'ip'
+ifconfig | grep '10.162.19.235'
+
+http://www.cnblogs.com/snsdzjlz320/p/5616775.html#_label00
+你买了云主机后会分配一个 私网IP
+route  -n
+公网IP看你买还是不买
+
+
+java.lang.NoSuchMethodError.--- dubbo
+1看注册中心，地址是否正确
+2看配置文件里面引入的dubbo标签是否正确
+3看服务jar包，里面是否有相同的方法
+4查看注册中心服务是否注册到zookeeper
+5看其他服务包里是否也写了相同的服务。例如【shop-api.jar,和wxsy-api.jar里面同时引用的com.dj.zfwx.cas.service.CasAccountService】
+
+
+
+
+-------------------------------------------------------
+Linux中怎么通过PID号找到对应的进程名及所在目录
+查看zookeeper的所在位置
+jps
+21068 QuorumPeerMain
+
+
+管道过滤
+ps -aux | grep 21068 
+ps -aux | grep -v grep | grep 21068 
+
+
+进入进程所在目录
+cd /proc/21068/
+ls -ail
+
+-------------------------------------------------------
+
+
+倒数1000行输出日志
+tail -1000  stdout.log 
+
+查看路
+
+dig -t A www.baidu.com
+dig -t A www.zfwx.com
+
+
+
+nslookup zfwx.com
+
+
+进程故障排查
+	top命令，发现PID为28555的Java进程占用CPU高达200%，出现故障。
+
+	ps aux | grep PID命令，可以进一步确定是tomcat进程出现了问题
+	
+	首先显示线程列表:
+	ps -mp pid -o THREAD,tid,time
+
+	其次将需要的线程ID转换为16进制格式：
+	printf "%x\n" tid
+
+	最后打印线程的堆栈信息：
+	jstack pid |grep tid -A 30
+
+	pstack：Linux命令。可以查看某个进程的当前线程栈运行情况。
+
+
+-------------------------------------------------------
+最新17密码
+dWVx2Attf0krlwzoldbqqtYTg60QyssobjqrrdGc
+
+
+-------------------------------------------------------
+抓包命令
+http://blog.csdn.net/hguisu/article/details/38700899
+linux查看tcp的状态命令：
+1）、netstat -nat  查看TCP各个状态的数量
+2）、lsof  -i:port  可以检测到打开套接字的状况
+3)、  sar -n SOCK 查看tcp创建的连接数
+4)、tcpdump -iany tcp port 9000 对tcp端口为9000的进行抓包
+
+netstat -ano | grep 端口号
+netstat -ano | findStr "port"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

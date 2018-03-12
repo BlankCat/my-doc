@@ -1,0 +1,321 @@
+安卓开发资源的下载
+http://www.androiddevtools.cn/
+
+黑马android课件
+下载地址:http://pan.baidu.com/s/1i3ksxvv 密码: 5c44 
+http://www.javaapk.com/
+15:26:10
+空白格 2015/5/14 15:26:10
+ 自己收藏的一些电子书，有一些在网上没有分享，是我自己掏钱买的，分享给大家
+链接: http://pan.baidu.com/s/1BuOMf
+密码: ugqz
+
+从网上找的Android实用代码，记录备用
+http://www.cnblogs.com/gzggyy/p/3222786.html
+
+安卓实用代码
+http://www.cnblogs.com/gzggyy/category/335452.html
+
+Android开发资料推荐之45个android实例源码
+http://www.cnblogs.com/gzggyy/archive/2013/05/17/3083315.html
+
+圆角化Button
+http://www.cnblogs.com/gzggyy/archive/2013/05/17/3083218.html
+http://www.cnblogs.com/gzggyy/archive/2012/05/22/2513221.html
+
+GitHub上最火的40个Android开源项目（一）
+http://www.cnblogs.com/gzggyy/archive/2013/05/09/3070013.html
+
+Eclipse Android中设置模拟器屏幕大小
+http://www.cnblogs.com/gzggyy/archive/2012/11/09/2761974.html
+http://www.cnblogs.com/gzggyy/archive/2012/11/01/2749406.html
+
+对话框
+http://www.cnblogs.com/gzggyy/archive/2012/10/30/2746521.html
+http://www.cnblogs.com/gzggyy/archive/2012/10/30/2746505.html
+
+ADB全称Android Debug Bridge
+http://www.cnblogs.com/gzggyy/archive/2012/10/22/2733617.html
+
+
+android客户端实现FTP文件（包括图片）上传应该没什么难度
+http://www.cnblogs.com/gzggyy/archive/2012/10/16/2725928.html
+http://www.cnblogs.com/gzggyy/archive/2011/08/02/2125237.html
+
+我们在用Eclipse开发程序的时候，经常想要用到第三方的jar包
+http://www.cnblogs.com/gzggyy/archive/2011/11/15/Android.html
+
+显示Web网页:
+http://www.cnblogs.com/gzggyy/archive/2011/06/22/2087641.html
+
+
+确认退出的对话框
+http://www.cnblogs.com/gzggyy/archive/2011/06/22/2087636.html
+
+快速下载sdk的方法
+http://blog.csdn.net/yy1300326388/article/details/42360521
+
+工具
+http://blog.csdn.net/yy1300326388/article/category/2803323
+
+
+拍照获取照片
+http://blog.csdn.net/yy1300326388/article/details/43731579
+
+clearEdittext
+http://blog.csdn.net/chengcheng1986/article/details/20914979
+
+
+安卓仿照iso实现皮筋会弹OverScrollView，BounceListView
+http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2014/0312/1590.html
+
+ 2.PullToRefreshAndLoad-master.zip(此版本滑到底部不会自动加载) Android自定义控件实战——下拉刷新控件终结者：PullToRefreshLayout 
+http://blog.csdn.net/zhongkejingwang/article/details/38340701
+http://download.csdn.net/detail/zhongkejingwang/7710547
+http://download.csdn.net/detail/wondaymh/8314885
+http://download.csdn.net/download/abc985873665/7882587
+http://download.csdn.net/download/jdsjlzx/8428927
+
+MX4上面有点小问题，具体可以留意作者博客） Android 下拉刷新框架实现 http://blog.csdn.net/leehong2005/article/details/12567757 
+
+
+
+//TextView设置字体样式
+http://hi.baidu.com/spare_h/item/3d4205c1e21d9455ac00eff3
+
+//高仿QQ微信聊界面天
+https://github.com/ijarobot/Android-Chat-Widget
+http://git.oschina.net/ijarobot/Android-Chat-Widget
+
+
+xmpp协议即时通讯
+server 客户端，使用测试代码
+litepal 数据库开源框架
+
+//安卓的资源博客
+http://www.eoeandroid.com/misc.php?mod=tag&id=211
+
+
+下载Android微信分享功能实例demo：(多看)
+免费下载地址在 http://linux.linuxidc.com/
+用户名与密码都是www.linuxidc.com
+具体下载目录在 /2013年资料/2月/24日/Android微信分享功能实例+demo
+
+
+
+
+更多Android相关信息见Android 专题页面 http://www.linuxidc.com/topicnews.aspx?tid=11
+
+
+安卓资源：
+http://blog.csdn.net/kingsonl/article/details/7058418
+
+好例网：
+账号：zhangjianfeng
+密码：zhangjianfeng_2014@126.com
+
+
+快速实现ORM数据库缓存框架
+http://blog.csdn.net/lmj623565791/article/details/39122981
+
+在Android上使用OrmLite数据库框架 之 基本用法 
+http://blog.csdn.net/oo8_8oo/article/details/7302156
+
+
+
+
+
+微信开放平台
+https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&lang=zh_CN
+AppID：wx3260c4e85b7df758
+AppSecret：e3f0163eca50631980e9f785f7d8bb21
+
+友盟社会化分享
+http://www.umeng.com/social
+
+
+
+字符串转日期，日期转字符串
+http://www.blogjava.net/Werther/archive/2009/06/09/280954.html
+
+csdn在我看来最近没有那么活跃了，真正的大牛已经很少在csdn发微博了，都去了github、stackoverflow、eoe等网站了！哎，逼于无奈我后期也得转移阵地了！
+
+Android高仿ios的下拉刷新
+
+http://blog.csdn.net/icqapp/article/details/38477529
+http://download.csdn.net/download/shi508181017/7737855
+Google play效果 listViewGridView下拉刷新上拉加载更多,图片加载OOm问题
+http://download.csdn.net/detail/yuanfen821/5680245
+
+
+多看里面内容丰富。。。。。
+http://www.iteye.com/
+iteye
+账号：zhangjianfeng1314
+密码：csdn密码
+
+
+实用工具集锦
+
+Android Lifecycle https://github.com/xxv/android-lifecycle
+
+Safe.ijiami http://safe.ijiami.cn/
+
+TinyPNG https://tinypng.com/
+
+Android Layout Finder Android Layout Finder
+
+Android Asset Studio http://romannurik.github.io/AndroidAssetStudio/
+
+JSON Validator http://jsonlint.com/
+
+JSON Viewer http://jsonviewer.stack.hu/
+
+Be JSON http://bejson.com/
+
+JSON to POJO Creator http://www.jsonschema2pojo.org/
+
+Android Button Maker http://angrytools.com/android/button/
+
+Android DPI Calculator http://jennift.com/dpical.html
+
+Gradle, Please http://gradleplease.appspot.com/
+
+SQLite Database browser http://sqlitebrowser.org/
+
+SQLite Expert http://www.sqliteexpert.com/
+
+Navicat for SQLite http://www.navicat.com/products/navicat-for-sqlite
+
+android-resource-remover https://github.com/KeepSafe/android-resource-remover
+
+PID Cat https://github.com/JakeWharton/pidcat
+
+ 
+
+ 
+
+Chrome 插件
+
+Android SDK Reference Search Extension Visit website
+
+Android Resource Navigator Extension Visit website
+
+ChromeADB Visit website
+
+POST MAN http://www.getpostman.com/
+
+DHC SERVICE https://www.sprintapi.com/dhcs.html
+
+ 
+
+IDE 插件
+
+android-parcelable-intellij-plugin Visit website
+
+Android Holo Colors IntelliJ Plugin Visit website
+
+SelectorChapek for Android Visit website
+
+Android Action Bar Style Generator Visit website
+
+ButterKnifeZelezny Visit website
+
+RoboCoP Visit website
+
+Dagger IntelliJ Plugin Visit website
+
+ADB Idea Visit website
+
+ 
+
+Android Apps
+
+Android最全解决方案 http://www.ijiami.cn/appprotect_mobile_games
+
+Catlog https://github.com/nolanlawson/Catlog
+
+DevDrawer https://github.com/tunitowen/DevDrawer
+
+DevAppsDirect Android开源库集合 Google play
+
+Libraries for developers 同上 Google play
+
+Github 看看大神们每天都在干嘛,关注一下开源库的动态 Google play
+
+StartupNews 各种文章汇集点 Google play
+
+Pocket Casts 苹果Podcasts的Android版 http://faq.shiftyjelly.com
+
+Pocket 稍后阅读 Google play
+
+Press Rss订阅 Google play
+
+CloudMagic 用过的最好用的邮件客户端没有之一 Google play
+
+Muzei 最棒的Android壁纸App没有之一 Google play Github
+
+最美应用 高品质应用发现社区 http://zuimeia.com/
+
+网易云音乐 有些时间是属于耳朵的 Visit website
+
+多看阅读 精品阅读时光 visit website
+
+ 
+
+技术集锦
+
+Android开发安全 http://www.ijiami.cn/AppProtect
+
+Android Weekly http://androidweekly.net
+
+Android开源项目分类汇总 https://github.com/Trinea/android-open-project
+
+Android OpenSource http://android-arsenal.com/
+
+Android 相关的… http://www.appance.com/category/android/
+
+
+设计.9图片
+http://www.cnblogs.com/sunzn/p/4172016.html
+
+设计
+http://www.cnblogs.com/sunzn/p/3854009.html
+
+让popupwindow显示在view的上方并与该view水平居中对齐
+http://download.csdn.net/download/u011494050/7787359
+
+
+查看好的微博
+http://www.cnblogs.com/mengdd/tag/Android/
+
+1cn.bing.com(必应)
+开发cordova
+http://cordovastudio.org/ 
+http://www.open-open.com/news/view/133ee9a
+
+
+
+
+收索页面
+
+ [rar文件] android搜索页面多个搜索关键字漂浮效果
+http://download.csdn.net/detail/uuid12345/5165124
+ [zip文件] android仿百度搜索条,仿MIUI v5自带浏览器搜索条风格
+http://download.csdn.net/detail/j472950043/6721045
+ [rar文件] android搜索云标签Demo
+http://download.csdn.net/detail/star9511/6237139
+
+
+xlistView
+http://yunpan.cn/cjPT9RYRtejFH  访问密码 edb2
+http://yunpan.cn/cjPTUrvctNGAN  访问密码 46f7
+
+城市三级联动的
+链接：http://pan.baidu.com/s/10NaIM 密码：k6qe
+
+
+文档查看器打开一个文本文件时，会弹出一个可用来打开的软件列表
+http://wangchangshuai0010.iteye.com/blog/1568085
+ 
+

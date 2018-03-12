@@ -1,0 +1,136 @@
+base工程服务器地址
+121.40.51.43	
+用户名:root
+密码
+PayufjpfrNzrgp6aQV9mepi4i7qjsR
+
+启动服务器
+/etc/init.d/tomcat2 restart
+tail -f /usr/local/tomcat2/logs/catalina-daemon.out
+
+
+
+cd /data0/wwwroot/
+ls
+cd base
+
+
+
+
+http://base.zfwx.com
+去host文件里面根据域名找对应的ip
+http://base.zfwx.com/register.do;jsessionid=2273D8E3BE7EEE9124BB8082EE045D2C
+
+
+=====================================================================
+
+207服务器查看zookeeper查看服务是否启动
+192.168.1.207
+用户名
+root
+密码
+asdf!@#$
+
+
+
+vi 编辑保存
+
+
+=====================================================================
+查询redis服务
+121.40.34.17
+用户名
+root
+密码
+pfrNzrgp6ajpfrNzrgp6aQQV9mepi4jpfrNzrgp6aQ
+
+
+查询redis
+ps -ef |grep redis
+cd /usr/local/redis/bin
+ls
+启动客户端软件
+./redis-cli
+选择库
+select 3 选择3号库
+ok
+get |lstangrongzhi  查询出对应的值
+key *
+key 
+
+=====================================================================
+
+//30机器 data0目录是工程目录
+政法网校api
+114.55.36.30
+用户名
+root
+密码
+hvHS0ih6tVltyysoovZr8ccQlaesd2
+
+
+启动服务器
+/etc/init.d/tomcat2 restart
+tail -f /usr/local/tomcat1/logs/catalina-daemon.out
+
+
+=====================================================================
+
+115.29.221.112
+mobile工程测试服务器
+用户名
+root
+密码
+PayufjpfrNzrgp6aQV9mepi4i7qjsR
+
+步骤1
+进入tomcat的conf执行命令
+cat server.xml
+产看工程部署目录
+
+步骤2
+查看tomcat的环境变量
+cat /etc/profile
+查看tomcat环境变量
+步骤3
+进入/etc/init.d目录下查看有没有tomcat的启动脚本
+执行命令(在tomcat的脚本上面检索环境变量)
+grep "CATALINA_HOME" /etc/init.d/tomcat
+
+
+启动服务器
+/etc/init.d/tomcat2 restart
+tail -f /usr/local/tomcat1/logs/catalina-daemon.out
+
+
+112机器部署这所有的服务/data0/service/*_service
+
+=====================================================================
+207机器zookeeper配置
+192.168.1.207
+用户名
+root
+密码
+
+
+
+测试端口是否成功
+telnet 192.168.1.207 2181 
+
+
+
+课程详情接口
+http://mm.zfwx.com/tdk/get_detail.json?courseId=3288
+
+去购买接口
+http://mm.zfwx.com/tdk/gopay_mysignup.json?courseId=3288
+
+
+
+select distinct cg_id as id,cg_name as name,cs.cg_count as count from dj_cscategory cs  where cs.cg_count != 0 and cg_pcategory = -10 and cg_belong LIKE '%1%' order by cg_order;
+
+
+
+mobile 端口5098
+
+

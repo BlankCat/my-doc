@@ -1,0 +1,9 @@
+ps -ef |grep redis
+cd /usr/local/redis/bin
+ls
+./redis-cli
+select 3 选择3号库
+ok
+get |lstangrongzhi  查询出对应的值
+
+

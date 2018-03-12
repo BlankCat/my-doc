@@ -1,0 +1,17 @@
+1灰度权限控制
+这个配置文件里面配置所有灰度码的权限
+all.properties
+
+
+在这个配置文件里面配置灰度权限
+function.properties
+
+这个文件里面配置的灰度权限的账户
+users.properties
+
+在线转码工具
+国际化*.properties文件，中文字符与Unicode字符相互转换
+http://www.javawind.net/tools/native2ascii.jsp?action=transform
+
+添加灰度码
+90012=点播课程现金购买

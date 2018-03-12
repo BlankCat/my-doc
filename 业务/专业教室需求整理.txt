@@ -1,0 +1,736 @@
+
+
+
+
+
+	 1 购买专业课 微信，支付宝【批量购买--后台】
+	 2 轮播图
+	 2 首页搜索【搜索什么课直接调用wxqt，怎么去限制这个条件】
+	 3 如何定制专题
+
+
+全局搜索
+	搜专业，搜索结果展示专业列表
+
+2定制轮播图
+	定制宣传连接
+
+==================================================================
+
+主页：
+	1.搜索 仅仅是专业名称模糊查询，专业多个讲师模糊查询
+	2.分类查询
+	3.查看详情
+	4.学过
+	5.购买 跳转弹框
+	6去听课 去听课中心我的专业
+	7分页
+	8轮播图广告位
+
+	9.选课弹框跳转到律师学院
+
+	10.头像，学过，点赞，评论跳转到评论更多页
+
+详情页
+
+ 购买 弹框
+ 学过，赞过评论到更多页
+
+课程详情
+课程列表
+
+能否跳课程详情页单卖？
+
+
+
+师资简介
+评价
+
+师资介绍
+
+关注，
+已关注
+
+
+关注列表？
+
+
+
+ 购买弹框页面
+
+ 支付宝
+
+ 微信
+
+购买成功页
+
+去听课
+
+去选课：跳转专业课列表
+
+
+=================
+&&&&&&&&&&&&&&&&&
+获取专业接口
+获取专业分组
+SELECT id,group_name FROM `dj_specialty_group` WHERE specialty_id=1 ORDER BY group_order asc;
+
+
+获取专业课
+SELECT dj_specialty_store.course_id as id, dj_course.cs_name as name
+FROM dj_specialty_store LEFT JOIN dj_course ON dj_specialty_store.course_id=dj_course.course_id 
+WHERE group_id=1;
+&&&&&&&&&&&&&&&&&
+
+
+http://www.zfwx.com/wxqt/goto/specsDetial.do
+
+
+http://www.zfwx.com/wxqt/specs/cartSpeOpt.do?speID=1
+
+
+http://www.zfwx.com/wxqt/specs/cartSpeOpt.do?speID=1
+
+
+专业分组课
+http://www.zfwx.com/wxqt/specs/listOfRecmdSpecs.do?speID=1
+
+
+入口
+http://www.zfwx.com/wxqt/home.do
+
+获取banner广告接口
+http://www.zfwx.com/wxqt/specs/advBanner.do
+
+获取默认分类接口
+http://www.zfwx.com/wxqt/specs/findDefSpeCat.do
+
+
+获取专业列表接口
+http://www.zfwx.com/wxqt/specs/pageOfSpeByParams.do
+http://www.zfwx.com/wxqt/specs/pageOfSpeByParams.do?pageno=1&pageSize=2
+http://www.zfwx.com/wxqt/specs/pageOfSpeByParams.do?pageno=1&pageSize=2&domain=0&speCatId=1&searchContent=如何
+
+http://www.zfwx.com/wxqt/specs/pageOfSpeByParams.do?pageno=1&pageSize=2&domain=0&speCatId=&searchContent=
+
+
+
+专业详情
+http://www.zfwx.com/wxqt/specs/speDetial.do?id=1
+
+获取评论列表
+http://www.zfwx.com/wxqt/specs/pageOfDjSpeCommentsByParams.do?pageno=1&pageSize=2&id=1
+http://www.zfwx.com/wxqt/specs/pageOfDjSpeCommentsByParams.do?pageno=1&pageSize=2
+
+
+获取某个专业得列表
+专业老师接口
+http://www.zfwx.com/wxqt/specs/listOfSpeTeacher.do?
+http://www.zfwx.com/wxqt/specs/listOfSpeTeacher.do?id=1
+
+关注
+http://www.zfwx.com/wxqt/specs/attentionOpt.do
+http://www.zfwx.com/wxqt/specs/attentionOpt.do?teacherId=9&optType=0
+http://www.zfwx.com/wxqt/specs/attentionOpt.do?teacherId=9&optType=1
+
+点赞列表接口
+http://www.zfwx.com/wxqt/specs/pageOfSpeLoverByParams.do?speID=1
+http://www.zfwx.com/wxqt/specs/pageOfSpeLoverByParams.do?speID=1&pageno=1&pageSize=2
+
+点
+http://www.zfwx.com/wxqt/specs/pageOfSpeBuerByParams.do?speID=1
+http://www.zfwx.com/wxqt/specs/pageOfSpeBuerByParams.do?speID=1&pageno=1&pageSize=2
+
+
+
+http://www.zfwx.com/wxqt/specs/pageOfSpeBuerByParams.do?speID=1&pageno=1&pageSize=2
+
+=================
+
+首页轮播图广告位
+广告位置接口
+INSERT INTO `djcourse`.`dj_advertising` (`user_id`, `ad_title`, `ad_summary`, `ad_content`, `ad_position`, `ad_img`, `ad_order`, `ad_count`, `ad_addtime`, `ad_begintime`, `ad_endtime`, `ad_status`, `ad_url`, `ad_color`, `domain`, `special_theme`, `ad_type`) VALUES ('7785', '点睛网防挂机系统已上线1', NULL, NULL, '11', '/upload/1490497166902.jpg', '1', '0', '2017-03-13 17:03:43', '2017-03-13 17:04:07', '2017-03-13 17:04:10', '1', 'http://www.zfwx.com/wxqt/jiankong/index.html', '550d', '00000000000', NULL, NULL);
+
+
+
+专业课程添加老师name 
+`tch_names` varchar(50) DEFAULT NULL,
+|舒国滢|刘金国|
+
+分类表
+CREATE TABLE `dj_specialty_cat` (
+  `cat_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '专业课分类id',
+  `type_id` bigint(20) DEFAULT NULL COMMENT '类型id（做扩展用）',
+  `pid` bigint(20) DEFAULT NULL COMMENT '父id',
+  `cat_name` varchar(50) DEFAULT NULL COMMENT '分类名称',
+  `cat_icon` varchar(200) DEFAULT NULL COMMENT '分类图片路径',
+  `cat_intro` varchar(1000) DEFAULT NULL COMMENT '分类介绍',
+  `specs_count` bigint(20) DEFAULT NULL COMMENT '专业课数量',
+  `specs_price` decimal(10,2) DEFAULT NULL COMMENT '专业课总价格',
+  `specs_sort` bigint(20) DEFAULT NULL COMMENT '专业课分类排序',
+  `is_display` int(11) DEFAULT NULL COMMENT '状态  0：隐藏  1：展示',
+  `is_default` int(11) DEFAULT NULL COMMENT '是否是默认创建0：默认 1:自定义',
+  `create_account` bigint(20) DEFAULT NULL COMMENT '创建账号',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`cat_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+
+fullName
+SELECT 
+   id,CONCAT(spe_name_prefix,spe_name,spe_name_suffix) as fullName, 
+    spe_img,spe_cat_id,spe_teachersId,spe_addtime,spe_lesson,spe_price
+  spe_signupCount,spe_comments_num,spe_love_num,spe_teachersInfo,
+  spe_browseCount,spe_collectionCount
+  FROM `dj_specialty`
+  WHERE 1=1
+  and spe_cat_id=1
+  and (CONCAT(spe_name_prefix,spe_name,spe_name_suffix) like '%业务%') or (spe_teachersInfo like '%业务%')
+  ORDER BY spe_tj_order asc ,spe_addtime desc
+  LIMIT 30;
+
+
+
+
+
+
+添加数据
+
+`domain` int(4) DEFAULT NULL COMMENT '0律师学院,1司法鉴定,2金融学院,3公证学院,4企业学院,5高等院校,6司法考试,7事业社团,8政府法务,9公检法纪,10居民法务,11村民法务',
+
+INSERT INTO `djcourse`.`dj_specialty_cat` (`type_id`, `pid`, `cat_name`, `cat_icon`, `cat_intro`, `specs_count`, `specs_price`, `specs_sort`, `is_display`, `is_default`, `create_account`, `create_time`) VALUES (NULL, 0, '刑事辩护', '/upload/icon0.png', NULL, NULL, NULL, 1, 1, 0, NULL, NULL);
+INSERT INTO `djcourse`.`dj_specialty_cat` (`type_id`, `pid`, `cat_name`, `cat_icon`, `cat_intro`, `specs_count`, `specs_price`, `specs_sort`, `is_display`, `is_default`, `create_account`, `create_time`) VALUES (NULL, 0, '政府顾问', '/upload/icon0.png', NULL, NULL, NULL, 1, 1, 0, NULL, NULL);
+
+INSERT INTO `djcourse`.`dj_specialty_cat` (`type_id`, `pid`, `cat_name`, `cat_icon`, `cat_intro`, `specs_count`, `specs_price`, `specs_sort`, `is_display`, `is_default`, `create_account`, `create_time`) VALUES (NULL, 0, '轨道交通', '/upload/icon0.png', NULL, NULL, NULL, 1, 1, 0, NULL, NULL);
+
+INSERT INTO `djcourse`.`dj_specialty_cat` (`type_id`, `pid`, `cat_name`, `cat_icon`, `cat_intro`, `specs_count`, `specs_price`, `specs_sort`, `is_display`, `is_default`, `create_account`, `create_time`) VALUES (NULL, 0, '房屋地产', '/upload/icon0.png', NULL, NULL, NULL, 1, 1, 0, NULL, NULL);
+
+INSERT INTO `djcourse`.`dj_specialty_cat` (`type_id`, `pid`, `cat_name`, `cat_icon`, `cat_intro`, `specs_count`, `specs_price`, `specs_sort`, `is_display`, `is_default`, `create_account`, `create_time`) VALUES (NULL, 0, '知识产权', '/upload/icon0.png', NULL, NULL, NULL, 1, 1, 0, NULL, NULL);
+
+INSERT INTO `djcourse`.`dj_specialty_cat` (`type_id`, `pid`, `cat_name`, `cat_icon`, `cat_intro`, `specs_count`, `specs_price`, `specs_sort`, `is_display`, `is_default`, `create_account`, `create_time`) VALUES (NULL, 0, '证券律师', '/upload/icon0.png', NULL, NULL, NULL, 1, 1, 0, NULL, NULL);
+
+INSERT INTO `djcourse`.`dj_specialty_cat` (`type_id`, `pid`, `cat_name`, `cat_icon`, `cat_intro`, `specs_count`, `specs_price`, `specs_sort`, `is_display`, `is_default`, `create_account`, `create_time`) VALUES (NULL, 0, '劳动社保', '/upload/icon0.png', NULL, NULL, NULL, 1, 1, 0, NULL, NULL);
+
+INSERT INTO `djcourse`.`dj_specialty_cat` (`type_id`, `pid`, `cat_name`, `cat_icon`, `cat_intro`, `specs_count`, `specs_price`, `specs_sort`, `is_display`, `is_default`, `create_account`, `create_time`) VALUES (NULL, 0, '私募股权', '/upload/icon0.png', NULL, NULL, NULL, 1, 1, 0, NULL, NULL);
+
+INSERT INTO `djcourse`.`dj_specialty_cat` (`type_id`, `pid`, `cat_name`, `cat_icon`, `cat_intro`, `specs_count`, `specs_price`, `specs_sort`, `is_display`, `is_default`, `create_account`, `create_time`) VALUES (NULL, 0, '并购重组', '/upload/icon0.png', NULL, NULL, NULL, 1, 1, 0, NULL, NULL);
+
+INSERT INTO `djcourse`.`dj_specialty_cat` (`type_id`, `pid`, `cat_name`, `cat_icon`, `cat_intro`, `specs_count`, `specs_price`, `specs_sort`, `is_display`, `is_default`, `create_account`, `create_time`) VALUES (NULL, 0, '企业风险', '/upload/icon0.png', NULL, NULL, NULL, 1, 1, 0, NULL, NULL);
+
+INSERT INTO `djcourse`.`dj_specialty_cat` (`type_id`, `pid`, `cat_name`, `cat_icon`, `cat_intro`, `specs_count`, `specs_price`, `specs_sort`, `is_display`, `is_default`, `create_account`, `create_time`) VALUES (NULL, 0, '婚姻家事', '/upload/icon0.png', NULL, NULL, NULL, 1, 1, 0, NULL, NULL);
+
+INSERT INTO `djcourse`.`dj_specialty_cat` (`type_id`, `pid`, `cat_name`, `cat_icon`, `cat_intro`, `specs_count`, `specs_price`, `specs_sort`, `is_display`, `is_default`, `create_account`, `create_time`) VALUES (NULL, 0, '金融律师', '/upload/icon0.png', NULL, NULL, NULL, 1, 1, 0, NULL, NULL);
+
+INSERT INTO `djcourse`.`dj_specialty_cat` (`type_id`, `pid`, `cat_name`, `cat_icon`, `cat_intro`, `specs_count`, `specs_price`, `specs_sort`, `is_display`, `is_default`, `create_account`, `create_time`) VALUES (NULL, 0, '律所管理', '/upload/icon0.png', NULL, NULL, NULL, 1, 1, 0, NULL, NULL);
+
+INSERT INTO `djcourse`.`dj_specialty_cat` (`type_id`, `pid`, `cat_name`, `cat_icon`, `cat_intro`, `specs_count`, `specs_price`, `specs_sort`, `is_display`, `is_default`, `create_account`, `create_time`) VALUES (NULL, 0, '职业道德', '/upload/icon0.png', NULL, NULL, NULL, 1, 1, 0, NULL, NULL);
+
+INSERT INTO `djcourse`.`dj_specialty_cat` (`type_id`, `pid`, `cat_name`, `cat_icon`, `cat_intro`, `specs_count`, `specs_price`, `specs_sort`, `is_display`, `is_default`, `create_account`, `create_time`) VALUES (NULL, 0, '民法总则', '/upload/icon0.png', NULL, NULL, NULL, 1, 1, 0, NULL, NULL);
+
+
+专业课列表展示
+SELECT cat_id,cat_name,cat_icon FROM `dj_specialty_cat`
+WHERE is_default=0 and is_display=1
+ORDER BY specs_sort asc ;
+
+
+
+SELECT count(*) from dj_tch_attention 
+    where account_id = #{accountId,jdbcType=BIGINT} and  tch_id = 
+
+
+
+
+
+
+学过表
+CREATE TABLE `dj_stuspecialty` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `mem_id` bigint(11) NOT NULL,
+  `specialty_id` bigint(11) NOT NULL,
+  `buy_time` datetime NOT NULL COMMENT '购买时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=526 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+
+点赞表
+CREATE TABLE `dj_specialty_love` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `state` int(11) DEFAULT NULL COMMENT '状态 ： -1 取消点赞  1 点赞',
+  `specs_type` int(11) DEFAULT NULL COMMENT '专业课类型，扩充字段',
+  `own_accout` bigint(11) DEFAULT NULL COMMENT '点赞人账号id',
+  `specs_id` bigint(11) DEFAULT NULL COMMENT '专业课id',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `djcourse`.`dj_specialty_love` (`state`, `specs_type`, `own_accout`, `specs_id`, `create_time`) VALUES ( '1', NULL, '419961', '1', '2017-11-15 15:34:30');
+INSERT INTO `djcourse`.`dj_specialty_love` (`state`, `specs_type`, `own_accout`, `specs_id`, `create_time`) VALUES ( '1', NULL, '1', '1', '2017-11-15 15:34:30');
+INSERT INTO `djcourse`.`dj_specialty_love` (`state`, `specs_type`, `own_accout`, `specs_id`, `create_time`) VALUES ( '1', NULL, '2', '1', '2017-11-15 15:34:30');
+INSERT INTO `djcourse`.`dj_specialty_love` (`state`, `specs_type`, `own_accout`, `specs_id`, `create_time`) VALUES ( '1', NULL, '3', '1', '2017-11-15 15:34:30');
+INSERT INTO `djcourse`.`dj_specialty_love` (`state`, `specs_type`, `own_accout`, `specs_id`, `create_time`) VALUES ( '1', NULL, '4', '1', '2017-11-15 15:34:30');
+INSERT INTO `djcourse`.`dj_specialty_love` (`state`, `specs_type`, `own_accout`, `specs_id`, `create_time`) VALUES ( '1', NULL, '5', '1', '2017-11-15 15:34:30');
+INSERT INTO `djcourse`.`dj_specialty_love` (`state`, `specs_type`, `own_accout`, `specs_id`, `create_time`) VALUES ( '1', NULL, '6', '1', '2017-11-15 15:34:30');
+INSERT INTO `djcourse`.`dj_specialty_love` (`state`, `specs_type`, `own_accout`, `specs_id`, `create_time`) VALUES ( '1', NULL, '7', '1', '2017-11-15 15:34:30');
+INSERT INTO `djcourse`.`dj_specialty_love` (`state`, `specs_type`, `own_accout`, `specs_id`, `create_time`) VALUES ( '1', NULL, '8', '1', '2017-11-15 15:34:30');
+INSERT INTO `djcourse`.`dj_specialty_love` (`state`, `specs_type`, `own_accout`, `specs_id`, `create_time`) VALUES ( '1', NULL, '9', '1', '2017-11-15 15:34:30');
+
+
+
+
+
+评论表
+CREATE TABLE `dj_specialty_comments` (
+  `comment_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `type` int(11) DEFAULT NULL COMMENT '评论类型 （扩充字段）',
+  `specs_id` bigint(20) DEFAULT NULL COMMENT '专业课id',
+  `own_account` bigint(20) DEFAULT NULL COMMENT '评论者账号ID',
+  `reply_id` bigint(20) DEFAULT NULL COMMENT '回复人的id（回复：xx）',
+  `comment_title` varchar(100) DEFAULT NULL COMMENT '评论的标题',
+  `comment_content` varchar(200) DEFAULT NULL COMMENT '评论的内容',
+  `comment_time` datetime DEFAULT NULL COMMENT '评论时间',
+  `comment_ip` varchar(20) DEFAULT NULL COMMENT 'ip地址',
+  `check_state` int(11) DEFAULT NULL COMMENT '审核状态- 0：未审核  1：审核通过  2 审核未通过',
+  PRIMARY KEY (`comment_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+收藏表
+CREATE TABLE `dj_specialty_cart` (
+  `cart_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `own_accout` bigint(20) DEFAULT NULL COMMENT '收藏人 account_id',
+  `specs_id` bigint(20) DEFAULT NULL COMMENT '专业课id',
+  `add_time` datetime DEFAULT NULL COMMENT '收藏时间',
+  PRIMARY KEY (`cart_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='专业课收藏表';
+
+
+
+
+
+  
+  `cat_id` bigint(20) DEFAULT NULL COMMENT '文件分类',
+
+     `domain` int(4) DEFAULT NULL COMMENT '0律师学院,1司法鉴定,2金融学院,3公证学院,4企业学院,5高等院校,6司法考试,7事业社团,8政府法务,9公检法纪,10居民法务,11村民法务',
+
+  `comments_num` bigint(20) DEFAULT '0' COMMENT '评论次数',
+  `pay_num` bigint(20) DEFAULT '0' COMMENT '购买次数',
+  `love_num` bigint(20) DEFAULT '0' COMMENT '模板点赞数量',
+  `cart_num` bigint(20) DEFAULT '0' COMMENT '收藏次数',
+
+  `tj_order` int(11) DEFAULT '0' COMMENT '推荐顺序：默认是0表示不推荐',
+    `is_display` int(11) DEFAULT NULL COMMENT '状态  0：隐藏  1：展示',
+
+
+
+
+
+===================================================================
+
+从业务角度，线上【点读，点视，点直播】，线下专业班级推广，专业光盘课
+
+专业课涉及到的表
+业务角度，专业课就是线下推广的专家课，光盘课程，现在开展的班级，计划
+涉及到的业务【点睛旗下的特色学院，就是卖光盘课的一个业务设计】
+	1专业展示
+	2专业购买
+	3专业课
+	4专业班级
+	5专业考试
+	6结业
+	7统计成绩
+	8打印证书
+
+=============================================================
+
+专业板块【专家，专业两大板块】
+CREATE TABLE `dj_specialty_type` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `parentId` bigint(20) DEFAULT NULL,
+  `st_order` int(4) DEFAULT NULL,
+  `status` int(4) DEFAULT NULL,
+  `name` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+专业分类，学院类型分类
+CREATE TABLE `dj_specialty_cat` (
+  `cat_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '专业课分类id',
+  `type_id` bigint(20) DEFAULT NULL COMMENT '类型id（做扩展用）',
+  `pid` bigint(20) DEFAULT NULL COMMENT '父id',
+  `cat_name` varchar(50) DEFAULT NULL COMMENT '分类名称',
+  `cat_icon` varchar(200) DEFAULT NULL COMMENT '分类图片路径',
+  `cat_intro` varchar(1000) DEFAULT NULL COMMENT '分类介绍',
+  `specs_count` bigint(20) DEFAULT NULL COMMENT '专业课数量',
+  `specs_price` decimal(10,2) DEFAULT NULL COMMENT '专业课总价格',
+  `specs_sort` bigint(20) DEFAULT NULL COMMENT '专业课分类排序',
+  `is_display` int(11) DEFAULT NULL COMMENT '状态  0：隐藏  1：展示',
+  `is_default` int(11) DEFAULT NULL COMMENT '是否是默认创建0：默认 1:自定义',
+  `create_account` bigint(20) DEFAULT NULL COMMENT '创建账号',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`cat_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+
+专业，相当于学院的概念【计算机学院，金融学院，法律学院】
+CREATE TABLE `dj_specialty` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `spe_name_prefix` varchar(100) DEFAULT NULL COMMENT '名称前缀',
+  `spe_name` varchar(200) DEFAULT NULL COMMENT '名称',
+  `spe_name_suffix` varchar(100) DEFAULT NULL COMMENT '名称后缀',
+  `spe_lesson` float DEFAULT NULL COMMENT '课时',
+  `spe_price` float DEFAULT NULL COMMENT '价格',
+  `spe_synopsis` text COMMENT '简介',
+  `spe_content` varchar(255) DEFAULT '' COMMENT '内容',
+  `spe_img` varchar(200) DEFAULT NULL COMMENT '图片',
+  `spe_status` int(11) DEFAULT NULL COMMENT '状态：前台是否需要展示，默认0不需要1展示',
+  `spe_order` int(11) DEFAULT NULL COMMENT '排序',
+  `spe_addtime` datetime DEFAULT NULL COMMENT '添加时间',
+  `spe_pre_title` varchar(255) DEFAULT NULL COMMENT '序言标题',
+  `spe_pre_content` varchar(255) DEFAULT NULL COMMENT '序言内容',
+  `spe_contents` varchar(255) DEFAULT NULL COMMENT '课程目录',
+  `spe_posc_title` varchar(255) DEFAULT NULL COMMENT '后记标题',
+  `spe_posc_content` varchar(255) DEFAULT NULL COMMENT '后记内容',
+  `spe_browseCount` int(11) DEFAULT NULL COMMENT '浏览数',
+  `spe_collectionCount` int(11) DEFAULT NULL COMMENT '收藏数',
+  `spe_createName` varchar(50) DEFAULT NULL COMMENT '创建人',
+  `spe_firstSpell` varchar(50) DEFAULT NULL COMMENT '首字母拼音',
+  `spe_fullSpell` varchar(200) DEFAULT NULL COMMENT '班级全拼',
+  `spe_historyClassSchoolId` varchar(255) DEFAULT NULL COMMENT '历年开班班级id',
+  `spe_historyClassSchoolInfo` varchar(255) DEFAULT NULL COMMENT '历年开班信息',
+  `spe_img_height` int(11) DEFAULT NULL COMMENT '图片高度',
+  `spe_img_width` int(11) DEFAULT NULL COMMENT '图片宽度',
+  `spe_planLength` int(11) DEFAULT NULL COMMENT '计划时长',
+  `spe_signupCount` int(11) DEFAULT NULL COMMENT '报名数购买次数，学过人数',
+  `spe_star` int(11) DEFAULT NULL COMMENT '星级',
+  `spe_synopsisInfo` varchar(255) DEFAULT NULL COMMENT '摘要',
+  `spe_teachersId` varchar(200) DEFAULT NULL COMMENT '讲师列表id多个老师用,号分开',
+  `spe_teachersInfo` varchar(255) DEFAULT NULL COMMENT '讲师列表名称',
+  `spe_type` bigint(20) DEFAULT NULL COMMENT '专业类型',
+  `spe_typeInfo` varchar(255) DEFAULT NULL COMMENT '分类详情',
+  `spe_cat_id` bigint(20) DEFAULT NULL COMMENT '专业课分类id，关联dj_specialty_cat的主键',
+  `spe_domain` int(4) DEFAULT NULL COMMENT '0律师学院,1司法鉴定,2金融学院,3公证学院,4企业学院,5高等院校,6司法考试,7事业社团,8政府法务,9公检法纪,10居民法务,11村民法务',
+  `spe_comments_num` bigint(20) DEFAULT '0' COMMENT '评论次数',
+  `spe_love_num` bigint(20) DEFAULT '0' COMMENT '点赞数',
+  `spe_tj_order` int(11) DEFAULT '0' COMMENT '推荐专业课 >0表示推荐该专业课',
+  `spe_display` int(11) DEFAULT '0' COMMENT '状态  0：隐藏  1：展示',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+
+
+专业分组
+CREATE TABLE `dj_specialty_group` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `group_name` varchar(50) NOT NULL COMMENT '分组名称',
+  `group_order` float(10,5) NOT NULL DEFAULT '10.00000' COMMENT '排序字段',
+  `specialty_id` bigint(20) NOT NULL COMMENT '分组所属专业',
+  PRIMARY KEY (`id`),
+  KEY `FKFC8BE4556D1F128` (`specialty_id`),
+  CONSTRAINT `FKFC8BE4556D1F128` FOREIGN KEY (`specialty_id`) REFERENCES `dj_specialty` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
+
+专业--专业分组--专业课
+CREATE TABLE `dj_specialty_store` (
+  `store_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `course_id` bigint(20) NOT NULL COMMENT '课程id',
+  `spe_id` bigint(20) NOT NULL COMMENT '所属专业',
+  `group_id` bigint(20) NOT NULL COMMENT '所属分组',
+  `course_order` int(11) DEFAULT '10' COMMENT '在分组中的排序',
+  PRIMARY KEY (`store_id`),
+  KEY `FK1072C0A76B9E803E` (`spe_id`),
+  KEY `FK1072C0A7F40A4B8E` (`group_id`),
+  KEY `FK1072C0A7C778CE6C` (`course_id`),
+  CONSTRAINT `FK1072C0A76B9E803E` FOREIGN KEY (`spe_id`) REFERENCES `dj_specialty` (`id`),
+  CONSTRAINT `FK1072C0A7C778CE6C` FOREIGN KEY (`course_id`) REFERENCES `dj_course` (`course_id`),
+  CONSTRAINT `FK1072C0A7F40A4B8E` FOREIGN KEY (`group_id`) REFERENCES `dj_specialty_group` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2554 DEFAULT CHARSET=utf8 COMMENT='专业课仓库';
+
+
+
+专业【学院】收藏
+CREATE TABLE `dj_specialty_cart` (
+  `cart_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `own_accout` bigint(20) DEFAULT NULL COMMENT '收藏人 account_id',
+  `specs_id` bigint(20) DEFAULT NULL COMMENT '专业课id',
+  `add_time` datetime DEFAULT NULL COMMENT '收藏时间',
+  PRIMARY KEY (`cart_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='专业课收藏表';
+
+
+专业【学院】点赞
+CREATE TABLE `dj_specialty_love` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `state` int(11) DEFAULT NULL COMMENT '状态 ： -1 取消点赞  1 点赞',
+  `specs_type` int(11) DEFAULT NULL COMMENT '专业课类型，扩充字段',
+  `own_accout` bigint(11) DEFAULT NULL COMMENT '点赞人账号id',
+  `specs_id` bigint(11) DEFAULT NULL COMMENT '专业课id',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+=============================================================
+购买专业
+CREATE TABLE `dj_stuspecialty` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `mem_id` bigint(11) NOT NULL,
+  `specialty_id` bigint(11) NOT NULL,
+  `buy_time` datetime NOT NULL COMMENT '购买时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=526 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+=============================================================
+专业班级【java2班，java3班，net班】
+CREATE TABLE `spe_class` (
+  `class_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) DEFAULT NULL,
+  `begin_time` bigint(20) DEFAULT NULL,
+  `end_time` bigint(20) DEFAULT NULL,
+  `status` int(2) DEFAULT '0' COMMENT '0、招生中；1、教学中；2、已结课',
+  `type` int(2) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `province` varchar(30) DEFAULT NULL,
+  `city` varchar(30) DEFAULT NULL,
+  `district` varchar(30) DEFAULT NULL,
+  `teach_way` varchar(20) DEFAULT NULL,
+  `price` float DEFAULT NULL,
+  `person` int(11) unsigned DEFAULT '0',
+  `real_person` int(11) unsigned DEFAULT '0',
+  `general` text,
+  `image_url` varchar(50) DEFAULT NULL,
+  `invite_price` float DEFAULT NULL,
+  `invite_back_price` float DEFAULT NULL,
+  `invite_count` int(11) DEFAULT '0' COMMENT '允许邀请码使用次数',
+  `like_price` float DEFAULT NULL,
+  `old_price` float DEFAULT NULL,
+  `course_id` text COMMENT '在线课程列表',
+  `classroom_id` int(10) DEFAULT NULL,
+  `teacher_id` text COMMENT '教师列表',
+  `xs_days` int(11) unsigned DEFAULT '0' COMMENT '线上授课天数',
+  `ms_days` int(11) unsigned DEFAULT '0' COMMENT '面授天数',
+  `total_ks` float DEFAULT '0' COMMENT '总课时',
+  `fabu_status` tinyint(3) unsigned DEFAULT '0' COMMENT '0:暂存 1：发布',
+  PRIMARY KEY (`class_id`),
+  KEY `FK_SPE_CLAS_REFERENCE_SPE_CLAS` (`classroom_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COMMENT='专业班级表';
+
+
+班级邀请
+CREATE TABLE `spe_class_invite` (
+  `invite_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `class_id` int(10) DEFAULT NULL,
+  `invite_user` varchar(20) DEFAULT NULL,
+  `invite_name` varchar(20) DEFAULT NULL,
+  `invited_user` varchar(20) DEFAULT NULL,
+  `invited_name` varchar(20) DEFAULT NULL,
+  `code` varchar(20) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL COMMENT '状态：0、未奖励 1、已奖励',
+  `year` varchar(4) DEFAULT NULL,
+  `month` varchar(4) DEFAULT NULL,
+  `day` varchar(4) DEFAULT NULL,
+  `invite_time` bigint(20) DEFAULT NULL,
+  `is_business` int(11) NOT NULL COMMENT '0:系统 1:业务员 2:普通学员',
+  PRIMARY KEY (`invite_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+班级点赞【动作】
+CREATE TABLE `spe_class_like` (
+  `like_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `class_id` int(10) DEFAULT NULL,
+  `account_id` int(10) DEFAULT NULL,
+  PRIMARY KEY (`like_id`),
+  UNIQUE KEY `like_id` (`like_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='点赞';
+
+面授开课
+CREATE TABLE `spe_class_mskc` (
+  `ms_id` int(11) NOT NULL,
+  `begin_time` bigint(20) DEFAULT NULL,
+  `end_time` bigint(20) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `teacher_id` varchar(255) DEFAULT NULL,
+  `summary` varchar(255) DEFAULT NULL,
+  `plan_id` int(11) DEFAULT NULL,
+  `teacher_name` varchar(255) DEFAULT NULL,
+  `teacher_title` varchar(255) DEFAULT NULL,
+  `teacherName` varchar(255) DEFAULT NULL,
+  `teacherSummary` varchar(255) DEFAULT NULL,
+  `teacherTitle` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ms_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+面授计划
+CREATE TABLE `spe_class_msplan` (
+  `plan_id` int(11) NOT NULL AUTO_INCREMENT,
+  `begin_time` bigint(20) DEFAULT NULL,
+  `end_time` bigint(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `addr_lon` float DEFAULT NULL COMMENT '经度',
+  `addr_lat` float DEFAULT NULL COMMENT '纬度',
+  `telephone` varchar(255) DEFAULT NULL,
+  `plan_order` int(2) DEFAULT NULL,
+  `class_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`plan_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+
+面授通知
+CREATE TABLE `spe_class_notice` (
+  `notice_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `class_id` int(10) DEFAULT NULL,
+  `content` text,
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`notice_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='班级通知表';
+
+专业课班级开班订单
+CREATE TABLE `spe_class_order` (
+  `order_id` varchar(255) NOT NULL,
+  `price` float DEFAULT NULL,
+  `create_time` bigint(20) DEFAULT NULL,
+  `pay_time` bigint(20) DEFAULT NULL,
+  `status` int(2) DEFAULT NULL COMMENT '订单支付状态，0.未支付，1.已支付,2.已取消',
+  `pay_way` varchar(10) DEFAULT NULL,
+  `realprice` float DEFAULT NULL,
+  `real_price` float DEFAULT NULL,
+  PRIMARY KEY (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单';
+
+专业课进度
+CREATE TABLE `spe_class_progress` (
+  `progress_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `progress_time` bigint(20) DEFAULT NULL,
+  `progress_content` varchar(300) DEFAULT NULL,
+  `status` int(2) unsigned DEFAULT '0' COMMENT '0:未完成 1：已完成',
+  `class_id` int(10) DEFAULT NULL,
+  PRIMARY KEY (`progress_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COMMENT='进度安排表';
+
+专业课报名
+CREATE TABLE `spe_class_signup` (
+  `signup_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) DEFAULT NULL,
+  `realname` varchar(30) DEFAULT NULL,
+  `unit` varchar(255) DEFAULT NULL,
+  `mobile` varchar(20) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL COMMENT '状态：0、已报名 1、已取消',
+  `signup_time` bigint(11) DEFAULT NULL,
+  `class_id` int(10) DEFAULT NULL,
+  `zyzh` varchar(50) DEFAULT NULL,
+  `duty` varchar(255) DEFAULT NULL,
+  `invite_code` varchar(10) DEFAULT NULL,
+  `order_id` varchar(255) DEFAULT NULL,
+  `classroom_id` int(10) DEFAULT NULL,
+  PRIMARY KEY (`signup_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8 COMMENT='报名表';
+
+
+专业教室表
+CREATE TABLE `spe_classroom` (
+  `classroom_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `time` bigint(20) DEFAULT NULL COMMENT '与之相关联的班级中开班最早的时间',
+  `name` varchar(200) DEFAULT NULL,
+  `class_number` int(11) unsigned DEFAULT '0' COMMENT '班级数量',
+  `student_number` int(11) unsigned DEFAULT '0' COMMENT '学员数量',
+  `image_url` varchar(50) DEFAULT NULL,
+  `domain` tinyint(4) DEFAULT '0' COMMENT '行业:0法律,1司法,2海监,3公证',
+  `fabu_status` tinyint(4) unsigned DEFAULT '0' COMMENT '0:暂存 1：发布',
+  PRIMARY KEY (`classroom_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COMMENT='专业教室表';
+
+
+
+=============================================================
+
+考试
+CREATE TABLE `dj_exam` (
+  `id` bigint(20) NOT NULL,
+  `course_id` bigint(20) NOT NULL,
+  `pass_proportion` int(11) NOT NULL DEFAULT '60',
+  `time_limit` int(11) NOT NULL,
+  `score` float NOT NULL DEFAULT '0',
+  `is_display` int(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+考试记录
+CREATE TABLE `dj_email_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `laiyuan` varchar(200) NOT NULL COMMENT '请求发送邮件事件来源',
+  `type` varchar(200) NOT NULL COMMENT '邮件类型',
+  `sendtime` bigint(20) NOT NULL,
+  `status` int(1) NOT NULL COMMENT '0 未成功 1 成功',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=263434 DEFAULT CHARSET=utf8;
+
+
+问题
+CREATE TABLE `dj_exam_question` (
+  `id` bigint(20) NOT NULL,
+  `course_id` bigint(20) NOT NULL,
+  `exam_id` bigint(20) NOT NULL,
+  `type` bigint(20) NOT NULL,
+  `title` text NOT NULL,
+  `score` float NOT NULL,
+  `answer` text NOT NULL,
+  `create_time` date NOT NULL,
+  `result` text,
+  `answerexplain` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+问题选项
+CREATE TABLE `dj_exam_question_options` (
+  `id` bigint(20) NOT NULL,
+  `question_id` bigint(20) NOT NULL,
+  `options` text NOT NULL,
+  `num` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `dj_exam_student_history` (
+  `id` bigint(20) NOT NULL,
+  `course_id` bigint(20) NOT NULL,
+  `exam_id` bigint(20) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `exam_score` float NOT NULL,
+  `stu_score` float NOT NULL,
+  `submit_time` datetime NOT NULL,
+  `status` int(11) NOT NULL,
+  `start_time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `dj_exam_student_question` (
+  `id` bigint(20) NOT NULL,
+  `exam_student_id` bigint(20) NOT NULL,
+  `question_id` bigint(20) NOT NULL,
+  `stu_answer` varchar(18) NOT NULL,
+  `stu_score` float NOT NULL DEFAULT '0',
+  `question_score` float NOT NULL,
+  `exam_student_history_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+=============================================================
+
+ <select id="selectByHsqlBackCount" resultType="java.lang.Integer">
+    ${paramSQL}
+  </select>
+
+  <select id="selectByHsqlBackAllList" resultMap="BaseResultMap">
+    ${paramSQL}
+  </select>
+
+   Integer selectByHsqlBackCount(@Param("paramSQL")String sql);
+   List<DjSpecialty> selectByHsqlBackAllList(@Param("paramSQL")String sql);

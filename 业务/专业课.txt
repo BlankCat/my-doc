@@ -1,0 +1,163 @@
+﻿
+
+
+专业  dj_specialty  			spe_name_prefix+spe_name+spe_name_suffix  专业名称【前缀+专业名+后缀】
+专业组 dj_specialty_group 		
+专业，组，课程  dj_specialty_store 
+
+
+我选的专业 dj_stuspecialty
+		我选的专业下面找专业id --specialty_id 
+		去专业，组，课程下找dj_specialty_store --课程 course_id
+
+
+听课中心课程		dj_stucourse
+听课中心课件 		dj_stucw
+
+
+===============================================================
+
+我的专业课
+http://www.zfwx.com/member/index.jsp#/member/DjStucourse/mySpecialtylist.do?speId=1
+
+
+
+
+
+	/**
+	 * getDjSpeStatisticByYear()通过考核年度和用户名获取律协考核设定的考核周期，同时获取考核周期内的个人专业听课学习进度汇总
+	 * 1.通过userName学员用户名从casUser基础表获取组织串
+	 * ，通过split组织串数组逆序从djOrgSet表获取最近的考核信息【考核周期，考核组织，考核课时量,考核年度】
+	 * 2.通过userName学员用户名从djMember用户信息表获取memId和统计库分表标识mem_stastic【dj_stucwday_1】
+	 * 3.通过【考核周期，memId】从dj_stucwday_1_【考核起始年，结束年】日统计表,汇总网络听课学习总时长。
+	 * 
+	 * @param userName学员用户名
+	 * @param statStatus学习所属状态所属
+	 *            ：0正常听课，1补课
+	 * @param year所属考核年度
+	 * @return map【考核周期，考核组织，考核课时量，考核年度，已听总时长（分钟）】
+	 */
+	public DjStuStatistic getDjSpeStatisticByYear(String userName,Integer statStatus, Integer year, Integer domain);
+	/**
+	 * getDjSpeStatisticByBeginEndDate()通过考核起止时间和用户名获取律协考核设定的考核周期，同时获取考核周期内的个人专业听课学习进度汇总
+	 * 1.通过userName学员用户名从casUser基础表获取组织串
+	 * ，通过split组织串数组逆序从djOrgSet表获取最近的考核信息【考核周期，考核组织，考核课时量,考核年度】
+	 * 2.通过userName学员用户名从djMember用户信息表获取memId和统计库分表标识mem_stastic【dj_stucwday_1】
+	 * 3.通过【考核周期，memId】从dj_stucwday_1_【考核起始年，结束年】日统计表,汇总网络听课学习总时长。
+	 * 
+	 * @param userName学员用户名
+	 * @param statStatus学习所属状态所属
+	 *            ：0正常听课，1补课
+	 * @param begindate考核起始时间
+	 * @param enddate考核结束时间
+	 * @param domain所属行业
+	 * @return map【考核周期，考核组织，考核课时量，考核年度，已听总时长（分钟）】
+	 */
+	public DjStuStatistic getDjSpeStatisticByBeginEndDate(String userName,Integer statStatus, String begindate, String enddate, Integer domain);
+	
+
+
+	/**
+	 * 通过考核id和用户名获取律协考核设定的考核周期，同时获取考核周期内的个人网络听课学习进度汇总（不分行业）
+	 * 1.通过考核id从djOrgSet表获取的考核信息【考核周期，考核组织，考核课时量,考核年度】
+	 * 2.通过用户名从djMember用户信息表获取memId和统计库分表标识mem_stastic【dj_stucwday_1】
+	 * 3.通过【考核周期，memId】从dj_stucwday_1_【考核起始年，结束年】日统计表,汇总网络听课学习总时长。
+	 * @param userName学员用户名
+	 * @param statStatus学习所属状态所属：0正常听课，1补课
+	 * @param orgsetId学员所属考核id
+	 * @return DjStuStatistic【考核周期，考核组织，考核课时量，考核年度，已听总时长（分钟）等】
+	 */
+	public DjStuStatistic getDjStatisticByOrgSetId(String userName,Integer statStatus ,Long orgsetId,Integer domain);
+
+
+最后这个是通用接口
+17:07:23
+唐荣智，java主管 2017/11/3 17:07:23
+	public HashMap getDjSpeStatisticDetailByYear(String userName,Integer statStatus, Integer year, Integer domain);
+	public HashMap getDjSpeStatisticDetailByBeginEndDate(String userName,Integer statStatus, String begindate, String enddate, Integer domain);
+
+==========================================================================================================================
+
+/**
+	 * getDjSpeStatisticByYear()通过考核年度和用户名,考核专业获取律协考核设定的考核周期，同时获取考核周期内的个人专业听课学习进度汇总
+	 * 1.通过userName学员用户名从casUser基础表获取组织串
+	 * 2.通过split组织串数组逆序从djOrgSet表获取最近的考核信息【考核周期，考核组织，考核课时量,考核年度】
+	 * 3.通过userName学员用户名从djMember用户信息表获取memId和统计库分表标识mem_stastic【dj_stucwday_1】
+	 * 4.通过【考核周期，memId】从dj_stucwday_1_【考核起始年，结束年】日统计表,汇总网络听课学习总时长。
+	 * 
+	 * @param userName学员用户名
+	 * @param statStatus学习所属状态所属：0正常听课，1补课
+	 * @param year所属考核年度
+	 * @param speId所属考核专业
+	 * @return map【考核周期，考核组织，考核课时量，考核年度，已听总时长（分钟）】
+	 */
+	public DjStuStatistic getDjSpeStatisticByYear(String userName,Integer statStatus, Integer year,Integer speId, Integer domain);
+	/**
+	 * @author tangrongzhi
+	 * @date 2017-11-7 上午9:31:54
+	 * getDjSpeStatisticByBeginEndDate()通过考核起止时间和用户名,考核专业获取律协考核设定的考核周期，同时获取考核周期内的个人专业听课学习进度汇总
+	 * 1.通过userName学员用户名从casUser基础表获取组织串
+	 * 2.通过split组织串数组逆序从djOrgSet表获取最近的考核信息【考核周期，考核组织，考核课时量,考核年度】
+	 * 3.通过userName学员用户名从djMember用户信息表获取memId和统计库分表标识mem_stastic【dj_stucwday_1】
+	 * 4.通过【考核周期，memId】从dj_stucwday_1_【考核起始年，结束年】日统计表,汇总网络听课学习总时长。
+	 * 
+	 * @param userName学员用户名
+	 * @param statStatus学习所属状态所属 ：0正常听课，1补课
+	 * @param begindate考核起始时间
+	 * @param enddate考核结束时间
+	 * @param speId所属考核专业
+	 * @param domain所属行业
+	 * @return DjStuStatistic【考核周期，考核组织，考核课时量，考核年度，已听总时长（分钟）】
+	 */
+	
+	/**
+	 * getDjSpeStatisticDetailByYear()通过考核年度和用户名,考核专业获取律协考核设定的考核周期，同时获取考核周期内的个人专业听课学习进度汇总和听课明细
+	 * 1.重构继承统计汇总方法
+	 * 2.通过汇总统计接口返回的变量获取考核设定的参数，包括新增的专业对于的课程id串
+	 * 3.通过考核参数从统计数据库表中获取每门课，对于考核年周期中的总数据量
+	 * 4.通过选课表获取统计周期内选听过的课程信息，替换掉对应的听课总量。
+	 * @author tangrongzhi
+	 * @date 2017-11-7 上午9:31:36
+	 * @param userName
+	 * @param statStatus
+	 * @param year
+	 * @param speId
+	 * @param domain
+	 * @return HashMap
+	 */
+	public HashMap getDjSpeStatisticDetailByYear(String userName,Integer statStatus, Integer year,Integer speId, Integer domain);
+
+	/**
+	 * getDjSpeStatisticDetailByBeginEndDate()通过考核起止时间和用户名,考核专业获取律协考核设定的考核周期，同时获取考核周期内的个人专业听课学习进度汇总
+	 * 1.重构继承统计汇总方法
+	 * 2.通过汇总统计接口返回的变量获取考核设定的参数，包括新增的专业对于的课程id串
+	 * 3.通过考核参数从统计数据库表中获取每门课，对于考核年周期中的总数据量
+	 * 4.通过选课表获取统计周期内选听过的课程信息，替换掉对应的听课总量。
+	 * @author tangrongzhi
+	 * @date 2017-11-7 上午9:50:07
+	 * @param userName
+	 * @param statStatus
+	 * @param begindate
+	 * @param enddate
+	 * @param speId
+	 * @param domain
+	 * @return HashMap
+	 */
+	public HashMap getDjSpeStatisticDetailByBeginEndDate(String userName,Integer statStatus, String begindate, String enddate,Integer speId, Integer domain);
+
+
+
+
+
+
+专业课列表
+http://www.zfwx.com/xhht/listOfSpeCs.do
+
+培训计划列表
+http://www.zfwx.com/xhht/findDjOrgsetByUserName.do?orgsetYear=&pageNo=1&pageSize=20&orgset_speid=1
+
+
+
+专业课统计
+ http://www.zfwx.com/wxgr/stu/getSpeStaticByParams.do
+ http://www.zfwx.com/wxgr/stu/getSpeStaticByParams.do?speId=32
