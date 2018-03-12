@@ -1,0 +1,146 @@
+
+
+《Android群英传》
+http://www.cnblogs.com/1992monkey/p/5466815.html
+
+
+
+android 自定义view
+https://www.jianshu.com/p/c84693096e41
+http://blog.csdn.net/guolin_blog/article/details/17357967
+
+Android的View和ViewGroup分析
+Android中的View与我们以前理解的“视图”不同。
+在Android中，View比视图具有更广的含义，
+它包含了用户交互和显示，更像Windows操作系统中的window
+
+ViewGroup是View的子类，所以它也具有View的特性，
+但它主要用来充当View的容器，将其中的View视作自己的孩子，
+对它的子View进行管理，当然它的孩子也可以是ViewGroup类型。
+
+android系统所产生的消息会在这些ViewGroup和 View之间传递
+
+Android的窗口系统是Client/Server模式的
+View ， ViewGroup ，DecorView ， ViewRoot 都是存在于窗口系统的Client端。
+
+Android中的Window是表示Top Level等顶级窗口的概念。
+DecorView是Window的Top-Level View，这个View可以称之为主View，
+DecorView会缺省的attach到Activity的主窗口中
+DecorView实际上是一个ViewGroup
+ViewGroup顾名思义就是一组View的管理，ViewGroup构建了焦点管理和子View节点数组
+通过View的mParent和ViewGroup的mChildren构建了Android中View直接的关系网。
+
+
+
+ViewRoot建立了主View(DecorView)与窗口系统Server端的通讯桥梁,
+ViewRoot是 Handler的子类，即它其实是个Handler
+它接受窗口系统服务器端的消息并将消息投递到窗口系统的客户端
+然后消息就从客户端的主View往其下面的子View传递，
+直到消息被完全处理掉为止
+
+
+ViewGroup
+View
+DecorView
+ViewRoot
+Windows
+
+-------------------
+Android视图控件架构分析之View、ViewGroup
+Activity
+PhoneWindow
+DecorView
+
+一.测量View的工具类：MeasureSpec
+1.MeasureSpec包含了测量的模式和测量的大小，
+	通过MeasureSpec.getMode()获取测量模式，
+	通过MeasureSpec.getSize()获取测量大小；
+2.MeasureSpec是一个32位的int值，
+	高2位为测量的模式，
+	低30位为测量的大小，
+	使用位运算的目的在于提高优化效率。
+二.测量的模式
+　　1.EXACTLY，精确值模式：将layout_width或layout_height属性指定为具体数值或者match_parent。
+　　2.AT_MOST，最大值模式：将layout_width或layout_height指定为wrap_content。
+　　3.UNSPECIFIED： View想多大就多大
+
+四.View的绘制
+	1.2D绘图必备利器——Canvas
+	1）获取Canvas对象的方式：
+	a.由方法中的参数传入，
+	  例如，View的onDraw()中有一个参数就是Canvas对象
+	b.通过构造方法构造，即：Canvas canvas = new Canvas(bitmap)，
+	  通过传入Bitmap对象构造Canvas对象的过程称为“画布的装载”，
+	  传入的Bitmap对象承载了多有绘制在Canvas上的像素信息
+	  Canvas.drawBitmap(bitmap, 0, 0, null)
+
+	2）利用Canvas绘图
+
+
+五.ViewGroup的测量
+　　1.ViewGroup的作用：管理子View，如子View的大小、位置；
+　　2.ViewGroup通过遍历子View，调用子View的Measure()来获得每一个子View的测量结果；
+　　3.ViewGroup测量完子View，调用子View的Layout()将子View放到合适的位置；
+　　4.在自定义ViewGroup的时候，通常会重写onLayout()控制子View的显示；
+　　5.如果需要支持wrap_content属性，必须重写onMeasure()。
+
+六、ViewGroup的绘制
+　　ViewGoup不需要绘制，但是ViewGroup会使用dispatchDraw()来绘制其子View。
+七.自定义View
+　　1.自定义View的时候，通常需要重写onDraw()来绘制View要显示的内容，
+	  如果还需要支持wrap_content属性，必须重写onMeasure()；
+	2.通过自定义attrs属性，可以设置新的View属性；
+	3.View中一些重要的回调方法：
+　　　　1）onFinishInflate()：从XML中加载组建后回调；
+　　　　2）onSizeChanged()：组件大小改变时回调；
+　　　　3）onMeasure()：进行测量；
+　　　　4）onLayout()：设置显示的位置；
+　　　　5）onTouchEvent()：触摸事件。
+	4.实现自定义View的三种常用方法：
+		1）通过重写onDraw()对原生控件进行扩展；
+		2）通过组合实现新的控件，通常集成一个合适的额ViewGoup，
+		   再通过addView()给它添加指定功能的控件，从而组合成新的复合控件。
+		3）重写View实现全新的控件，通过重
+		   写onDraw()，onMeasure()实现绘制逻辑，
+		   重写onTouchEvent()实现交互逻辑。
+　　5.自定义属性
+		1）自定义属性的方法：在res资源目录的values目录下创建一个attrs.xml的属性定义文件
+		2）通过TypedArray获取自定义属性集，
+		   通过TypedArray.getString()、
+		   TypedArray.getColor()等方法获取属性值
+    6.定义回调接口，实现自定义控件的灵活控制
+    7.引用UI模板
+    1）自定义控件需要使用命名空间进行引入：xmlns:custom="http://schemas.android.com/apk/res-auto"，
+    2）在XML文件中使用自定义属性的时候，就可以通过这个命名空间来引用
+
+九.自定义ViewGroup
+　　1.需要重写的方法：
+　　　　1）onMeasure()：对子View进行测量；
+　　　　2）onLayout()：设置子View的位置；
+　　　　3）onTouchEvent()：设置触摸交互事件。
+
+
+onMeasure
+onDraw
+onLayout
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

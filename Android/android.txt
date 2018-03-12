@@ -1,0 +1,816 @@
+
+
+
+
+
+移动互联网入口
+WAP(wait and pay)
+Wireless Markup Langluge WML 精简版的html语言
+
+
+移动互联网 
+3G
+Android出来
+4G
+5G
+
+Android的版本
+
+Andorid是什么
+1完整的操作系统
+（一堆东西组拼在一起，4层建构）
+2中间件，提供关键的应用程序
+
+底层是Linux内核
+安全管理
+内存管理
+进程管理
+电源管理
+硬件管理
+
+
+Android体系结构
+4层架构
+
+
+两个虚拟机比较
+Dalvik VM
+JVM
+jar 多个class
+	class文件
+		1Header --class的头信息（编译版本，jdk1.6和jdk1.7不一样）
+		2常量池 Constant pool
+		3类 class
+		4字段 Fild
+		5方法 Method
+		6属性 Attrbute
+dex 字节码
+.apk文件
+解压apk文件--class.dex
+.dex是Dalvik VM运行的字节码文件
+
+.dex把所有的class做了合并
+	Header
+	Setting Constant Pool
+	Type/Class Constant Pool
+	Fild Constant Pool
+	Method Constant Tool
+	Class 
+	Meld List
+	Method List
+	Code Header
+	Local Vorlables
+
+提高文件扫描速度，提升jvm性能
+
+
+jvm是基于栈的架构
+栈是连续的内存空间，手机，电脑的内存空间，cpu通过总线访问内存
+
+Dalvik VM 是基于寄存器的架构
+寄存器是cpu上的内存空间，cup访问自己的内存空间
+
+Dalvik VM比普通的jvm虚拟机快，因为cpu直接访问寄存器操作
+
+
+
+
+=======================
+模拟器的端口号
+5554 就是虚拟机的端口模拟器的手机号
+DDMS 
+	Devices 设备链接
+	Thread 调试监控进程的线程
+	Heap 观察程序运行的堆栈信息
+	Application Tracker 
+	Network Statistics 
+	File Explores 文件管理器，安卓手机目录结构
+
+	Emulator control 
+		修改模拟器的网络
+		模拟电话
+		模拟短信
+		接电话
+		挂电话
+		两台设备之间通讯
+		经纬度信息，显示我的位置
+
+
+	System InforMation
+
+=======================
+SDK文件夹目录
+add-on 
+	附件附属工具(x86镜像，扩展jar包)
+docs
+	帮组文档
+	devlope--api gide
+extras
+	支持的jar包
+	usb驱动
+
+platforms
+	下载新的平台
+	5.0
+	5.1
+
+platforms-tool
+	开发用的工具
+	adb.exe
+	开个模拟器就是一个电脑，linux系统
+	获取系统信息，就是通过调试桥
+	内部实现是一个socket，两个系统通信，拿到一些信息
+
+	reset adb 重置adb
+
+	dx.bat 批处理文件
+	把class文件打包成.dex文件格式
+	.dex格式，字节码文件
+
+	emulator.exe 模拟器
+
+	ddms.bat 打开ddms
+	绘图工具
+	测试数据库工具
+	测试布局的工具
+
+samples
+system-images
+temp
+tools
+
+-------------------------
+Android工程目录
+清单文件
+	包名
+	applicaltion
+		icon，应用图标
+		lable 应用名称
+
+	intent-filter
+		main入口
+		laubcher 启动
+
+--------------------
+$AAA.class 是内部类
+
+编译
+class--dex文件 字节码文件
+java--class--dx.bat--.dex文件
+资源引用清单文件
+resource.arsc 资源id映射
+.apk
+资源清单文件
+METE-INF 元素据
+	CERT.RSA 应用程序签名
+	CERT.SF
+	NANIFEST.MF
+=======================
+安卓调试签名
+C:\Users\BlankCat\.android\debug.keystore
+打包apk 会把签名写入apk
+
+进入某个目录
+cd /d C:\Users\BlankCat\.android
+
+adb install aa.apk
+
+===============
+打包，安装国产
+class--dex文件 字节码文件
+	java--class--dx.bat--.dex文件
+压缩资源
+	resource.arsc 资源id映射
+设置签名 signing（没有签名无法识别应用）
+
+adb install apk
+
+===============
+win 安装软件的过程
+	setup.exe 安装到 本地目录
+	暗装coppy很多文件系统目录
+
+	卸载软件
+	coppy的时候的文件删除
+
+
+注册表
+	配置信息
+	文件的关联格式
+	什么样文件名，用什么应用打开
+===============
+android 软件安装过程
+dada/app目录/...apk
+安装apk
+1拷贝到dada/app目录/...apk
+2data/data/包名文件夹/应用数据文件
+
+拷贝文件
+创建目录
+
+卸载apk
+相反的过程
+
+android下的注册表
+data/system/ package.list
+			package.xml
+注册表写入配置信息
+读取注册表，找到应用信息
+
+有别于win系统注册表，win注册表是一个数据库
+android注册表是一个xml，把xml加载到内存性能要比数据库高很多。
+
+
+
+系统自带的应用			
+/system/app目录
+
+===============
+
+adb指令
+
+
+常见问题
+
+模拟器启动不了
+	sdk目录不能是中文
+	环境变量不能有中文
+
+
+	模拟器被占用
+		模拟器就是程序
+		.lock 模拟器被锁定了
+		模拟器的镜像资源（sdcard）
+	虚拟机的信息
+
+	创建sdcard
+
+===============
+软件测试
+android的软件测试
+黑盒/白盒（源码测试）
+测试粒度（测试大小）
+	方法测试
+	单元测试
+	集成测试
+测试次数
+	冒烟测试（反复测试）
+	压力测试（java web 100w个http测试）
+
+	猴子测试
+	monkey 命令
+	monkey 5000
+
+
+
+===============
+单元测试
+AndoridTestCase
+提供环境，提供上下文
+配置到清单文件
+
+配置单元测试
+1配置清单文件
+2编写测试类
+
+指令集
+<instrumentation 指令结合
+放在manifest节点下
+
+<users-library>放在<application节点下
+
+
+===============
+日志
+LogCat
+	日志级别（V/D/I/W/E）
+	日志过滤
+	添加过滤器，需改过滤器
+	清除
+	保存
+	暂停
+
+===============
+
+保存内部存储空间
+应用内部
+===============
+文件访问权限
+Context.MODE_PRIVATE私有文件
+
+
+linux系统文件权限
+文件权限--10个位置
+位置0 - 代表文件 0
+	  d 代表目录 1
+-------------------
+	每个应用程序，
+	对应一个独立的用户，
+	独立的组
+
+位置	1-3 当前用户，当前应用程序
+		
+		rw 对于自身，可读可写
+		x可执行
+
+位置	4-6 当前用户所在组
+		如果两个应用程序，类似，数据共享，同属一个用户所在的一个组
+		206，207，共享组信息
+
+/dada/dada/ls -l
+			用户id 用户所在的组
+	7-9
+			其他用户的权限
+			（别的应用，就是别的用户）
+10个位置
+----------
+- --- --- --- 0 000
+- rw-  --- ---  0 600 十进制
+- 110 的十进制是6
+
+可读可写，局域网共享的文件
+- rw- rw- rw- 0666
+ 
+chmod change mode 更改访问模式
+更改文件权限
+chmod 666 private.txt 
+
+
+首先文件看文件的读写类型
+其他应用，其他用户访问改文件，需要判断文件权限
+
+chmod change mode 更改访问模式
+更改文件权限
+chmod 666 private.txt 
+
+---------------
+
+===============
+文件外部存储空间
+
+手机内存
+手机内部存储空间/一块小硬盘，微硬盘
+data/data
+存储少量数据
+
+
+外部存储空间
+sdCard卡
+/mnt/sdcard
+存储大量数据
+写如sdcard权限
+读不许要权限
+写需要权限
+
+获取外部存储状态
+判断sdcard是否可用判断
+
+
+===============
+Setting源码解读
+	ctrl+h
+	搜索关键词
+		界面上的关键字
+
+	应用程序国际化
+
+单位	
+m
+k
+g
+t	
+tb
+pb
+
+
+存文件
+格式化硬盘
+硬盘划分成一个一个的小格子，多个存储空间
+
+最小的存储空间4个kb
+例如超市的存包处，你放一个所料袋也是4kb一个盒子，你存一个包，也是一个格子
+
+
+
+android源码的根目录
+jb目录--意思是标准版本
+
+sdk/sources是android.jar的开发class文件
+android源代码解读
+
+
+sharepreance 实现原理
+/data/data/app/config.xml
+<map></map>
+android xml文件对象序列化
+将map内容生成序列化的xml文件
+
+xml解析工具
+DOM 解析 加载到内存，生成一个树状结构，在内存里面增加减少，占内存
+sax 基于事件的方式，速度快，效率高，不能倒退
+
+pull 解析，基于事件，自上而下
+
+
+===============
+sqlite数据库
+嵌入式数据库
+移动端
+cpu慢，内存小
+
+android数据库的事务
+开启事务
+为什么需要事务
+同时成功，同时失败，
+银行转账，需要事务
+
+sqlliteOpenHelper
+构造 创建库 版本号添加
+onCreate
+创建表--业务
+
+
+onUpdate
+更新表--业务扩充
+数据库的版本增加的时候调用
+版本1到版本二 就会执行该方法执行一次
+
+
+listview
+数据适配器
+BaseAdapter
+ArrayAdapter
+SimapleAdpter
+上下文/data/view/frome[]/to[布局结合id，]
+
+==============
+内容提供者
+ContentProvider
+暴漏私有数据，给别的一个用程序
+
+配置清单文件配置
+<provider></provider>
+
+定义uri
+然后通过uri获取数据
+
+
+内容提供者，就是通过增删该查
+URI 特殊的电话号码/路径
+识别地址，执行对应的操作
+
+URIMatcher uri匹配器
+没有匹配数据z
+UriMacher.NO_MATCH 返回-1
+
+
+
+
+
+产生的原因
+/dada/dada/包名/database/xx.db
+
+系统应用
+电话短信的消息数据库
+系统数据
+
+
+备份软件/备份联系人
+
+得到某个应用的私有数据库
+例如获取联系人的私有数据库
+主动把数据库提供出来
+
+
+db文件
+db-journal
+ 数据库缓存，加载速速
+ 事务提交，事务回滚。
+ 
+ 视图
+
+ANR Application not response 应用程序无响应
+主线程做很多重要事情，响应点击事件，更新ui
+耗时操作放子线程
+
+消息机制handler+message
+
+
+android提交后台中文乱码
+
+http get请求
+http post请求
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
