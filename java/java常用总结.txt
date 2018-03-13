@@ -1,0 +1,91 @@
+
+
+java常用总结
+http://blog.csdn.net/u012129558/article/category/7358919
+
+Enumeration
+	Enumeration 接口是Iterator迭代器的“古老版本”，从JDK 1.0开始，
+	Enumeration接口就已经存在了（Iterator从JDK 1.2才出现）。
+	Enumeration接口只有两个方法。
+
+	boolean hasMoreElements() 
+	如果此迭代器还有剩下的元素，则返回true 
+	Object nextElement() 
+	返回该迭代器的下一个元素，如果还有的话(否则抛出异常)
+
+Vector（包括其子类Stack）、Hashtable两个集合类，
+	以及另一个极少使用的BitSet，都是从JDK1.遗留下来的集合类
+	Enumeration接口可用于遍历这些“古老”的集合类。
+	对于ArrayList、HashMap等集合类，不再支持使用Enumeration迭代器
+
+	Enumeration迭代器只能遍历Vector、Hashtable这种古老的集合，
+	因此通常不要使用它，除非在某些极端情况下，
+	不得不使用Enumeration，否则都应该选择Iterator迭代器。
+
+
+
+WeakHashMap深入理解
+	http://blog.csdn.net/u012129558/article/details/51980883
+	WeakHashMap的键是“弱键”
+	WeakHashMap 也是一个散列表，
+	它存储的内容也是键值对(key-value)映射，
+	而且键和值都可以是null。
+	当某“弱键”不再被其它对象引用，并被GC回收时。
+	在GC回收该“弱键”时，这个“弱键”也同时会被添加到ReferenceQueue(queue)队列中。
+
+
+
+Comparator 和 Comparable区别
+	Comparable相当于“内部比较器”，
+	而Comparator相当于“外部比较器”。
+
+在Java中super和this的区别
+	this.：this加点指此时代表当前对象
+	super.：此时指代当前对象类的父类对象部分
+
+
+java中Varargs用法（java可变参数的理解）
+	一个方法中只能有一个可变参数；
+	如果一个方法中有可变参数，
+	那么它只能是在最后一个出现！
+
+java泛型详细介绍
+
+
+
+java反射总结
+	反射机制是在运行状态中，对于任意一个类，
+	都能够知道这个类的所有属性和方法；
+	对于任意一个对象，都能够调用它的任意一个方法和属性；
+	这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。
+
+
+
+全面解析Java注解
+Class.getResourceAsStream()与ClassLoader.getResourceAsStream()的区别
+	1. Class.getResourceAsStream(String path) ：
+	path 不以'/'开头时默认是从此类所在的包下取资源，以'/'开头则是从ClassPath(Src根目录)根下获取。
+	其只是通过path构造一个绝对路径，最终还是由ClassLoader获取资源。
+	2. Class.getClassLoader.getResourceAsStream(String path) ：
+	默认则是从ClassPath根下获取，path不能以'/'开头，最终是由ClassLoader获取资源。
+	3. ServletContext. getResourceAsStream(String path)：
+	默认从WebAPP根目录下取资源，Tomcat下path是否以’/'开头无所谓，当然这和具体的容器实现有关。
+	如果是在SRC 下，可以用第一种方式，如果是在WEB环境下,用/WEB-INF/classes/xxx.file 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
