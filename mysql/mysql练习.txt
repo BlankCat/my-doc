@@ -1,0 +1,696 @@
+
+
+https://www.cnblogs.com/DreamDrive/p/6193530.html
+
+
+DROP TABLE DEPT;
+--部门表
+CREATE TABLE DEPT(
+    DEPTNO int  PRIMARY KEY,
+    DNAME VARCHAR(14) , --部门名称
+    LOC VARCHAR(13)  ---部门地址
+    ) ;
+    
+CREATE TABLE DEPT(
+    DEPTNO int  PRIMARY KEY,
+    DNAME VARCHAR(14) , 
+    LOC VARCHAR(13) 
+    ) ;
+    
+    
+    INSERT INTO DEPT VALUES    (10,'ACCOUNTING','NEW YORK');
+    INSERT INTO DEPT VALUES (20,'RESEARCH','DALLAS');
+    INSERT INTO DEPT VALUES    (30,'SALES','CHICAGO');
+    INSERT INTO DEPT VALUES    (40,'OPERATIONS','BOSTON');
+    
+    
+    
+DROP TABLE EMP;
+--员工表
+CREATE TABLE EMP(
+    EMPNO int  PRIMARY KEY, --员工编号
+    ENAME VARCHAR(10), ---员工姓名
+    JOB VARCHAR(9), --员工工作
+    MGR int, ----员工直属领导编号
+    HIREDATE DATE, ----入职时间
+    SAL double, ---工资
+    COMM double, --奖金
+    DEPTNO int  REFERENCES DEPT);  --关联dept表
+    
+    
+    CREATE TABLE EMP(
+        EMPNO int  PRIMARY KEY,
+        ENAME VARCHAR(10),
+        JOB VARCHAR(9),
+        MGR int, 
+        HIREDATE DATE, 
+        SAL double,
+        COMM double,
+        DEPTNO int ,
+        foreign key EMP(DEPTNO) REFERENCES DEPT(DEPTNO)
+    );  
+    
+
+INSERT INTO EMP VALUES(7369,'SMITH','CLERK',7902,"1980-12-17",800,NULL,20);
+INSERT INTO EMP VALUES(7499,'ALLEN','SALESMAN',7698,'1981-02-20',1600,300,30);
+INSERT INTO EMP VALUES(7521,'WARD','SALESMAN',7698,'1981-02-22',1250,500,30);
+INSERT INTO EMP VALUES(7566,'JONES','MANAGER',7839,'1981-04-02',2975,NULL,20);
+INSERT INTO EMP VALUES(7654,'MARTIN','SALESMAN',7698,'1981-09-28',1250,1400,30);
+INSERT INTO EMP VALUES(7698,'BLAKE','MANAGER',7839,'1981-05-01',2850,NULL,30);
+INSERT INTO EMP VALUES(7782,'CLARK','MANAGER',7839,'1981-06-09',2450,NULL,10);
+INSERT INTO EMP VALUES(7788,'SCOTT','ANALYST',7566,'1987-07-03',3000,NULL,20);
+INSERT INTO EMP VALUES(7839,'KING','PRESIDENT',NULL,'1981-11-17',5000,NULL,10);
+INSERT INTO EMP VALUES(7844,'TURNER','SALESMAN',7698,'1981-09-08',1500,0,30);
+INSERT INTO EMP VALUES(7876,'ADAMS','CLERK',7788,'1987-07-13',1100,NULL,20);
+INSERT INTO EMP VALUES(7900,'JAMES','CLERK',7698,'1981-12-03',950,NULL,30);
+INSERT INTO EMP VALUES(7902,'FORD','ANALYST',7566,'1981-12-03',3000,NULL,20);
+INSERT INTO EMP VALUES(7934,'MILLER','CLERK',7782,'1981-01-23',1300,NULL,10);
+
+DROP TABLE SALGRADE;
+//工资等级表
+CREATE TABLE SALGRADE( 
+    GRADE int,--等级
+    LOSAL double, --最低工资
+    HISAL double ); --最高工次
+    
+    CREATE TABLE SALGRADE( 
+    GRADE int,
+    LOSAL double, 
+    HISAL double );
+INSERT INTO SALGRADE VALUES (1,700,1200);
+INSERT INTO SALGRADE VALUES (2,1201,1400);
+INSERT INTO SALGRADE VALUES (3,1401,2000);
+INSERT INTO SALGRADE VALUES (4,2001,3000);
+INSERT INTO SALGRADE VALUES (5,3001,9999);
+
+
+
+
+1.安装mysql数据库
+
+2.创建一个mydb1数据库，并查看。
+create database mydb1;
+
+show mydb1;
+show create database mydb1;
+
+3.创建一个mydb2数据库，指定字符编码为gb2312;
+create database mydb2 chracter set gb2312 collate gb2312_bin;
+
+4.创建一个mydb3数据库，指定字符编码为utf8,并且指定校验规则;
+create database mydb3 character utf8 collate utf8_bin;
+
+
+update练习
+
+drop table if exists employee;
+create table if not exists employee
+(
+    id int,
+    name varchar(20),
+    sex varchar(10),
+    birthday date,
+    salary float,    
+    resume text
+);
+
+
+insert into employee values (1,'zhangsan','male','1980-11-25',2000,'good body');
+insert into employee values(2,"lisi","male","1980-04-25",1000,"good body");
+insert into employee values(3,"xiaohong","female","1978-11-25",4000,"good girl");
+
+将所有员工薪水修改为5000元。
+--alter table employee salary  "alter这个关键字仅仅是用来修改表的结构的,对表中的内容无法修改,修改表中的内容要用update"
+--update table employee set salary = 5000; update 是修改表中的数据,就不用在其后加上talbe关键字了.
+update employee set salary = 5000;
+
+
+将姓名为’zhangsan’的员工薪水修改为3000元。
+update employee set salary = 3000 where name = 'zhangsan';
+
+将姓名为’lisi’的员工薪水修改为4000元,sex改为female。
+--update employee set salary = 4000 and sex = female where name = 'lisi' ; 有多个列要修改的时候不用and连接列,用逗号.!!!
+update employee set salary = 4000,sex = 'female' where name = 'lisi' ;
+
+将xiaohong的薪水在原有基础上增加1000元。
+update employee set salary = salary + 1000 where name = 'xiaohong';
+
+
+select 练习
+
+create table student(
+    id int,
+    name varchar(20),
+    chinese float,
+    english float,
+    math float
+);
+
+insert into student(id,name,chinese,english,math) values(1,'张小明',89,78,90);
+insert into student(id,name,chinese,english,math) values(2,'李进',67,53,95);
+insert into student(id,name,chinese,english,math) values(3,'王五',87,78,77);
+insert into student(id,name,chinese,english,math) values(4,'李一',88,98,92);
+insert into student(id,name,chinese,english,math) values(5,'李来财',82,84,67);
+insert into student(id,name,chinese,english,math) values(6,'张进宝',55,85,45);
+insert into student(id,name,chinese,english,math) values(7,'黄蓉',75,65,30);
+
+
+
+查询表中所有学生的信息。
+select * from student;
+
+查询表中所有学生的姓名和对应的英语成绩。;
+select name,english from student ;
+
+
+过滤表中重复数据。
+
+select distinct * from student;
+
+统计每个学生的总分。
+--select sum(chinese+english+math) as Total from student; 这个是所有学生的总分, 貌似sum()函数是对以整列求和,对一个记录内的求和是要单独加
+select name ,(chinese+english+math) as Total from student;
+select name ,chinese+english+math as Total from student;--这两个都对.
+
+在所有学生总分数上加10分特长分。
+--select name , chinese+english+math+10 as Total from student;是所有学生分数上,并不是学生总成绩上.
+select name , chinese+10,english+10,math+10 as Total from student;
+
+
+使用别名表示学生分数。
+select name,chinese ch ,english en,math ma from student;--这个地方别名 加不加as都对.
+
+
+查询姓名为李一的学生成绩
+select name,chinese, math,english from student where name = '李一';
+
+
+查询英语成绩大于90分的同学
+select name from student where english > 90 ;
+
+查询总分大于200分的所有同学
+select name from student where english+chinese+math>200;
+
+查询英语分数在 80－90之间的同学。
+--select name from student where english>=80 & english<=90; &这个符号不能代表and!!!!
+select name from student where english>=80 and english<=90;
+select name from student where english between 80 and 90;
+
+
+查询数学分数为89,90,91的同学。
+select name from student where math in(89,90,91);
+--select name from student where math=89 and math=90 and math=91;这个地方用and就不正确.检索不到东西.可以用关键字OR
+select name from student where math=89 or math=90 or math=91;
+
+
+
+查询所有姓李的学生英语成绩。
+select name,english from student where name like "李%";
+
+
+
+查询数学分>80并且语文分>80的同学。
+select name from student where math>80 and chinese >80;
+
+查询英语>80或者总分>200的同学
+select name from student where english > 80 OR english+math+chinese>200;
+
+对数学成绩排序后输出。
+select * from student order by math ;--默认是升序排列.
+select * from student order by math desc;
+select * from student order by math asc;
+
+
+对总分排序后输出，然后再按从高到低的顺序输出
+select * from student order by chinese+math+english desc;
+
+对姓李的学生成绩排序输出
+select * from student where name like "李%" order by chinese+math+english desc;
+
+
+练习2:
+
+1、查找部门30中员工的详细信息。
+--select * from emp where deptno=30;
+select * from emp where deptno=30;
+2、找出从事clerk工作的员工的编号、姓名、部门号。
+-- select empno,ename,deptno from emp where job = 'clerk';
+
+select empno,ename,deptno from emp where job='clerk';
+
+3、检索出奖金多于基本工资的员工信息。
+--select * from emp where comm>sal;
+select * from emp where comm >sal
+
+4、检索出奖金多于基本工资60%的员工信息。
+--select * from emp where comm>sal*0.6;
+select *from emp where comm>sal*0.6;
+
+5、找出10部门的经理(job=Manger)、20部门的职员(job=clerk) 的员工信息。
+--select * from dept,emp where dept.deptno=10 and emp.deptno=20;
+
+--select * from emp where deptno=10 and job = 'manager' and deptno=20 and job='clerk';
+--这个地方找出10号部门的经理20部门的职员的员工信息.中间用OR连接.别用AND,用and是找不到这么个条件的值的.
+
+select * from emp where deptno=10 and job='MANAGER' or   deptno=20 and job='CLERK'
+
+6、找出10部门的经理、20部门的职员 或者既不是经理也不是职员但是工资高于2000元的员工信息。
+
+--select * from emp where deptno=10 and job='MANAGER' or   deptno=20 and job='CLERK' or 最后这个条件不会写,原来用not 外加in
+
+select * from emp where (deptno=10 and job='MANAGER') or  ( deptno=20 and job='CLERK') or  ( job not in ('MANAGER','CLERK') and sal>2000)
+
+7、找出获得奖金的员工的工作。
+--select * from emp where comm not null; 用is not null.
+select * from emp where comm is not null.
+
+select * from emp where comm is not null;
+
+8、找出奖金少于100或者没有获得奖金的员工的信息。
+select * from emp where comm<100 or comm is null;
+
+select * from emp where comm is null or comm<100;
+
+9、找出姓名以A、B、S开始的员工信息。
+--select * from emp where ename like "A%","B%","S%";要写多个like语句.
+
+select * from emp where ename like 'A%' OR ENAME LIKE 'B%' OR ENAME LIKE 'S%';
+
+
+10、找到名字长度为7个字符的员工信息。
+--select * from emp where ename.length= 7;
+--报错:ERROR 1054 : Unknown column 'ename.length' in 'where clause'
+--用到了length()函数,还有就是弄like中引入对应数字的空格' '.
+
+select * from emp where length(ename)=7;
+select * from emp where ename like '______';
+
+11、名字中不包含R字符的员工信息。
+
+--利用 not like '%R%'
+select * from emp where ename not like '%R%';
+
+12、返回员工的详细信息并按姓名排序。
+select * from emp order by ename;
+
+
+13、返回员工的信息并按工作降序工资升序排列。
+select * from emp order by job desc,sal asc;
+
+
+14、计算员工的日薪(按30天)。
+select sal/30 from emp
+
+
+15、找出姓名中包含A的员工信息。
+select * from emp where ename like '%A%';
+
+
+
+练习3:
+
+//多表与分组练习
+
+1、返回拥有员工的部门名、部门号。
+--不知道这个具体干什么的.通过看部门dept表和emp表可以看出来,员工并不是都是在dept表中存在的地方的.
+--dept表中可能有四个部门号,但是员工emp表中可能只占其中的三个部门号码
+--题干的需求就是干这个的.(即有的部门可能没有"员工")
+select dname,deptno from dept where deptno in (select deptno from emp);
++------------+--------+
+| dname      | deptno |
++------------+--------+
+| ACCOUNTING |     10 |
+| RESEARCH   |     20 |
+| SALES      |     30 |
++------------+--------+
+
+
+2、工资水平多于smith的员工信息。
+select * from emp where sal>(select sal from emp where ename = 'smith');
+
+    
+3、返回员工和所属经理的姓名。
+--这个感觉很简单就是没有想出来怎么办,看答案才理解了
+--复用表emp,再加上使用外连接.
+
+--select ee.ename as eename ,mm.ename as mename from emp ee left join emp mm where ee.mgr=mm.empno; 
+--看完答案理解了之后也写错了,注意外连接是left/right join on
+select ee.ename as eename ,mm.ename as mename from emp ee left join emp mm on ee.mgr=mm.empno;
+
+--现在左外连接还有另外的一种写法,就是用加号"+";仔细查了一下,并且纳闷为什么＋的SQL语句外连接在navicate中没有效果.
+--得知加号的外连接只有在oracle中才是用.
+
+
++--------+--------+
+| eename | mename |
++--------+--------+
+| SMITH  | FORD   |
+| ALLEN  | BLAKE  |
+| WARD   | BLAKE  |
+| JONES  | KING   |
+| MARTIN | BLAKE  |
+| BLAKE  | KING   |
+| CLARK  | KING   |
+| SCOTT  | JONES  |
+| KING   | NULL   |
+| TURNER | BLAKE  |
+| ADAMS  | SCOTT  |
+| JAMES  | BLAKE  |
+| FORD   | JONES  |
+| MILLER | CLARK  |
+
+
+     
+4、返回雇员的雇佣日期早于其经理雇佣日期的员工及其经理姓名。
+--感觉这个也是要复用emp表,确实复用emp表
+ --select ee.ename as eename,mm.ename as mename from emp ee,emp mm where ee.hiredate<mm.hiredate;
+--这句话没有加上是其经理的条件
+--select ee.ename as eename,mm.ename as mename from emp ee left join emp mm on ee.mgr = mm.empno and ee.hiredate < mm.hiredate;
+--上面这句仅仅是把第三句中加上了日期小于的条件.
+select ee.ename as eename,mm.ename as mename from emp ee ,emp mm where ee.mgr = mm.empno and ee.hiredate < mm.hiredate;
+--这句为什么不用left join? 第三句用where可不可以?   注意时间老的日期大小是小于时间老的日期的.
+(select ee.ename as eename ,mm.ename as mename from emp ee left join emp mm where ee.mgr=mm.empno;)第三句的写法.
+
+
+5、返回员工姓名及其所在的部门名称。
+--这句有点像第三句,不过这个牵扯到了两个表
+--select ee.ename as ename, ee.deptno as dptname from emp ee, dept dd where ee.deptno=dd.deptno;
+--最开始写的,写错了.还是没有把最基本的需求高清,人家要部门名.
+
+select ename as ename ,dname  from emp ee,dept dd where ee.deptno=dd.deptno;
++--------+------------+
+| ename  | dname      |
++--------+------------+
+| CLARK  | ACCOUNTING |
+| KING   | ACCOUNTING |
+| MILLER | ACCOUNTING |
+| SMITH  | RESEARCH   |
+| JONES  | RESEARCH   |
+| SCOTT  | RESEARCH   |
+| ADAMS  | RESEARCH   |
+| FORD   | RESEARCH   |
+| ALLEN  | SALES      |
+| WARD   | SALES      |
+| MARTIN | SALES      |
+| BLAKE  | SALES      |
+| TURNER | SALES      |
+| JAMES  | SALES      |
++--------+------------+
+
+
+6、返回从事clerk工作的员工姓名和所在部门名称。
+select ename ,dname from emp ee, dept dd where ee.job='clerk' and ee.deptno = dd.deptno;
++--------+------------+
+| ename  | dname      |
++--------+------------+
+| MILLER | ACCOUNTING |
+| SMITH  | RESEARCH   |
+| ADAMS  | RESEARCH   |
+| JAMES  | SALES      |
++--------+------------+
+
+
+7、返回部门号及其本部门的最低工资。
+--这个语句不用where条件进行过滤.
+--找出部门的最低工资 ----想不起来.提示一下用到了min()函数.
+--select min(sal) from emp ;
+--select deptno , min(sal) from deptno ,emp 
+--首先想需求中要用到哪几个表.然后再写.
+--因为是按照部门为单位的所以用到分组
+select deptno ,min(sal) from emp group by deptno;
++--------+----------+
+| deptno | min(sal) |
++--------+----------+
+|     10 |     1300 |
+|     20 |      800 |
+|     30 |      950 |
++--------+----------+
+
+8、返回销售部(sales)所有员工的姓名。
+--根据需求用到了emp和dept两个表
+select ename from emp ee,dept dd where dd.dname='sales' and ee.deptno = (select deptno from dept where dname = 'sales');
++--------+
+| ename  |
++--------+
+| ALLEN  |
+| WARD   |
+| MARTIN |
+| BLAKE  |
+| TURNER |
+| JAMES  |
++--------+
+
+
+9、返回工资水平多于平均工资的员工。
+--这个用到了avg()函数. 用到表emp
+--select * from emp where sal > avg(sal);
+--一开始这样写的,但是报错,提示信息为:ERROR 1111 : Invalid use of group function
+--在这种情况下要把聚合函数放在select语句中
+select * from emp where sal > (select avg(sal) from emp);
++-------+-------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+-----------+------+------------+------+------+--------+
+|  7566 | JONES | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7698 | BLAKE | MANAGER   | 7839 | 1981-05-01 | 2850 | NULL |     30 |
+|  7782 | CLARK | MANAGER   | 7839 | 1981-06-09 | 2450 | NULL |     10 |
+|  7788 | SCOTT | ANALYST   | 7566 | 1987-07-03 | 3000 | NULL |     20 |
+|  7839 | KING  | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7902 | FORD  | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |
++-------+-------+-----------+------+------------+------+------+--------+
+
+10、返回与SCOTT从事相同工作的员工。
+--只用到表emp
+--select * from emp where job = '(select job from emp where ename = 'scott')';
+--上一句在语法上是没有问题的,但是有个小问题就是job是varchar字符串类型的,但是在其后是select语句
+-- 的时候其后是不能加上单引号,或者是单引号的,否则都会报错的.
+--还要把搜索到的结果去掉scott他本身这条记录.
+
+select * from emp where job = (select job from emp where ename = 'scott') and ename<> 'scott';
+
+
+
+11、返回与30部门员工工资水平相同的员工姓名与工资。
+--这个也只用到了emp表
+
+select ename ,sal from emp where sal in( select sal from emp where deptno = 30);
++--------+------+
+| ename  | sal  |
++--------+------+
+| ALLEN  | 1600 |
+| WARD   | 1250 |
+| MARTIN | 1250 |
+| BLAKE  | 2850 |
+| TURNER | 1500 |
+| JAMES  |  950 |
++--------+------+
+
+
+
+12、返回工资高于30部门所有员工工资水平的员工信息。
+--从题意中就可以看出要使用到关键字all 也只用到了emp表
+--all关键字怎么使用.
+select * from emp where sal>all(select sal from emp where deptno = 30);
++-------+-------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+-----------+------+------------+------+------+--------+
+|  7566 | JONES | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7788 | SCOTT | ANALYST   | 7566 | 1987-07-03 | 3000 | NULL |     20 |
+|  7839 | KING  | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7902 | FORD  | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |
++-------+-------+-----------+------+------------+------+------+--------+
+
+
+13、返回部门号、部门名、部门所在位置及其每个部门的员工总数。    
+--需要用到emp和dept两个表
+select deptno ,dname ,loc ,count(*) from emp ee,dept dd  where ee.deptno = dd.deptno 
+
+14、返回员工的姓名、所在部门名及其工资。
+--需要用到emp表和dept表.
+select ee.ename , dd.dname ,ee.sal from emp ee,dept dd where ee.deptno = dd.deptno;
++--------+------------+------+
+| ename  | dname      | sal  |
++--------+------------+------+
+| CLARK  | ACCOUNTING | 2450 |
+| KING   | ACCOUNTING | 5000 |
+| MILLER | ACCOUNTING | 1300 |
+| SMITH  | RESEARCH   |  800 |
+| JONES  | RESEARCH   | 2975 |
+| SCOTT  | RESEARCH   | 3000 |
+| ADAMS  | RESEARCH   | 1100 |
+| FORD   | RESEARCH   | 3000 |
+| ALLEN  | SALES      | 1600 |
+| WARD   | SALES      | 1250 |
+| MARTIN | SALES      | 1250 |
+| BLAKE  | SALES      | 2850 |
+| TURNER | SALES      | 1500 |
+| JAMES  | SALES      |  950 |
++--------+------------+------+
+
+15、返回员工的详细信息。(包括部门名)
+--需要用到两个表emp和dept
+--在用select * 的基础上还要加上部门名这一列,这咋办????
+--看了答案明白了既然是还要加上部门名并且是详细信息,那么就对这三个表都select* 操作
+--select * from emp ee,dept dd,salgrade ss where ee.deptno = dd.deptno;
+--一开始没有加上工资的限制.
+select * from emp ee,dept dd,salgrade ss where ee.deptno = dd.deptno and sal between losal and hisal;
+
++-------+--------+-----------+------+------------+------+------+--------+--------+------------+----------+-------+-------+-------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | DEPTNO | DNAME      | LOC      | GRADE | LOSAL | HISAL |
++-------+--------+-----------+------+------------+------+------+--------+--------+------------+----------+-------+-------+-------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 |     20 | RESEARCH   | DALLAS   |     1 |   700 |  1200 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |     30 | SALES      | CHICAGO  |     3 |  1401 |  2000 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |     30 | SALES      | CHICAGO  |     2 |  1201 |  1400 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |     20 | RESEARCH   | DALLAS   |     4 |  2001 |  3000 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |     30 | SALES      | CHICAGO  |     2 |  1201 |  1400 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850 | NULL |     30 |     30 | SALES      | CHICAGO  |     4 |  2001 |  3000 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450 | NULL |     10 |     10 | ACCOUNTING | NEW YORK |     4 |  2001 |  3000 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987-07-03 | 3000 | NULL |     20 |     20 | RESEARCH   | DALLAS   |     4 |  2001 |  3000 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |     10 | ACCOUNTING | NEW YORK |     5 |  3001 |  9999 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500 |    0 |     30 |     30 | SALES      | CHICAGO  |     3 |  1401 |  2000 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987-07-13 | 1100 | NULL |     20 |     20 | RESEARCH   | DALLAS   |     1 |   700 |  1200 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |     30 | SALES      | CHICAGO  |     1 |   700 |  1200 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |     20 | RESEARCH   | DALLAS   |     4 |  2001 |  3000 |
+|  7934 | MILLER | CLERK     | 7782 | 1981-01-23 | 1300 | NULL |     10 |     10 | ACCOUNTING | NEW YORK |     2 |  1201 |  1400 |
++-------+--------+-----------+------+------------+------+------+--------+--------+------------+----------+-------+-------+-------+
+
+16、返回员工工作及其从事此工作的最低工资。
+--需要用到表emp,很明显需要 用到分组group by.
+select job ,min(sal) from emp group by job;
+--原来可以在from前面直接用聚合函数.
++-----------+----------+
+| job       | min(sal) |
++-----------+----------+
+| ANALYST   |     3000 |
+| CLERK     |      800 |
+| MANAGER   |     2450 |
+| PRESIDENT |     5000 |
+| SALESMAN  |     1250 |
++-----------+----------+
+17、返回不同部门经理的最低工资。
+--需要用到一个表emp,需要用到group by
+select deptno , min(sal) from emp where job = 'manager' group by deptno;
++--------+----------+
+| deptno | min(sal) |
++--------+----------+
+|     10 |     2450 |
+|     20 |     2975 |
+|     30 |     2850 |
++--------+----------+
+
+
+
+18、计算出员工的年薪，并且以年薪排序。
+--需要用到一个表emp
+select sal*12 as ysal from emp order by ysal asc;
+--上面的语句没有问题,关键是年薪的计算方法,这里还牵扯到奖金的问题.
+
+
+
+19、返回工资处于第四级别的员工的姓名。
+--这里需要两个表,一个是emp一个是salgrade
+--select ename form emp ee,salgrade where grade =4;
+--这句话仔细一想就可以看出不会有任何结果,where过滤不掉任何东西
+
+select ename from emp ,salgrade where grade =4 and sal>=losal and sal <= hisal;
+select ename from emp ,salgrade where grade =4 and sal between losal and  hisal;
++-------+
+| ename |
++-------+
+| JONES |
+| BLAKE |
+| CLARK |
+| SCOTT |
+| FORD  |
++-------+
+
+20、返回工资为二等级的职员名字、部门所在地、和二等级的最低工资和最高工资
+--从题意中可知需要用到三个表 emp dept salgrade
+--二等级的最低工资和最高工资.并不是二等级员工的工资.这个是和第21问的区别.
+--select ename ,loc ,min(sal) ,max(sal) from emp ee,dept dd, salgrade ss  where grade = 2 and sal between losal and hisal;
+--二等级的最低工资和最高工资并不是二等级员工的最低工资和最高工资.
+
+select ename ,loc ,losal,hisal from emp ee,dept dd,salgrade ss where grade = 2 and sal between losal and hisal;
+
+
+21、返回工资为二等级的职员名字、部门所在地、二等级员工工资的最低工资和最高工资
+--需要用到salgrade , dept表和emp表
+mysql> select ename , loc ,min(sal) ,max(sal) from emp ee, dept dd, salgrade ss where grade = 2 and sal between losal and hisal;
++-------+----------+----------+----------+
+| ename | loc      | min(sal) | max(sal) |
++-------+----------+----------+----------+
+| WARD  | NEW YORK |     1250 |     1300 |
++-------+----------+----------+----------+
+
+--这样写是错误的.到底在select后加上聚合函数的应用?????
+
+--select e.ename,loc,max(m.sal) ,min(m.sal),grade from emp e,emp m ,dept salgrade where e.deptno=dept.deptno and e.sal beteeen losal and hissal
+--m.sal between losal and hisal and grade = 2 group by e.ename , loc, grade;
+
+
+select ename , loc ,(select min(sal) from emp,salgrade where sal between losal and hisal and grade = 2) minsal,(select max(sal) from emp,salgrade
+ where sal between losal and hisal and grade = 2) maxsal from emp,salgrade ,dept where emp.deptno = dept.deptno and sal between
+ losal and hisal and grade = 2;
++--------+----------+--------+--------+
+| ename  | loc      | minsal | maxsal |
++--------+----------+--------+--------+
+| WARD   | CHICAGO  |   1250 |   1300 |
+| MARTIN | CHICAGO  |   1250 |   1300 |
+| MILLER | NEW YORK |   1250 |   1300 |
++--------+----------+--------+--------+
+
+22.工资等级多于smith的员工信息。
+--获得员工信息,三个表中有的信息都获取出来,就 用到三个表.
+--需要用到两个表 emp表和salgrade 表
+--select * from emp,salgrade where grade >(select sal from emp,salgrade where sal between losal and hisal);
+--select * from emp ee,salgrade ss,dept dd where grade > (select grade from salgrade, emp  where ename = 'smith' and sal between losal and ss.hisal ) 
+--and sal > (select sal from em );
+ select * from emp,salgrade where sal between losal and hisal and grade >(select grade from emp,salgrade where sal between losal
+ and hisal and ename = 'smith');
++-------+--------+-----------+------+------------+------+------+--------+-------+-------+-------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | GRADE | LOSAL | HISAL |
++-------+--------+-----------+------+------------+------+------+--------+-------+-------+-------+
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |     3 |  1401 |  2000 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |     2 |  1201 |  1400 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |     4 |  2001 |  3000 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |     2 |  1201 |  1400 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850 | NULL |     30 |     4 |  2001 |  3000 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450 | NULL |     10 |     4 |  2001 |  3000 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987-07-03 | 3000 | NULL |     20 |     4 |  2001 |  3000 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |     5 |  3001 |  9999 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500 |    0 |     30 |     3 |  1401 |  2000 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |     4 |  2001 |  3000 |
+|  7934 | MILLER | CLERK     | 7782 | 1981-01-23 | 1300 | NULL |     10 |     2 |  1201 |  1400 |
++-------+--------+-----------+------+------------+------+------+--------+-------+-------+-------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
