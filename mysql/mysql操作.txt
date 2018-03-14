@@ -1,0 +1,578 @@
+
+
+http://www.cnblogs.com/yuanfy/tag/MySQL/
+
+mysql学习笔记——对数据库的操作
+一、启动/关闭 数据库服务：
+1、打开cmd命令提示符窗口
+2、输入命令 net start mysql  后，回车，则启动了mysql服务
+3、输入命令 net stop mysql  后，回车，则关闭了mysql服务
+
+
+
+二、登录数据库
+ 输入命令  mysql -u 用户名(如root) -p 回车
+
+
+三、创建数据库
+命令：create database 数据库名称;
+
+
+四、查看当前存在的数据库
+命令： show databases;
+
+
+五、查看数据库的创建语句
+命令： show create database 数据库名称;
+
+六、修改数据库字符集
+命令：alter database 数据库名称 character set gbk;
+
+
+七、数据库删除
+命令：drop database 数据库名称;
+
+八、查看当前正在使用的数据库
+命令：select database();
+create table temp(id int not null,name varchar(255) not null default'abc',sex char null)
+
+
+1、not null
+上面的table加上了非空约束，也可以用alter来修改或增加非空约束 
+增加非空约束 
+alter table modify sex varchar(2) not null;
+取消非空约束
+alter table temp modify sex varchar(2) null;
+取消非空约束
+alter table temp modify sex varchar(2) default 'abc'
+
+
+2、unique
+唯一约束是指定table的列或列组合不能重复，保证数据的唯一性。
+虽然唯一约束不允许出现重复的值，但是可以为多个null，
+同一个表可以有多个唯一约束，多个列组合的约束。
+在创建唯一约束的时候，如果不给唯一约束名称，
+就默认和列名相同。 
+MySQL会给唯一约束的列上默认创建一个唯一索引；
+
+create table temp(id int not null,name varchar(50),
+password varchar(16),constraint uk_name_pwd unnque(name,password));
+
+表示用户名和密码组合不能重复 
+添加唯一约束 
+alter table temp add unique(name,password);
+修改唯一性约束
+alter table temp modify name varchar(25) unique;
+删除约束
+alter table temp drop index name；
+
+3、primary key
+主键约束相当于唯一约束+非空约束的组合，主键约束列不允许重复，也不允许出现空值；
+如果的多列组合的主键约束， 那么这些列都不允许为空值，并且组合的值不允许重复。 每个表最多只允许一个主键，建立主键约束可以在列级别创建，也可以在表级别上创建。
+MySQL的主键名总是PRIMARY， 当创建主键约束时，系统默认会在所在的列和列组合上建立对应的唯一索引。 
+
+
+列模式： 
+create table temp(id int primary key,name varchar(25));
+create table temp2(id int not null,name varchar(25),
+pwd varchar(15),constraint pa_temp_id primary key(id))
+
+组合模式
+create table temp2(id int not null,name varchar(25),
+pwd varchar(15),
+constraint pk_temp_id primary key(name,pwd))
+
+alter 删除主键约束
+alter table temp drop primay key
+alter 添加主键
+alter table temp add primary key (name,pwd)
+alter 修改列为主键
+alter table temp modify id int primary key ;
+
+设置为自增
+create table temp(id int auto_increment primary key,
+name varchar(20),pwd varchar(16))
+
+
+4、foreign key
+外键约束是保证一个或两个表之间的参照完整性，
+外键是构建于一个表的两个字段或是两个表的两个字段之间的参照关系。 
+也就是说从表的外键值必须在主表中能找到或者为空。 
+当主表的记录被从表参照时，主表的记录将不允许删除，
+如果要删除数据，需要先删除从表中依赖该记录的数据，
+ 然后才可以删除主表的数据。还有一种就是级联删除子表数据。
+注意：外键约束的参照列，在主表中引用的只能是主键或唯一键约束的列，
+假定引用的主表列不是唯一的记录， 
+那么从表引用的数据就不确定记录的位置。
+同一个表可以有多个外键约束。
+
+创建外键约束： 
+create table class(id int auto_increment primary key ,name varchar(20))
+从表
+create table classes(id int auto_increment,name varchar(22),
+constraint pk_id primary key (id)
+,class_id int references classes(id))
+
+通常先建主表，然后再建从表，这样从表的参照引用的表才存在。
+
+表级别创建外键约束： 
+create table student(id int auto_increment primary key ,
+name varchar(25),classes_id int ,
+foreign key(classes_id) references classes(id))
+上面的创建外键的方法没有指定约束名称，
+系统会默认给外键约束分配外键约束名称，
+命名为student_ibfk_n， 其中student是表名，
+n是当前约束从1开始的整数。 
+
+指定约束
+create table student(id int auto_increment primary key ,
+name varchar(23),classes_id int,
+constraint fk_classes_id foreign key(classes_id) references classes(id)
+)
+
+多列外键组合，必须用表级别约束语法： 
+create table classes(id int ,name varchar(20),number int ,
+primary key (name ,number))
+
+create table student (id int auto_increment primary key ,
+name varchar(20),classes_name varchar(20),classes_number int,
+foreign key (classes_name,classes_number)references classes(name,number)
+)
+
+删除外键约束： 
+alter table student drop foreign key student_ibfk_1;
+alter table student drop foreign key fk_student_id;
+
+增加外键约束：
+alter table student add foreign key(classes_name,classes_number)
+references classes(name,number);
+
+自引用、自关联（递归表、树状表） 
+create table tree(
+id int auto_increment primary key ,
+name varchar(50),
+parent_id int,
+foreign key (parent_id) references tree(id)
+)
+
+
+级联删除：删除主表的数据时，关联的从表数据也删除，
+则需要在建立外键约束的后面增加on delete cascade 或on delete set null，
+前者是级联删除，后者是将从表的关联列的值设置为null。
+
+create table student (
+id int auto_increment primary key ,
+name varchar(20),
+classes_number int,
+foreign key (classes_name,classes_number)
+references classes(name,number)on delete cascade
+)
+
+
+5、check
+MySQL可以使用check约束，但check约束对数据验证没有任何作用。 
+create table temp (
+id int auto_increment,
+name varchar(20),
+age int,
+primary key (id),
+check (age>20)
+)
+上面check约束要求age必须大于20，但没有任何作用。但是创建table的时候没有任何错误或警告。
+
+
+
+
+
+
+
+
+
+
+mysql学习笔记——对数据表中记录的操作
+对记录的操作，主要有增、删、改、查
+一、记录插入
+命令：insert into 表名(列名,列名, .... ) values(值, 值, ....);
+插入数据时，字符串添加 单引号 '' ---- 字符型和日期型数据应包含在单引号中
+插入数据时，中文乱码问题：将客户端的编码集设置为gbk
+修改mysql 配置文件，永久改变客户端编码集 ----- mysql/my.ini 
+[mysql] ---- 客户端配置
+[mysqld] ---- 服务器端配置
+
+
+二、记录删除
+命令：delete from 表名 where 条件语句;（删除表中满足条件的记录，若省略where 条件语句，则删除表中所有记录）
+删除一个表所有记录： truncate 表名; 效果与 delete from 表名;
+
+truncate与delete 使用上区别 ？
+truncate 删除记录后不可恢复的，不受事务管理，原理：先删除整个表，重新创建 
+delete 可以被事务管理 ，在事务中删除数据可以回滚（rollback）恢复，原理： 一行一行删除数据记录
+
+
+
+三、记录修改
+命令： update 表名 set 列名=值,列名=值 where条件语句;
+* 没有where语句，对所有数据行进行更新 ，相当于where 1；
+* 当条件语句是比较字符串时，在where 后面加上binary关键字，则比较更加精确严格。
+
+四、记录查询
+命令：select  列名，列名，...，列名 from 表名  where 条件语句;
+查询表中满足条件的记录，若为select * from 表名，则显示表中所有记录
+
+
+
+
+
+mysql笔记------对数据表操作
+
+一、选择默认的数据库
+命令：use 数据库名称;
+
+二、创建数据表
+命令：create table 表名(
+列名 类型(长度) 属性,
+列名 类型(长度) 属性,
+............. ,
+列名 类型(长度) 属性
+)
+
+1、 整数类型 tinyint (byte)  smallint(short) int(int) bigint(long)
+2、浮点类型 float double
+3、字符串类型  varchar（变长） char（定长）
+   varchar(M) 最大长度是M               char(M) 长度是M
+4、逻辑型 bit一位  boolean   bit（8）表示8位
+5、日期型  
+date 只能保存日期
+time 只能保存时间
+datetime 日期和时间都有
+timestamp 日期和时间
+
+
+6、 大数据类型  
+text 文本类型数据，主要存储字符文件 --- 文本文件
+blob 二进制文件 ，存储任何类型文件（音乐、电影）
+blob和text最大类型 longtext longblob 最大可以保存4GB文件
+1GB = 1024MB    1MB=1024KB       1KB=1024Byte
+
+
+
+属性，即约束：
+1、主键约束----- primary key 不能为空、不能重复  （唯一标识一条记录）
+主键数字类型，一般设置主键自动增长 mysql设置自动增长 auto_increment
+2、唯一约束 ----- unique 该字段内容不允许重复
+唯一约束与主键约束区别：一张表只有最重要那个字段才能作为主键 
+3、非空约束 ----- not null
+4、外键约束------foreign key （另外一个表中的主键）
+
+
+
+二、 查看数据表结构
+命令：desc 表名;
+
+
+三、修改数据表
+
+1、向已有数据表添加一列 
+命令：alter table 表名 add 列名 类型(长度) 约束;
+
+
+2、改变已有数据表一列类型、长度
+命令：alter table 表名 modify 列名 类型(长度) 约束;
+
+3、改变已有数据表一列的名称
+命令：alter table 表名 change 旧列名 新列名 类型(长度) 约束;
+
+
+4、删除已有一列
+命令：alter table 表名 drop 列名;
+
+5、修改表名
+命令：rename table 旧表名 to 新表名; 
+
+6、修改表的字符集
+命令：alter table 表名 character set utf8;
+
+
+
+四、 查看当前数据库中所有表
+命令：show tables;
+
+
+五、数据表删除
+命令: drop table 表名;
+
+
+
+
+转载----- mysql 五大约束
+MySQL中约束保存在information_schema数据库的table_constraints中，可以通过该表查询约束信息；
+约束主要完成对数据的检验，保证数据库数据的完整性；如果有相互依赖数据，保证该数据不被删除。   
+
+常用五类约束：
+not null：非空约束，指定某列不为空 
+unique： 唯一约束，指定某列和几列组合的数据不能重复 
+primary key：主键约束，指定某列的数据不能重复、唯一 
+foreign key：外键，指定该列记录属于主表中的一条记录，参照另一条数据 
+check：检查，指定一个表达式，用于检验指定数据 
+
+MySQL不支持check约束，但可以使用check约束，而没有任何效果；
+根据约束数据列限制，约束可分为：
+单列约束：每个约束只约束一列 
+多列约束：每个约束约束多列数据   
+
+
+1、not null
+非空约束用于确保当前列的值不为空值，非空约束只能出现在表对象的列上。 
+Null类型特征： 
+所有的类型的值都可以是null，
+包括int、float等数据类型 空字符串””是不等于null，0也不等于null 
+
+
+
+
+
+
+mysql学习笔记——对数据记录查询操作的补充（单表内查询）
+
+mysql查询字段时实现左右补零
+右补0：select RPAD(id,8,'0') as pad from tmp; 
+左补0：select LPAD(id,8,'0') as pad from tmp;
+
+
+select ... from ... where ... group by ... having ... order by ... limit...; （顺序固定）
+
+
+
+关系运算符：
+等于=        大于>       小于<      大于等于>=         小于等于<=       不等于<> 
+
+
+
+like 字句
+like后跟字符串和通配符，其中通配符 _（下划线）只能匹配一个字符，通配符%（百分号）可以匹配多个任意字符
+
+
+
+
+判断某个值是否为null:
+isnull(值)
+
+
+
+between A and B：取值在[A,B]之间
+
+
+in/not in (集合元素)：取值在/不在集合元素之间
+
+
+
+逻辑运算符：
+与：and   &&    存在null，则结果为null
+或：or    ||       null与null或0相或，仍未null，与1相或为1
+非：not  !      
+异或：xor       存在null,则结果为null
+
+
+
+4、group by 对where 过滤后数据进行分组 
+
+
+聚合函数  sum()求和   avg()求平均   max()求最大   min()求最小   count() 统计非Null字段的记录数
+
+
+5、having 对分组后结果添加条件过滤
+group by之后，若需加条件语句，只能用having字句，不能用where字句，
+
+
+
+6、order by 对检索结果排序
+默认为升序asc，若需要降序，则设置为desc
+允许多字段排序：先按照第一个字段排序，如果不能区分，则使用第二个字段排序，依次类推
+
+
+7、limit  限制获得的记录数量
+语法：limit(limit offset, record_count);
+limit offset 指所选的第一个记录与表中第一条记录之间的偏移量
+如所要选择的第一条记录是原表中的第二条记录，则偏移量为1
+
+record_count指所要选择的总的记录数，如果该数大于表中余下的记录数，则将余下的记录全部显示
+limit offset可以省略，则默认为0
+
+
+
+
+
+mysql学习笔记——建表需满足的三大范式
+第一范式：
+字段的原子性，即表中所有列不可再分。
+如，一个表中有籍贯这个列，但是籍贯又可以分为省和市，所以不满足第一范式。
+
+
+第二范式：
+在满足第一范式的基础上，要求每一条记录必须能够唯一标识，
+同时，表中非主键字段不能对主键有部分函数依赖关系（主要针对组合主键来说），
+也就是说，表中的每一列都要与主键中的全部字段相关，而不是与主键中的部分字段相关
+
+
+第三范式：
+不能有传递依赖，即表中的每一列与主键之间相关，而不是间接相关
+
+
+
+mysql学习笔记——数据类型
+整数类型：
+浮点数类型和定点数类型：
+日期与时间类型:
+字符串类型：
+二进制类型：
+
+
+mysql学习笔记——workbench创建数据库/navcat
+
+
+
+
+
+
+MySql 数据库导入导出
+数据库导入(设导入文件为db.sql，路径：C：\db.sql，用户名:root 密码：root )：
+1、创建空数据库
+create database mydb;
+2、导入数据库文件
+在mysql内部时：
+source c:\db.sql;
+在cmd窗口时：
+mysql -uroot -p root mydb < c:\db.sql
+数据库导出（设待导出数据库为mydb,导出文件为db.sql，路径：C：\db.sql，用户名:root 密码：root ）：
+在cmd窗口下：
+mysqldump -u root -p root mydb>c:\db.sql
+
+
+MySql 关联查询
+1、内连接
+将两张表中相同意义字段连接起来，返回结果是两个表中都存在的信息：
+select * from TableA,TableB where TableA.字段c=TbaleB.字段c；
+select * from TableA inner join TableB on TableA.字段c=TableB.字段C
+
+TableA.字段c=TableB.字段c是一种过滤条件。
+
+2、左外连接
+用第一张表中的每一条记录去匹配第二张表对应的记录，不管能不能匹配到记录，查询结果都显示第一个表的所有内容
+select * from tableA left outer join tableB on tableA.字段c=tableB.字段c
+
+3、右外连接
+用第二张表中的每一条记录去匹配第一张表对应的记录，不管能不能匹配到记录，查询结果都显示第二个表的所有内容
+select * from tableA right outer join tableB on tableA.字段c=tableB.字段c
+
+4、全连接
+左外连接与右外连接并集
+select * from tableA left outer join tableB on tableA.字段c=tableB.字段c
+union 
+select * from tableA right outer join tableB on tableA.字段c=tableB.字段c
+
+5关联查询
+将第一个查询的结果作为第二个查询的条件。
+
+
+MySql delimiter
+MySql 中有一个命令是delimiter，作用是设置命令段的结束符号，
+即遇到这个所设置的结束符号后，按回车，则命令段就可以执行了，
+通常默认情况下，命令的结束符号是分号（;），但是在存储过程中，
+过程体内可能会包含分号（;），
+因此需要将命令结束符号替换成其他的字符，如$$、//等，
+存储过程创建完成后，可以将命令段的结束符号重新设为分号。
+
+语法：
+delimiter 命令段结束符
+
+
+
+MySql 存储过程一--基本语法及参数介绍
+创建：
+create procedure procedure_name ([parameter list])
+[characteristic ...]<br>begin
+routine_body<br>end
+
+procedure_name： 为存储过程名称；
+parameter list： 为参数列表，可以包含零个或多个参数，参数与参数之间逗号（,）分隔。
+                        每个参数的形式为：参数类型  参数名称  数据类型
+                        参数类型：in(输入参数) out(输出参数) inout(输入输出参数，调用时被指定，可以被修改和返回)
+
+characteristic：该项可选，表示存储过程特性，有如下取值：
+                     1）language sql: 存储过程由SQL语句组成，目前sql是language特性的唯一值；
+                     2）[not] deterministic: 表示结果是否为确定的值，即相同输入是否一定能得到相同输出，默认为not deterministic；
+                     3）contains sql（存储过程包含sql语句，但不包含读写数据的语句）| no sql（存储过程不包含sql语句）| reads sql data（存储过程包含读数据的语句）|modifies sql data（存储过程包含读写数据的语句）
+                     4）sql security {definer（只有定义者可以执行该存储过程）|invoker（拥有权限的调用者可以执行）} ，默认definer
+                     5）comment 'string'(注释，描述存储过程)
+
+routine_body: 程序体。
+delimiter #
+create procedure sum_app(in a int , in b int , out c int )
+langluge sql deterministic contains sql sql security invorker "加法运算"
+begin 
+set c =a+b
+end#
+
+
+
+
+调用：
+call procedure_name(parameter list);
+
+删除：
+drop procedure procedure_name;
+
+1、创建存储过程前，要先指定存储过程所属的数据库；
+2、查询某个数据库所包含的存储过程(设数据库名称为factory，包含一个名为sum_app的存储过程)：
+
+select name from mysql.proc where db="factory" and type ="procedurce";
+
+3、查询存储过程创建语句：
+show create prcedure sun_app;
+
+
+4、可以在一个存储过程中调用另一个存储过程，但是不能删除另一个存储过程。
+
+
+
+
+
+
+MySql存储过程二---变量
+
+变量声明：
+
+1 declare 变量名 数据类型 [default 默认值]；
+　declare 声明的是局部变量，作用域为存储过程的begin 和 end之间。
+  declare a int default  1;
+没有default字句时，默认为null;
+
+变量赋值：
+1、set语句：
+1 set 变量名 = 表达式；
+　set可以同时给多个变量赋值，各赋值子句之间用逗号分隔
+
+2、select 列名[,列名...] into 变量名[,变量名] from 表名  where  过滤条件；
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
