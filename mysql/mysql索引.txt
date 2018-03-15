@@ -1,0 +1,264 @@
+
+Index
+无索引查询数据，全表扫描，逐个比较
+
+索引：索引是一种特殊的数据结构，用来存储这个表的一小部分数据；
+这一小部分可以实现快速查询；
+索引是另外的数据；每个索引后都有一个指针，指向所在数据块的位置；
+如将索引完全装入内存中扫描速度更加快。
+索引是排序的；
+如果索引不能完全装入RAM中将使用临时表或存储空间这就意味这内存转换成I/O操作，这样性能极具下降；
+所以为了高性能查询必须保证索引完全装入RAM中
+
+推荐书籍：关系型数据库索引设计与优化
+
+索引不适应
+1，表数据量特别大；
+2表数据量特别小；
+
+索引的优点：
+1大大减少服务器需要扫描需要扫面的数据量；
+2索引可以帮助服务器避免排序或者使用临时表
+3索引可以将随机I/O转换顺序I/O
+
+索引的缺点
+1索引数据需要额外的存储
+2更新表中数据索引中也需要更新；
+3索引一定要与查找建完全匹配
+
+加速查找，降低写入性能；
+延迟索引修改，批量修改数据时，不会每次都修改索引，
+而是当所有数据更新完后，一批修改一次索引，
+这样对索引写性能有效降低；
+
+索引评估 （三星）
+一星：索引如果能将相关的记录放置在一起，降低I/O将随机转换为顺序；
+二星：索引你中数据的存储孙旭与查找标准中顺序一致，升序降序
+三星：如果索引中包含查询所需要的全部数据，（覆盖索引），投影
+
+
+索引类别 
+
+顺序索引:将随机I/O转换成顺序I/O
+散列索引:预先生产指定散列桶上，
+		 映射是都通过散列函数进行的，
+		 动态过程，
+		 根据使用情况自动缩容，扩容
+
+
+评估标准
+1访问类型：等值比较，散列索引，范围查找，顺序索引
+2访问时长：基于不同索引访问时长是不一样的；
+3插入时长，索引会影响数据插入，插入新行必须更新乡音的索引，散列简单，栓许需要移动后面数据
+4删除时长：同插入时长
+5空间开销：不同数据结构需要的空间不尽相同
+
+顺序索引：
+	按照记录文件中存储的次序与搜索码是否相同，聚合索引和非聚合索引
+	聚合索引：
+		如果记录文件中的记录顺序是按照对应的搜索码指定的顺序排序，
+		有聚集索引的数据文件，也叫索引顺序文件
+		聚集索引也成主索引（辅助索引）
+	非聚集索引：
+		搜索码中指定的次序与记录文件中的记录次序不一致；
+
+	根据索引是否为每个记录响应地创建索引项，稠密索引和稀疏索引
+	稠密索引：每个索引码值都有一个索引项，精确定位数据；
+	稀疏索引：仅与有限个项，只为搜索某些键值建立索引；更容易装入内存；
+	根据文件的存储文件格式分为：索引顺序文件和堆文件
+	索引顺序文件：数据本身按照索引顺序存放
+	堆文件：数据文件随机存放
+
+主索引之外的其他索引文件称为辅助索引
+只有主索引才能使用稀疏索引，其他必须是稠密；
+一般一个表只有一个主索引，辅助索引必须是稠密索引。
+
+多级索引：
+	索引指向索引知道最后才指向的是数据；最外层是根级别的；
+	级别多了，数据量就少更容易装入内存；
+B+树索引：
+	1Balance Tree:平衡树索引
+	2最开始称为根节点，数据所在的称为叶子节点
+	3每个叶子节点到根的距离是相同的，根据数据量自动扩容或收缩索引节点
+	4B+树索引是一种顺序索引
+	5一般最内层是稠密的其他都是稀疏的
+
+顺序索引的特性
+	1全值匹配：Name=user12
+	2匹配最左前缀，name like "user%" 无效name like ”%user1%“
+	3匹配列前缀：name like ”user%“ 无效 name like ”%user1%“
+	4匹配范围值
+	5精确匹配某一列并范围匹配另外一列
+	6只访问索引查询
+
+散列索引
+	散列函数
+		分布式随机
+		分布式均匀
+	使用场景
+		精确匹配：=，in(),<=>
+
+
+复合索引的使用场景
+两张表联合查询为何没有用上索引？
+一张叫teacherInfo,一张叫departmenInfo两张表有一个相同的字段，
+叫depnum，两张表都以这个字段建立了索引，
+可是我执行以下语句时，
+departmenInfo要进行全表扫描
+
+SELECT TA.* FROM teacherInfo TA,departmenInfo TB WHERE TA.depnum=TB.depnum
+如果把两个表的位置改改如下，又变成teacherInfo要全表扫描
+SELECT TA.* FROM departmenInfo TB，teacherInfo TA WHERE TA.depnum=TB.depnum
+
+其实就是放在后面的表总要进行全表扫描。
+一直想不明白明明两张表都有索引，为什么总有一张表是要进行全表扫描呢？ 
+原来是上面的语句没有筛选条件，TA.depnum=TB.depnum这个条件只是做了表的关联查询，
+并未提供筛选条件，如果再加一个条件”and depnum=’001’”等筛选条件，索引立即用上了。 
+
+
+
+
+
+
+联合索引使用
+
+
+索引说白了就是一段特殊的数据结构
+索引不仅仅只是好处
+你没写入一条数据，还需要在索引中插入
+这是mysql引擎的自动的
+写入数据，就会插入到索引当中
+对，RDBMS自动维护
+
+索引里面保留的都是 原始记录的指针
+索引中的数据一般都是排序过的 
+通过特定算法查询几次就可以找到数据
+
+
+单一索引是指索引列为一列的情况,即新建索引的语句只实施在一列上;   
+用户可以在多个列上建立索引,这种索引叫做复合索引(组合索引); 
+复合索引在数据库操作期间所需的开销更小,可以代替多个单一索引;  
+
+
+   同时有两个概念叫做窄索引和宽索引,
+   窄索引是指索引列为1-2列的索引,
+   宽索引也就是索引列超过2列的索引;     
+   设计索引的一个重要原则就是能用窄索引不用宽索引,
+   因为窄索引往往比组合索引更有效;
+
+
+复合索引
+create index index1 on table1(col1,col2,col3)
+查询
+select * from table1 where col1=A and col2=B and col3=C;
+这时候查询优化器,不在扫描表了,
+而是直接的从索引中拿数据,因为索引中有这些数据,
+这叫覆盖式查询,这样的查询速度非常快; 
+
+注意事项
+1、对于复合索引,在查询使用时,最好将条件顺序按找索引的顺序,这样效率最高
+select * from table1 where col1=A AND col2=B AND col3=D 
+如果使用 where col2=B AND col1=A 或者 where col2=B 将不会使用索引
+
+2、何时是用复合索引 根据where条件建索引是极其重要的一个原则;
+   注意不要过多用索引,否则对表更新的效率有很大的影响,
+   因为在操作表的时候要化大量时间花在创建索引中
+
+3、复合索引会替代单一索引么     
+   如果索引满足窄索引的情况下可以建立复合索引,
+   这样可以节约空间和时间
+  
+对一张表来说,如果有一个复合索引 on   (col1,col2),
+就没有必要同时建立一个单索引 on col1;    
+如果查询条件需要,可以在已有单索引 on col1的情况下,添加复合索引on (col1,col2),
+对于效率有一定的提高   同时建立多字段(包含5、6个字段)的复合索引没有特别多的好处,
+相对而言,建立多个窄字段(仅包含一个,或顶多2个字段)的索引可以达到更好的效率和灵活性
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql建表建索引
+
+
+CREATE TABLE `sj_projects` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`title` varchar(255) NOT NULL DEFAULT '' COMMENT '项目名称',
+`platform_id` int(11) NOT NULL DEFAULT '0' COMMENT '平台id',
+`unique_id` varchar(255) NOT NULL DEFAULT '' COMMENT '项目和数据的唯一id',
+`repayway` varchar(255) NOT NULL DEFAULT '' COMMENT '还款方式',
+`profit` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT '年化收益',
+`speed` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT '进度',
+`frequency` int(11) NOT NULL DEFAULT '0' COMMENT '投资人次',
+`amount` decimal(20,2) NOT NULL DEFAULT '0.00' COMMENT '融资金额',
+`res_amount` decimal(20,2) NOT NULL DEFAULT '0.00' COMMENT '剩余可投金额',
+`invtime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '项目投资起始时间',
+`endtime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '项目投资结束时间',
+`turntime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '项目还款时间(客户收款时间)',
+`term` varchar(50) NOT NULL DEFAULT '' COMMENT '期限',
+`type` int(11) NOT NULL DEFAULT '0',
+`PageUrl` text COMMENT '注意大小写PageUrl',
+`insert_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+`orderby_id` int(11) NOT NULL DEFAULT '1' COMMENT '排序',
+`status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 0为关闭，1为开启',
+PRIMARY KEY (`id`),
+KEY `unique_id` (`unique_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2383 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='项目表';
+
+
+创建唯一索引
+UNIQUE KEY "unique_id" ("unique_id") USING BTREE
+
+也可以这样唯一索引
+unique_id varchar(255) UNIQUE NOT NULL DEFAULT "COMMENT"项目的唯一id
+
+
+
+查询索引 
+查询表的所有索引
+show index from sj_projects;
+show create table sj_projects;
+
+添加索引  索引名称 索引字段
+alter table "sj_projects" add UNIQUE 'unique_id'('unique_id');--唯一索引
+alter table "sj_projects" add INDEX "unique_id" ('unique_id');--普通索引
+alter table "sj_projects" add INDEX "uniqueId" ('unique_id');--普通索引可以修改名字
+
+删除索引
+alter table "sj_projects" Drop INDEX "unique_id";
+
+删除自增id索引
+需要将id键的自动增长取消
+alter table "sj_projects" Modify 'id' int(10) not null comment 'id'
+再次执行
+alter table 'sj_projects' dorp primary key;
+
+复合索引查询
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
