@@ -1,0 +1,49 @@
+ 
+
+
+ Android Studio-> Settings->Subversion-> Uncheck "Use command-line client" worked for me! 
+
+
+
+ C:\Users\has\.AndroidStudio2.1\system\log
+
+
+
+
+导入工程
+导入模块
+安卓工程
+
+.idea
+
+引入项目的模块
+settings.gradle
+include ':slidinglibrary', ':PushSDK'
+include ':ExpandTextViewLibrary'
+include ':ptr-lib'
+include ':project-3-pad-v'
+include ':projet-3-phone-v'
+include ':ijkplayer-java',':ijkplayer-exo'
+
+
+android studio 3.1
+
+删除三个文件
+.gradle
+.android
+.AndroidStudio2.1
+android studio的安装目录
+重启服务器
+重新安装android studio
+
+
+安装完AS需要新建一个工程，会编译你需要的东西，下一次就不用编译了
+
+导入工程和导入模块的区别
+
+
+gradle目录 下载，主要看这段乱码
+8bnwg5hd3w55iofp58khbp6yv
+C:\Users\has\.gradle\wrapper\dists\gradle-2.14.1-all\8bnwg5hd3w55iofp58khbp6yv
+
+
