@@ -1,5 +1,6 @@
- 
 
+android studio社区
+http://www.android-studio.org/
 
  Android Studio-> Settings->Subversion-> Uncheck "Use command-line client" worked for me! 
 
