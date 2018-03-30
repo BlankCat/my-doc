@@ -1,0 +1,84 @@
+ 
+
+
+https://my.oschina.net/xesam/blog/135333
+http://developer.android.com/reference/android/os/Bundle.html
+
+
+
+Android 中 meta-data 用在 AndroidManifest.xm
+它本身就是一个键值对（Bundle），
+可以自定义名称和值（value或resource）
+metadata是一组供父组件使用的名值对（name-value pair）
+
+
+它可以包含在以下6个组件中：
+<application>
+<activity>
+<activity-alias>
+<provider>
+<receiver>
+<service>
+
+
+
+资源ID由resource属性给出。
+比如我们定义资源
+<string name="x_key">resource key</string>
+//R
+public static final int ic_launcher=0x7f020000;
+
+
+定义metadata
+<meta-data
+    android:name="com.xesam.key_1"
+    android:value="x_key" />
+<meta-data
+    android:name="com.xesam.key_2"
+    android:value="@string/x_key" />
+<meta-data
+    android:name="com.xesam.img"
+    android:resource="@drawable/ic_launcher" />
+
+metadata.getString("com.xesam.key_1") ==> "x_key"
+metadata.getString("com.xesam.key_2") ==> "resource key"
+metadata.getInt("com.xesam.img")      ==> 0x7f020000
+
+
+
+int imageId = meta.getInt("com.xesam.img");
+((ImageView) findViewById(R.id.img)).setImageResource(imageId);
+
+
+示例代码
+//在Activity应用<meta-data>元素。
+    ActivityInfo info = this.getPackageManager()
+            .getActivityInfo(getComponentName(),PackageManager.GET_META_DATA);
+    info.metaData.getString("meta_name");
+
+    //在application应用<meta-data>元素。
+    ApplicationInfo appInfo = this.getPackageManager()
+            .getApplicationInfo(getPackageName(),PackageManager.GET_META_DATA);
+    appInfo.metaData.getString("meta_name");
+
+    //在service应用<meta-data>元素。
+    ComponentName cn = new ComponentName(this, MetaDataService.class);
+    ServiceInfo info = this.getPackageManager().getServiceInfo(cn, PackageManager.GET_META_DATA);
+    info.metaData.getString("meta_name");
+
+    //在receiver应用<meta-data>元素。
+    ComponentName cn = new ComponentName(context, MetaDataReceiver.class);
+    ActivityInfo info = context.getPackageManager().getReceiverInfo(cn, PackageManager.GET_META_DATA);
+    info.metaData.getString("meta_name");
+
+
+
+
+strings和meta-data看起来似乎并没有什么太大区别，
+但实际上有作用域的问题，strings只能在应用本地被读取，
+而处于AndroidManifests.xml下的meta-data则是对外界开放的，
+是向系统注册的信息，
+系统及外界是可以通过PackageInfo相关API获取到meta-data的信息的，
+二者关系可以形象一点看待是私有和公有的关系
+
+

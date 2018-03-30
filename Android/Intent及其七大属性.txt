@@ -1,0 +1,903 @@
+
+Intent及其七大属性
+
+Intent以及IntentFilter详解
+Android中有四大组件，这些组件中有三个组件与Intent相关
+startActivity方法
+onActivityResult()方法去启动Activity
+startService()方法来启动一个Service来启动服务。
+sendBroadcast()、sendOrderedBroadcast() 或 sendStickyBroadcast()方法，
+
+
+3. Intent类型
+显式Intent
+Intent intent = new Intent(context，XXActivity.class);
+startActivity(intent);
+
+隐式Intent
+Intent intent = new Intent(Intent.ACTION_DIAL);
+Uri data = Uri.parse("tel:" + "135xxxxxxxx");
+intent.setData(data);
+startActivity(intent);
+
+4. Intent的属性
+Intent及其七大属性及intent-filter设置
+ComponentName、  Action 、 Category 、 Data  、Type、  Extra  、Flags。
+
+========================================================================
+https://blog.csdn.net/elevendgq/article/details/51436608
+
+一、知识点回顾：Activity
+（一）、如何实现Activity页面跳转？
+	示例代码：
+	//第一种方式：
+	Intent intent = new Intent(MainActivity.this,NextActivity.class);
+	        startActivity(intent);
+
+	//第二种方式：
+	Intent intent = new Intent();
+	 intent.setClass(MainActivity.this, NextActivity.class);
+	startActivity(intent);
+	//其实还有很多种Intent实现页面跳转的写法。
+
+
+二、Intent对象介绍：
+（一）、Intent基本介绍：
+	1、Intent 用于封装程序的”调用意图“。
+	两个Activity之间，可以把需要交换的数据封装成Bundle对象，
+	然后使用Intent携带Bundle对象，
+	实现两个Activity之间的数据交换；
+
+	2、Intent还是各种应用程序组件之间通信的重要媒介。
+	不管想启动一个Acitivity、Service还是BroadcastReceiver，
+	Android均使用统一的Intent对象来封装这种”启动意图“。
+	很明显使用Intent提供了一致的编程模型；
+
+	3、Intent还有一个好处，如果应用程序只是想启动具有某种特征的组件，
+	并不想和某个具体的组件耦合，
+	则可以通过在intent-filter中配置相应的属性进行处理，
+	与stucts2中的MVC框架思路类似。
+
+	4、Intent对象大致包括7大属性：
+	ComponentName、  Action 、 Category 、 Data  、Type、  Extra  、Flag。
+
+
+
+（二）、Intent启动不同组件的方法：
+	1、启动Activity：
+	startActivity()
+	startActivtyForResult()
+
+	2、启动Service：【后面详细讲】
+	ComponetName   startService()
+	boolean    bindService()
+
+	3、启动BroadcastReceiver：【后面详细讲】
+	sendBroadcast()
+	sendOrderedBroadcast ()
+	sendStickyBroadcast()
+	sendStickyOrderedBroadcast()
+
+
+三、Intent的七大属性：【重要】
+	Intent对象大致包括7大属性：
+	ComponentName、  Action 、 Category 、 Data  、Type、  Extra  、Flags。
+
+	Action作为标识符，代表一个Intent，
+	当一个Activity需要外部协助处理时，
+	就会发出一个Intent，如果一个程序能完成相应功能，
+	只要在intent-filter加上这个这个intent就可以了。
+
+	Data保存需要传递的数据格式，比如：tel://
+
+	Extras保存需要传递的额外数据。
+
+	Category表示Intent的种类，从android上启动Activity有多种方式，
+	比如 程序列表、桌面图标、点击Home激活的桌面等等，
+	Category则用来标识这些Activity的图标会出现在哪些启动的上下文环境里。
+
+
+
+（一）、ComponentName属性：
+	1、指定了ComponentName属性的Intent已经明确了它将要启动哪个组件，
+	因此这种Intent被称为显式Intent，
+	没有指定ComponentName属性的Intent被称为隐式Intent。
+	隐式Intent没有明确要启动哪个组件，
+	应用会根据Intent指定的规则去启动符合条件的组件。
+
+	2、示例代码：
+	Intent intent = new Intent();
+	ComponentName cName = new ComponentName(MainActivity.this,NextActivity.class);
+	intent.setComponent(cName);
+	startActivity(intent);
+	//实际上，以上的写法都被简化为以下写法：
+	Intent intent = new Intent(MainActivity.this,NextActivity.class);
+	        startActivity(intent);
+	//也就是说，平时我们最常用的Intent页面跳转的写法就调用的是显式Intent。
+
+
+	此外，ComponentName属性可以实现一个app跳转到另一个app。
+	Intent intent = new Intent();
+	ComponentName cName = new ComponentName(
+	"com.steven.testasyncloader.sqlitedata","com.steven.testasyncloader.sqlitedata.MainActivity");
+	//其中两个参数的含义：第一个是要跳转到的app的包名，第二个参数是该包中的要跳转到app的页面的class
+	intent.setComponent(cName);
+	startActivity(intent);
+
+
+
+（二）、Action、Category属性与intent-filter配置：
+        通常，Action、Category属性结合使用，
+        定义这两个属性都是在配置文件的<intent-filter>节点中。
+
+        Intent通过定义Action属性（其实就是一段自定义的字符串），
+        这样就可以把Intent与具体的某个Activity分离，实现了解耦。
+        否则，每次跳转，都要写成类似new Intent(MainActivity.this,NextActivity.class)这样的形式，
+        也就是说必须将要跳转的目标Activity的名字写出来，这样的编码其实是“硬编码”，
+        并没有实现松耦合。
+
+        调用Intent对象的setAction()方法实现页面跳转虽然略微复杂
+        （需要在AndroidManifest.xml文件中配置），
+        但是实现了解耦。
+
+
+
+		1、示例代码：
+		Intent intent = new Intent(); 
+		intent.setAction("com.steven.android06lifecycle.nextactivity"); 
+		startActivity(intent);
+
+		//在配置文件中注册Activity的时候需要声明：
+		<activity android:name="com.steven.android06lifecycle.NextActivity">
+		<intent-filter>
+		<action android:name="com.steven.android06lifecycle.nextactivity" />
+		<category android:name="android.intent.category.DEFAULT" />   
+		</intent-filter>
+		</activity>
+
+		//当某个页面是默认启动页面时，需要定义Action、Category的属性必须为以下字符串：【设置任务入口】
+		            <intent-filter>
+		                <action android:name="android.intent.action.MAIN" />
+		                <category android:name="android.intent.category.LAUNCHER" />
+		            </intent-filter>
+
+
+
+2、常用Action属性常量：
+  Intent对象不仅可以启动本应用内的程序组件，
+  也可以启动Android系统的其他应用的组件，
+  包括系统内置的程序组件（需要设置权限）。
+
+  ACTION_MAIN：（android.intent.action.MAIN）Android程序入口。
+  每个Android应用必须且只能包含一个此类型的Action声明。
+ 【如果设置多个，则哪个在前，执行哪个。】
+
+  ACTION_VIEW： （android.intent.action.VIEW） 显示指定数据。
+  ACTION_EDIT： （android.intent.action.EDIT） 编辑指定数据。
+  ACTION_DIAL： （android.intent.action.DIAL） 显示拨号面板。
+  ACTION_CALL： （android.intent.action.CALL） 直接呼叫Data中所带的号码。
+  ACTION_ANSWER： （android.intent.action.ANSWER） 接听来电。
+  ACTION_SEND： （android.intent.action.SEND） 向其他人发送数据（例如：彩信/email）。
+  ACTION_SENDTO：  （android.intent.action.SENDTO） 向其他人发送短信。
+  ACTION_SEARCH： （android.intent.action.SEARCH） 执行搜索。
+  ACTION_GET_CONTENT： （android.intent.action.GET_CONTENT） 让用户选择数据，并返回所选数据。
+
+
+（三）、Category 属性：
+  Category属性为Action增加额外的附加类别信息。
+  CATEGORY_LAUNCHER意味着在加载程序的时候Acticity出现在最上面，
+  而CATEGORY_HOME表示页面跳转到HOME界面。
+
+	1、实现页面跳转到HOME界面的代码：【记忆】
+	Intent intent = new Intent(); 
+	intent.setAction(Intent.ACTION_MAIN); 
+	intent.addCategory(Intent.CATEGOTY_HOME); 
+	startActivity(intent); 
+
+
+2、常用Category属性常量：
+  CATEGORY_DEFAULT： （android.intent.category.DEFAULT） 
+  					Android系统中默认的执行方式，按照普通Activity的执行方式执行。
+  CATEGORY_HOME： （android.intent.category.HOME） 设置该组件为Home Activity。
+  CATEGORY_PREFERENCE： （android.intent.category.PREFERENCE） 设置该组件为Preference。
+  CATEGORY_LAUNCHER： （android.intent.category.LAUNCHER） 
+  					设置该组件为在当前应用程序启动器中优先级最高的Activity，
+  					通常与入口ACTION_MAIN配合使用。
+  CATEGORY_BROWSABLE： （android.intent.category.BROWSABLE） 设置该组件可以使用浏览器启动。
+
+
+（四）、Data属性：
+  1、Data属性通常用于向Action属性提供操作的数据。
+  	 Data属性的值是个Uri对象。
+        Uri的格式如下：scheme://host:port/path
+
+  2、系统内置的几个Data属性常量：
+	  tel://：号码数据格式，后跟电话号码。
+	  mailto://：邮件数据格式，后跟邮件收件人地址。
+	  smsto://：短息数据格式，后跟短信接收号码。
+	  content://：内容数据格式，后跟需要读取的内容。
+	  file://：文件数据格式，后跟文件路径。
+	  market://search?q=pname:pkgname：市场数据格式，
+	  			在Google Market里搜索包名为pkgname的应用。
+	  geo://latitude, longitude：经纬数据格式，
+	  			在地图上显示经纬度所指定的位置。
+
+ 3、Intent利用Action属性和Data属性启动Android系统内置组件的代码：
+ 【不需要记忆，用到的时候查找资料】
+（一）、拨打电话：
+	Intent intent=new Intent(); 
+	intent.setAction(Intent.ACTION_CALL);  
+	//intent.setAction("android.intent.action.CALL");  //以下各项皆如此，都有两种写法。
+	intent.setData(Uri.parse("tel:1320010001"));
+	startActivity(intent);
+
+//调用拨号面板：
+	Intent intent=new Intent();
+	intent.setAction(Intent.ACTION_DIAL); 
+	intent.setData(Uri.parse("tel:1320010001"));
+	startActivity(intent); 
+
+//调用拨号面板：
+	Intent intent=new Intent();
+	intent.setAction(Intent.ACTION_VIEW); 
+	intent.setData(Uri.parse("tel:1320010001"));
+	startActivity(intent); 
+
+（二）、利用Uri打开浏览器、打开地图等：
+	Uri uri = Uri.parse("http://www.google.com"); //浏览器 
+	Uri uri=Uri.parse("geo:39.899533,116.036476"); //打开地图定位 
+	Intent intent = new Intent(); 
+	intent.setAction(Intent.ACTION_VIEW);
+	intent.setData(uri);
+	startActivity(intent); 
+
+
+
+（五）、Type属性：
+    1、Type属性用于指定Data所指定的Uri对应的MIME类型。
+    	MIME只要符合“abc/xyz”这样的字符串格式即可。
+
+  	2、 Intent利用Action、Data和Type属性启动Android系统内置组件的代码：
+	（三）、播放视频：
+	Intent intent = new Intent(); 
+	Uri uri = Uri.parse("file:///sdcard/media.mp4"); 
+	intent.setAction(Intent.ACTION_VIEW);
+	intent.setDataAndType(uri, "video/*"); 
+	startActivity(intent);
+
+
+
+（六）、Extra属性：
+    1、通过intent.putExtra(键, 值)的形式在多个Activity之间进行数据交换。 
+
+    2、系统内置的几个Extra常量：
+		  EXTRA_BCC：存放邮件密送人地址的字符串数组。
+		  EXTRA_CC：存放邮件抄送人地址的字符串数组。
+		  EXTRA_EMAIL：存放邮件地址的字符串数组。
+		  EXTRA_SUBJECT：存放邮件主题字符串。
+		  EXTRA_TEXT：存放邮件内容。
+		  EXTRA_KEY_EVENT：以KeyEvent对象方式存放触发Intent的按键。
+		  EXTRA_PHONE_NUMBER：存放调用ACTION_CALL时的电话号码。
+
+    3、 Intent利用Action、Data和Type、Extra属性启动Android系统内置组件的代码：
+
+		（四）、调用发送短信的程序 
+			Intent  intent  = new Intent();
+			intent.setAction(Intent.ACTION_VIEW);
+			intent.setType("vnd.android-dir/mms-sms"); 
+			intent.putExtra("sms_body", "信息内容..."); 
+			startActivity(intent);
+
+		//发送短信息 
+			Uri uri = Uri.parse("smsto:13200100001"); 
+			Intent  intent  = new Intent(); 
+			intent.setAction(Intent.  ACTION_SENDTO );
+			intent.setData(uri);
+			intent.putExtra("sms_body", "信息内容..."); 
+			startActivity( intent ); 
+
+		//发送彩信,设备会提示选择合适的程序发送 
+			Uri uri = Uri.parse("content://media/external/images/media/23"); //设备中的资源（图像或其他资源） 
+			Intent intent = new Intent(); 
+			intent.setAction(Intent.  ACTION_SEND );
+			intent.setType("image/png"); 
+			intent.putExtra("sms_body", "内容"); 
+			intent.putExtra(Intent.EXTRA_STREAM, uri); 
+			startActivity(it);
+
+		（五）、发送Email：
+			Intent intent=new Intent(); 
+			intent.setAction(Intent.  ACTION_SEND );
+			String[] tos={"android1@163.com"}; 
+			String[] ccs={"you@yahoo.com"}; 
+			intent.putExtra(Intent.EXTRA_EMAIL, tos); 
+			intent.putExtra(Intent.EXTRA_CC, ccs);
+			intent.putExtra(Intent.EXTRA_TEXT, "The email body text"); 
+			intent.putExtra(Intent.EXTRA_SUBJECT, "The email subject text"); 
+			intent.setType("message/rfc822"); 
+			startActivity(Intent.createChooser(intent, "Choose Email Client"));
+
+
+		    Intent intent = new Intent(Intent.ACTION_SEND);
+		    String[] tos = { "mobileservice@ablesky.com" };
+		    intent.putExtra(Intent.EXTRA_EMAIL, tos);
+		    intent.putExtra(Intent.EXTRA_TEXT, getPhoneParameter());
+		    intent.putExtra(Intent.EXTRA_SUBJECT, "Android日志");
+		    intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(cacheDir));
+		    intent.setType("message/rfc882");
+		    intent.setType("plain/text");
+		    Intent.createChooser(intent, "请选择邮件发送软件");
+		    startActivity(intent);  
+
+
+			intent.setAction(android.provider.Settings.ACTION_SETTINGS);
+
+
+ 4、 Intent利用Action属性中的ACTION_GET_CONTENT获取返回值：
+			//选择图片 requestCode 返回的标识
+			Intent intent = new Intent(); 
+			intent.setAction(Intent. ACTION_GET_CONTENT );
+			intent.setType( "image/*" ); 
+			Intent wrapperIntent = Intent.createChooser(intent, null);
+			startActivityForResult(wrapperIntent, requestCode);  
+
+
+			//添加音频
+			Intent intent = new Intent();
+			intent.setAction(Intent. ACTION_GET_CONTENT );
+			intent.setType( "video/*" ); 
+			Intent wrapperIntent = Intent.createChooser(intent, null);
+			startActivityForResult(wrapperIntent, requestCode);  
+
+
+			//视频
+			Intent intent = new Intent();
+			intent.setAction(Intent. ACTION_GET_CONTENT );
+			intent.setType( "video/*" ); 
+			Intent wrapperIntent = Intent.createChooser(intent, null);
+			startActivityForResult(wrapperIntent, requestCode);  
+
+
+			//录音
+			Intent intent = new Intent();
+			intent.setAction(Intent. ACTION_GET_CONTENT );
+			intent.setType( "audio/amr" ); 
+			intent.setClassName("com.android.soundrecorder","com.android.soundrecorder.SoundRecorder");
+			startActivityForResult(intent, requestCode);  
+
+
+
+（七）、Flags属性：Intent可调用addFlags()方法来为Intent添加控制标记。【重要】
+
+    1、FLAG_ACTIVITY_CLEAR_TOP:（效果同Activity  LaunchMode的singleTask）
+        如果在栈中已经有该Activity的实例，就重用该实例。
+        重用时，会让该实例回到栈顶，
+        因此在它上面的实例将会被移除栈。
+        如果栈中不存在该实例，
+        将会创建新的实例放入栈中。 
+
+    2、FLAG_ACTIVITY_SINGLE_TOP:（效果同Activity  LaunchMode的singleTop）
+        如果在任务的栈顶正好存在该Activity的实例， 
+        就重用该实例，而不会创建新的Activity对象。
+  
+    3、FLAG_ACTIVITY_NEW_TASK: （效果类似Activity  LaunchMode的singleInstance）
+
+	【备注：】以下几个为了解。
+	    4、FLAG_ACTIVITY_MULTIPLE_TASK:
+	    5、FLAG_ACTIVITY_BROUGHT_TO_FRONT:
+	    6、FLAG_ACTIVITY_RESET_TASK_IF_NEEDED:
+
+
+	示例代码：
+	Intent intent = new Intent(this, MainActivity.class); 
+	//将Activity栈中处于MainActivity主页面之上的Activity都弹出。 
+	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+	startActivity(intent);
+
+
+
+【备注：】【重点，需要认真理解】
+	例如：
+	如果依次启动了四个Activity：A、B、C、D。
+	在D Activity里，跳到B Activity，
+	同时希望D 和 C 都finish掉，
+	可以在startActivity(intent)里的intent里添加flags标记，
+
+	如下所示：
+	Intent intent = new Intent(this, B.class);   
+	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
+	startActivity(intent);
+
+	这样启动B Activity的同时，就会把D、C都finished掉。
+	如果B Activity的launchMode是默认的“standard”，
+	则B Activity会首先finished掉旧的B页面，
+	再启动一个新的Activity B。 
+	如果不想重新再创建一个新的B Activity，而是重用之前的B Activity，
+	可以将B Activity的launchMode设置为“singleTask”。
+   【特别需要注意的是：在部分手机中，如三星手机。即便是singleTask也会产生新的页面，而不是重用之前的页面。】
+
+
+
+四、Activity的launchMode【知识点回顾】：
+	1、standard: （备注：standard是系统默认的启动模式。）
+       标准启动模式，每次激活Activity时都会创建Activity，并放入任务栈中。
+        
+      如果启动此Activity的Intent中没有设置FLAG_ACTIVITY_NEW_TASK标志,
+      则这个Activity与启动他的Activity在同一个Task中,
+
+      如果设置了Activity请参考上面FLAG_ACTIVITY_NEW_TASK的详细说明,
+      "launchMode"设置为"standard"的Activity可以被实例化多次, 
+      可以在Task中的任何位置, 对于一个新的Intent请求就会实例化一次.
+
+       ****
+       标准的act，进栈，出栈
+
+
+
+  	2、singleTop: 
+       如果在任务的栈顶正好存在该Activity的实例， 就重用该实例，而不会创建新的Activity对象，
+       不过它会调用onNewIntent()方法。
+
+       如果栈顶部不存在就会创建新的实例并放入栈顶
+       (即使栈中已经存在该Activity实例，只要不在栈顶，都会创建实例)。
+
+       如果启动此Activity的Intent中没有设置FLAG_ACTIVITY_NEW_TASK标志,
+       则这个Activity与启动他的Activity在同一个Task中,
+
+       如果设置了Activity请参考上面FLAG_ACTIVITY_NEW_TASK的详细说明,
+       "launchMode"设置为"singleTop"的Activity可以被实例化多次,  
+       可以在Task中的任何位置, 
+
+       对于一个新的Intent请求如果在Task栈顶, 则会用栈顶的Activity响影Intent请求,
+       而不会重新实例化对象接收请求, 如果没有在栈顶, 则会实例化一个新的对象接收Intent请求.
+
+        ****
+       栈顶有当前的act就会重用当前act ，调用onNewIntent，没有就会创建
+
+
+ 	3、singleTask: 
+        如果在栈中已经有该Activity的实例，就重用该实例(会调用实例的onNewIntent())。
+        重用时，会让该实例回到栈顶，因此在它上面的实例将会被移除栈。
+        如果栈中不存在该实例，将会创建新的实例放入栈中。 
+
+        和singleTop在名字上即可看出区别，
+        即singleTop每次只检测当前栈顶的Activity是否是我们需要请求创建的，
+
+        而singleTask则会检测栈中全部的Activity对象，从上向下，
+        如果检测到是我们所请求的则会消灭此Activity对象上面的对象，
+        直接把检测到的我们需要的Activity置为栈顶。
+        
+        "launchMode"设置为"singleTask"的Activity总是在栈底, 
+        只能被实例化一次, 它允许其它Activity压入"singleTask"的Activity所在的Task栈,
+        如果有新的Intent请求有此标志的Activity, 
+        则系统会清除有此标志的Task栈中的全部Activity,
+        并把此Activity显示出来.
+
+        ****
+        查询栈里面的act，把上面的act清除
+
+
+
+ 	4、singleInstance: 
+       在一个新栈中创建该Activity实例，并让多个应用共享该Activity实例。
+       一旦这种模式的Activity实例存在于某个栈中，
+       任何应用再激活这个Activity时都会重用该栈中的实例，
+       其效果相当于多个应用程序共享一个应用，
+       不管谁激活该Activity都会进入同一个应用中。
+       此启动模式和我们使用的浏览器工作原理类似，
+       在多个程序中访问浏览器时，如果当前浏览器没有打开，则打开浏览器，
+       否则会在当前打开的浏览器中访问。
+       此模式会节省大量的系统资源，
+       因为他能保证要请求的Activity对象在当前的栈中只存在一个。
+
+       "launchMode"设置为"singleInstance"的Activity总是在栈底, 
+       只能被实例化一次, 不允许其它的Activity压入"singleInstance"的Activity所在Task栈,  
+       即整个Task栈中只能有这么一个Activity.
+
+       ****
+       在一个新的task创建一个act
+
+
+五、利用Intent属性调用系统app的示例代码：
+1、布局核心代码：
+<ScrollView
+
+        android:id="@+id/scrollView1"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content">
+
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+
+            android:orientation="vertical">
+
+            <Button
+
+        android:id="@+id/button_main_call"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:onClick="clickButton"
+
+        android:text="直接拨号"/>
+
+
+    <Button
+
+        android:id="@+id/button_main_dial"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:onClick="clickButton"
+
+        android:text="启动拨号面板"/>
+
+
+    <Button
+
+        android:id="@+id/button_main_dialer"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:onClick="clickButton"
+
+        android:text="显示拨号面板"/>
+
+
+    <Button
+
+        android:id="@+id/button_main_sms"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:onClick="clickButton"
+
+        android:text="发送短信"/>
+
+
+    <Button
+
+        android:id="@+id/button_main_setting"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:onClick="clickButton"
+
+        android:text="系统设置"/>
+
+<Button
+
+        android:id="@+id/button_main_datesetting"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:onClick="clickButton"
+
+        android:text="日期设置"/>
+
+<Button
+
+        android:id="@+id/button_main_soundsetting"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:onClick="clickButton"
+
+        android:text="声音设置"/>
+
+<Button
+
+        android:id="@+id/button_main_wifisetting"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:onClick="clickButton"
+
+        android:text="WIFI设置"/>
+
+    <Button
+
+        android:id="@+id/button_main_web"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:onClick="clickButton"
+
+        android:text="浏览网页"/>
+
+    <Button
+
+        android:id="@+id/button_main_contacts"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:onClick="clickButton"
+
+        android:text="查看联系人"/>
+
+<Button
+
+        android:id="@+id/button_main_showimage"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:onClick="clickButton"
+
+        android:text="查看图片"/>
+
+<Button
+
+        android:id="@+id/button_main_showtext"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:onClick="clickButton"
+
+        android:text="查看文本"/>
+
+<Button
+
+        android:id="@+id/button_main_playvideo"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:onClick="clickButton"
+
+        android:text="播放视频"/>
+
+    <Button
+
+        android:id="@+id/button_main_playaudio"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:onClick="clickButton"
+
+        android:text="播放音频"/>
+
+<Button
+
+        android:id="@+id/button_main_home"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:onClick="clickButton"
+
+        android:text="HOME"/>
+
+     
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+  2、java核心代码：
+    
+publicclass MainActivity extends Activity {
+
+
+
+@Override
+
+protectedvoid onCreate(Bundle savedInstanceState) {
+
+super.onCreate(savedInstanceState);
+
+setContentView(R.layout.activity_main);
+
+}
+
+
+
+publicvoid clickButton(View view) {
+
+Intent intent = new Intent();
+
+intent.setAction(android.content.Intent.ACTION_VIEW);
+
+
+
+switch (view.getId()) {
+
+case R.id.button_main_call:
+
+intent.setAction(Intent.ACTION_CALL);
+
+intent.setData(Uri.parse("tel:10086"));
+
+break;
+
+case R.id.button_main_dial:
+
+intent.setAction(Intent.ACTION_DIAL);
+
+intent.setData(Uri.parse("tel:10086"));
+
+break;
+
+case R.id.button_main_dialer:
+
+intent.setAction("com.android.phone.action.TOUCH_DIALER");
+
+break;
+
+case R.id.button_main_sms:
+
+intent.setAction(Intent.ACTION_SENDTO);
+
+intent.setData(Uri.parse("smsto:10086"));
+
+intent.putExtra("sms_body", "该吃饭了，下课吧！");
+
+break;
+
+case R.id.button_main_setting:
+
+intent.setAction("android.settings.SETTINGS");
+
+break;
+
+case R.id.button_main_datesetting:
+
+intent.setAction("android.settings.DATE_SETTINGS");
+
+break;
+
+case R.id.button_main_soundsetting:
+
+intent.setAction("android.settings.SOUND_SETTINGS");
+
+break;
+
+case R.id.button_main_wifisetting:
+
+intent.setAction("android.settings.WIFI_SETTINGS");
+
+break;
+
+case R.id.button_main_contacts:
+
+intent.setAction("com.android.contacts.action.LIST_CONTACTS");
+
+break;
+
+case R.id.button_main_web:
+
+intent.setAction(android.content.Intent.ACTION_VIEW);
+
+intent.setData(Uri.parse("http://www.baidu.com"));
+
+break;
+
+case R.id.button_main_showimage:
+
+intent.setAction(android.content.Intent.ACTION_VIEW);
+
+intent.setDataAndType(
+
+Uri.fromFile(new File("mnt/sdcard/Download/landscape.jpg")),
+
+"image/*");
+
+break;
+
+case R.id.button_main_showtext:
+
+intent.setAction(android.content.Intent.ACTION_VIEW);
+
+intent.setDataAndType(
+
+Uri.fromFile(new File("mnt/sdcard/Download/info.txt")),
+
+"text/*");
+
+break;
+
+case R.id.button_main_playaudio:
+
+intent.setAction(android.content.Intent.ACTION_VIEW);
+
+intent.setDataAndType(Uri.fromFile(new File(
+
+"mnt/sdcard/Download/heavencity.mp3")), "audio/*");
+
+break;
+
+case R.id.button_main_playvideo:
+
+intent.setAction(android.content.Intent.ACTION_VIEW);
+
+intent.setDataAndType(
+
+Uri.fromFile(new File("mnt/sdcard/Download/girl.3gp")),
+
+"video/*");
+
+break;
+
+case R.id.button_main_home:
+
+intent.setAction("android.intent.action.MAIN");
+
+intent.addCategory("android.intent.category.HOME");
+
+break;
+
+default:
+
+break;
+
+}
+
+startActivity(intent);
+
+}
+
+
+
+@Override
+
+publicboolean onCreateOptionsMenu(Menu menu) {
+
+// Inflate the menu; this adds items to the action bar if it is present.
+
+getMenuInflater().inflate(R.menu.main, menu);
+
+returntrue;
+
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
