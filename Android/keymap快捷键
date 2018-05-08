@@ -1,0 +1,71 @@
+开发常用快捷键
+重名名文件 shift+f6
+
+复制包名+类名
+ctrl+alt+shift+c
+
+快速打开文件
+ctrl+shift+n
+
+查看一个类的调用
+ctrl+点击类名或者方法名
+
+
+实现一个类的方法
+ctrl+o
+
+
+生成setter / getter
+alt+insert
+
+导包
+alt+enter
+
+代码上下移动
+alt+shift+上箭头/下箭头
+
+
+/*****************************/
+注意1：看到一个类首先看一下类的继承关系
+        Ctrl + H 查看到类的继承关系
+
+查看类的继承关系
+快捷键
+Windows：Ctrl + H
+Mac　　 ：Control + H
+
+注意2：查看类的方法组成结构
+        Ctrl + F12
+        Alt + 7
+在编辑类的时候使用热键查看类的结构：
+(倒数第二个菜单 File Structure)
+快捷键：
+Windows：Ctrl + F12 (默认未启用)
+Mac　　 ： Cmd + F12
+
+
+
+在 Eclipse 中我们可以使用 Ctrl + O 组合热键查看类的结构
+View -> Tool Windows -> Structure ,  快捷键
+Windows：Alt + 7
+Mac　　 ：Cmd + 7
+/*****************************/
+
+
+
+查看类的继承关系
+Eclipse查看到某个类的完整继承关系
+选中类的名称，然后按F4
+
+
+
+
+
+
+
+
+
+
+
+
+
