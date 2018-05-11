@@ -1,0 +1,23 @@
+　
+　Android Studio主题设置、颜色背景配置
+　一、在http://color-themes.com/有很多样式可供选择下载，
+　下面是一种网页的综合预览图，
+　点击每个主题后都会进入相应的下载页面，点击页面最上面或者最下面的
+　Download for IDEA,Webstorm,PyCharm,RubyMine,PhpStorm and AppCode即可下载。
+　四、带颜色的Log
+　实现步骤：
+　1.选择Preferences→Editor→Colors&Fonts→Android Logcat。
+　或者直接Command+,然后输入Logcat弹出
+　2.复制配置文件，重命名
+　3.取消Use inherited attributes选项
+　4.配置颜色，配色方案：
+　verbose:#BBB
+　debug:#33B5E5
+　info:#9C0
+　assert:#A6C
+　error:#F44
+　warning:#FB3
+　作者：詹姆斯Kobe
+　链接：https://www.jianshu.com/p/8ec2f4fe2b85
+　來源：简书
+　著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
