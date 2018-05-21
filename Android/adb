@@ -1,0 +1,65 @@
+
+
+链接夜神模拟器
+adb.exe connect 127.0.0.1:62001 
+
+adb 查看最上层成activity名字
+原创 2014年08月22日 10:15:50 19710
+linux:
+adb shell dumpsys activity | grep "mFocusedActivity"
+
+windows:
+adb shell dumpsys activity | findstr "mFocusedActivity
+
+查看塔读开了几个进程
+ps | grep com.tadu
+
+
+查看当前运行的activity
+adb shell dumpsys activity activities
+ResumedActivity:****Activity
+
+
+显示边界布局
+打开命令行，通过ADB连接手机shell
+
+adb shell
+
+接下来输入命令
+
+setprop debug.layout true
+
+这时命令不会立即生效，需要重新打开应用
+
+3.还有一种情况，你的设备可能压根没提供开发者选项的按钮……
+
+虽然界面上没有，但是一般厂商不会裁剪这个功能，可以用am命令打开
+
+adb shell am start com.android.settings/.DevelopmentSettings
+
+
+下载文件
+进入要下载的目录 cmd 执行
+adb pull 文件源文件 本地文件目录
+adb pull /data/data/com.example.hp.asapp/files/tadu.apk
+/data/data/com.example.hp.asapp/files/
+删除文件
+rm -rf /data/data/com.example.hp.asapp/files/tadu.apk
+
+
+
+
+https://blog.csdn.net/whurs/article/details/52857647
+关于adb shell命令后报错error:device not found的一种解决方案
+原创 2016年10月19日 11:07:28 标签：android开发 /shell 44165
+做Android开发连接手机调试时，明明已经打开了开发模式，允许USB调试，连接上手机后仍然无法发现设备，在控制台中输入adb shell后报错error:device not found。网上的做法大致分为： 
+1、adb kill-server来杀死adb进程，然后再使用adb start-server命令来开启； 
+2、检测5037端口（adb.exe默认端口）是否被占用，关闭除adb.exe以外占用了5037端口的进程，重新开启adb服务： 
+2.1、adb nodaemon server：检测5037端口是否被占用； 
+2.2、netstat -ano | findstr “5037”：查看是什么进程占用了5037端口； 
+2.3、tasklist | findstr “21152”：查看这个进程是由哪个程序创建的（21152就是占用5037端口的一个进程的PID）； 
+2.4、taskkill /f /pid 21152：将进程关掉； 
+2.5、adb devices：显示当前连接设备。 
+在此提供另外一种解决方案，通过手动查看硬件ID，并安装google原生android debug驱动； 
+1、右键我的电脑->管理->设备管理->Android Phone.在这里我们可以看到对应android设备的驱动。 
+2、选中该驱动右键属性，在详细信息选项下，在属性(p)选项中选择硬件Id，记录下面的值(v)中的信息，例如某设备的这一值为：
