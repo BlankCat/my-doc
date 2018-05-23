@@ -1,3 +1,7 @@
+mvp架构
+android studio中如何查看一个接口中某个方法的子类的实现
+发现ctrl+click无法查看到方法的实现,
+快捷键是:ctrl+alt+click
 
 按两次shift 打开查询位置
 
