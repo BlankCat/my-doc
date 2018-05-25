@@ -1,3 +1,6 @@
+创建方法快捷键
+ctrl+alt+m 自定义方法名字--创建方法
+
 mvp架构
 android studio中如何查看一个接口中某个方法的子类的实现
 发现ctrl+click无法查看到方法的实现,
