@@ -1,0 +1,33 @@
+
+宏（Macro）
+计算机科学里的宏是一种抽象（Abstraction），
+它根据一系列预定义的规则替换一定的文本模式。
+解释器或编译器在遇到宏时会自动进行这一模式替换。
+对于编译语言，宏展开在编译时发生，进行宏展开的工具常被称为宏展开器。
+宏这一术语也常常被用于许多类似的环境中，
+它们是源自宏展开的概念，这包括键盘宏和宏语言。
+绝大多数情况下，“宏”这个词的使用暗示着将小命令或动作转化为一系列指令。
+
+宏的用途在于自动化频繁使用的序列或者是获得一种更强大的抽象能力。
+
+
+java 定义宏变量
+public class AppConstant {
+	public static final int IS_BINDING = 162;
+	/** 每日最多获取3次验证码 */
+	public static final int OVER_THREE_TIMES = 163;
+	/** 验证码校验失败 */
+	public static final int CAPTCHA_ERROR = 164;
+	/** 正文参数错误信息 */
+	public static final String READER_EXCEPTION_SHOW_ERROR = "show error";
+	public static final String READER_EXCEPTION_CACHE_ERROR = "cache error";
+	public static final String READER_EXCEPTION_COMPOSE_ERROR = "compose error";
+}
+public static final 
+我理解的是  宏 = 变量
+
+final是java中的一个关键字，用来修饰类、成员变量、局部变量、方法，表示不可变。
+当final修饰一个变量时，已经为该变量指定了初始值，
+那么这个变量在编译时就可以确定下来，那么这个final变量实质上就是一个“宏变量”，
+编译器会把程序中所有用到该变量的地方替换成该变量的值。
+
