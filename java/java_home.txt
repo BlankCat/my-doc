@@ -1,0 +1,11 @@
+
+
+ERROR: JAVA_HOME is set to an invalid directory. 
+JAVA_HOME = "D:\tools\jdk\jdk1.8.0_73" Please set t
+因此正确的设置应该如下：
+JAVA_HOME ：
+D:\tools\Java\jdk1.8.0_73
+path ：
+%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;
+
+
