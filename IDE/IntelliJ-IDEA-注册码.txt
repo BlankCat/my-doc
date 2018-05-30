@@ -1,0 +1,40 @@
+
+IntelliJ-IDEA-注册码
+
+注册码获取
+参考网页 http://idea.lanyus.com
+
+首先修改hosts 文件  加入0.0.0.0 account.jetbrains.com
+
+hosts 目录  windows下：C:\Windows\System32\drivers\etc\hosts 
+
+修改hosts后生效的方法：
+Windows
+开始 -> 运行 -> 输入cmd -> 在CMD窗口输入
+ipconfig /flushdns
+
+
+
+mac 下：
+先打开Finder ->按快捷键组合 
+Shift+Command+G 三个组合按键，
+并输入 Hosts 文件的所在路径：
+/etc/hosts 
+
+找到hosts文件拷贝一份到桌面 
+添加0.0.0.0 account.jetbrains.com 
+然后替换/etc/hosts
+
+
+修改完hosts之后，在IntelliJ IDEA激活中填入 
+参考网页生成的激活码  点击激活就可以了。
+
+
+
+
+
+
+
+
+
+
