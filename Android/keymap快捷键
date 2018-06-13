@@ -1,3 +1,15 @@
+选中多行编辑
+Mac：Ctrl + G
+Windows/Linux：Alt + J
+
+全部代码收起/展开
+alt+shift+上箭头/下箭头
+在Android Studio（包括所有JetBrains的IDE），
+使用Ctrl Shift +或-，就可以展开或收起代码。
+
+
+
+
 android studio seach everywhere
 shift+shift 双击shift，查找任何类，全局搜索
 
