@@ -1,0 +1,60 @@
+查看手机电脑硬件设备信息
+
+查看电脑信息配置
+1.我的电脑右键——属性 能产看cpu、系统和内存
+2.开始——运行——输入 dxdiag 会有比较详细的描述。显卡，声卡之类的。
+找到电脑型号
+查看京东，淘宝信息
+jd.cn
+taobao.com
+System Model: HP 280 Pro G2 MT
+
+
+
+
+查看硬件设备
+查看手机设备信息
+https://shouji.tenaa.com.cn/
+
+分辨率：
+Android：主流机型主要为 480x800, 480x854, 540x960, 720x1280, 800x1280 这五种。
+（非主流机型还包括：240x320, 320x480, 640x960 这三种，其中两种都与 iPhone 一致。）
+iOS: 主流机型主要为 320x480, 640x960, 640x1136, 1024x768, 2048x1536, 这五种。
+WP：主流机型主要为 480x800，720x1280, 768x1280 这三种其他：不清楚，请别人回答。
+
+屏幕ppi计算器在线
+http://www.ab126.com/goju/2942.html
+
+对角测量 1英寸=2.54厘米
+
+计算尺寸
+拿一把直尺量手机显示屏的对角线，从液晶部分开始量，5寸屏应该是12.7厘米。
+通常说的多少寸都是指显示屏的对角线，而且这个寸是英寸，1英寸=2.54厘米。
+都是5寸的屏，可能显示面积并不一样大，如果是长方形的5英寸屏的显示面积是肯定没有正方形的显示面积大的
+
+
+cat /system/build.prop  grep "product"
+adb shell dumpsys window displays 
+
+
+
+通用方法：
+adb shell dumpsys window displays | head -n 3
+
+高通平台：
+adb shell wm size
+
+
+1.查看分区逻辑大小
+adb shell df
+2.查看分区物理大小
+adb shell cat sys/block/mmcblk0/mmcblk0p*/size
+
+
+
+查看物理设备
+adb shell dumpsys window displays
+查看手机分辨率
+adb shell wm size
+
+
